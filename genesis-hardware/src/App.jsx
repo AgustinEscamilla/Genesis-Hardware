@@ -1,11 +1,8 @@
-import { ContenedorPrincipal } from './components/contenedor_principal'
-import { VistaPrincipal } from './pages/empleados/produccion/vista_principal'
+import { VistaInicio } from './pages/publico/inicio/vista_inicio'
 
 function App() {
   return (
-    <ContenedorPrincipal>
-      <VistaPrincipal />
-    </ContenedorPrincipal>
+    <VistaInicio />
   )
 }
 

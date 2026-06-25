@@ -1,3 +1,6 @@
+// aqui puse profe yo traje la pieza del boton de salida que acabamos de armar
+import { BotonSalida } from './boton_salida'
+
 export function ContenedorPrincipal({ children }) {
   return (
     <div className="min-h-screen bg-fondo text-texto flex font-sans">
@@ -19,6 +22,13 @@ export function ContenedorPrincipal({ children }) {
       <div className="flex-1 flex flex-col">
         <header className="h-20 bg-fondo border-b border-borde flex items-center px-8">
           <input type="text" placeholder="Buscar sistemas..." className="w-96 bg-panel border border-borde text-texto px-4 py-2" />
+          
+          // maestro funciona asi yo meti un bloque con espacio a la izquierda automatico para mandarlo al fondo
+          <div className="ml-auto">
+            // pos esto funciona para que el boton aparezca a la derecha sin borrar tu diseño original
+            <BotonSalida />
+          </div>
+
         </header>
         <main className="flex-1 p-8 overflow-y-auto">
           {children}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import logo from '../../../assets/Gemini_Generated_Image_.png'
 import { SeccionHero } from './seccion_hero'
 import { SeccionModulos } from './seccion_modulos'
@@ -13,7 +14,9 @@ export function VistaInicio() {
         />
         <nav className="flex gap-6 text-sm text-mutado font-medium">
           <button className="hover:text-texto transition-colors">Catálogo</button>
-          <button className="hover:text-texto transition-colors text-primario">Inicio de Sesión</button>
+          <Link to="/login" className="hover:text-texto transition-colors text-primario">
+            Inicio de Sesión
+          </Link>
         </nav>
       </header>
       

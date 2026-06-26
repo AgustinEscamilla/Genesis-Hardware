@@ -3,7 +3,6 @@ import { SeccionStock } from './seccion_stock'
 import { SeccionLineas } from './seccion_lineas'
 import { SeccionEnvios } from './seccion_envios'
 
-// esto sirve para juntar todas las piezas del rompecabezas y armar la vista completa sin amontonar codigo
 export function VistaPrincipal() {
   return (
     <div className="flex flex-col gap-6">

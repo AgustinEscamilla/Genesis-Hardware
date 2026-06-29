@@ -2,7 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
-const configuracion = {
+// aqui puse profe la configuracion para conectar la aplicacion con firebase usando el entorno local
+export const configuracionFirebase = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
@@ -11,11 +12,11 @@ const configuracion = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-if (!configuracion.apiKey || !configuracion.authDomain || !configuracion.projectId || !configuracion.storageBucket || !configuracion.messagingSenderId || !configuracion.appId) {
+if (!configuracionFirebase.apiKey || !configuracionFirebase.authDomain || !configuracionFirebase.projectId || !configuracionFirebase.storageBucket || !configuracionFirebase.messagingSenderId || !configuracionFirebase.appId) {
   throw new Error('Faltan variables de entorno de Firebase')
 }
 
-const app = initializeApp(configuracion)
+const app = initializeApp(configuracionFirebase)
 
 export const auth = getAuth(app)
 export const db = getFirestore(app)

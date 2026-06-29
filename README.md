@@ -46,7 +46,7 @@ Para revisar o correr el proyecto en un entorno local, sigue estos pasos:
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone [URL_DEL_REPOSITORIO]
+    git clone https://github.com/AgustinEscamilla/Genesis-Hardware)
     ```
 2.  **Instalar las dependencias:**
     ```bash

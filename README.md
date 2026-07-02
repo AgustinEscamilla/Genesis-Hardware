@@ -1,75 +1,72 @@
-# ⚙️ Genesis Hardware - Sistema de Gestión B2B
+Genesis Hardware - Plataforma de Distribución B2B
+Visión General
+Genesis Hardware es una plataforma integral de e-commerce mayorista (B2B) y gestión logística diseñada para controlar la distribución de componentes tecnológicos en el estado de Campeche. El sistema conecta un Centro de Distribución principal (CEDIS) con tiendas tecnológicas clientes, automatizando el control de inventario en tiempo real, la agrupación inteligente de manifiestos de carga y proporcionando herramientas operativas de última milla con soporte offline para la flotilla de repartidores.
 
-Genesis Hardware es una plataforma web integral diseñada para automatizar y centralizar la gestión interna de una fábrica de distribución de componentes de computadora. Este sistema B2B permite administrar los recursos humanos, monitorear el stock de hardware y dar seguimiento a la logística de envíos mediante una arquitectura altamente modular y escalable.
+Adicionalmente, el proyecto cuenta con una arquitectura de interoperabilidad B2B que permite recibir y procesar peticiones directamente desde sistemas de software externos asociados.
 
----
+Stack Tecnológico
+Frontend: React (Vite)
 
-## 🚀 Características Principales
+Estilos: Tailwind CSS (Implementación estricta de Dark Theme, sin uso de HTML/CSS tradicional)
 
-* **Panel de Dirección (Dashboard):** Vista centralizada para la toma de decisiones y monitoreo general.
-* **Gestión de Cuentas:** Alta, baja y actualización de perfiles para empleados y repartidores mediante Firebase Auth.
-* **Control de Inventario:** Monitoreo en tiempo real de piezas y cantidades en stock conectadas a Firestore.
-* **Logística y Envíos:** Seguimiento del estatus de distribución de hardware.
-* **Seguridad y Estabilidad:** Rutas protegidas y sistema de *fallback* (respaldo local) integrado para garantizar la continuidad del desarrollo local frente a caídas de servicios externos.
+Backend & Base de Datos: Firebase / Firestore
 
----
+Autenticación: Firebase Auth
 
-## 🛠️ Tecnologías Utilizadas
+Reglas y Estándares de Arquitectura Crítica
+Este proyecto sigue normas de desarrollo estrictas para garantizar la escalabilidad y evitar la degradación del código:
 
-* **Frontend:** React (inicializado con Vite).
-* **Estilos:** Tailwind CSS (Uso exclusivo, sin CSS puro ni estilos en línea).
-* **Enrutamiento:** React Router DOM.
-* **Backend & Base de Datos:** Firebase (Authentication y Firestore).
+Límites de Código: Ningún componente visual de React debe superar el límite de 150 a 200 líneas de código.
 
----
+Límite de Componentes: El ecosistema de la interfaz gráfica se mantendrá con un máximo de 50 componentes altamente reutilizables.
 
-## 🏗️ Arquitectura y Reglas de Desarrollo
+Aislamiento de Lógica (Backend): Toda comunicación con Firestore y reglas de negocio complejas operan única y exclusivamente dentro de la carpeta services.
 
-Este proyecto fue construido bajo normas estrictas de código limpio y modularidad para asegurar un rendimiento óptimo y evitar el "código espagueti":
+Flujo Unidireccional: El estado y la información fluyen estrictamente de padres a hijos (y a nietos) mediante props. Queda prohibida la comunicación directa de datos entre componentes hermanos.
 
-1.  **Límite de Líneas:** Ningún componente visual o archivo excede las **50 líneas de código**. Todo bloque mayor se subdivide obligatoriamente en nuevos subcomponentes.
-2.  **Flujo de Datos:** Unidireccional estricto. La información siempre pasa de **Padres a Hijos o Nietos**.
-3.  **Estructura de Carpetas:** Separación lógica rigurosa:
-    * `/components`: Elementos visuales reutilizables.
-    * `/pages`: Vistas principales y contenedores estructurales.
-    * `/services`: Lógica de negocio y llamadas exclusivas a bases de datos/APIs.
-    * `/hooks`: Lógica de estado y efectos personalizados.
-    * `/context`: Manejo de estados globales.
-4.  **Separación de Lógica:** La interfaz visual jamás se mezcla con la lógica de base de datos. Toda la comunicación con Firebase ocurre aislada en la capa de `services`.
-5.  **Nomenclatura:** Todos los nombres de archivos, carpetas y componentes están 100% en español.
+Nomenclatura: Todos los archivos, variables y funciones del proyecto se escriben obligatoriamente en español.
 
----
+Estructura de Directorios
+La organización del proyecto se basa en la separación funcional de responsabilidades:
 
-## 💻 Instalación y Ejecución Local
+/components: Elementos UI reutilizables (botones, tarjetas, entradas de texto).
 
-Para revisar o correr el proyecto en un entorno local, sigue estos pasos:
+/context: Gestión del estado global de la aplicación.
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone https://github.com/AgustinEscamilla/Genesis-Hardware)
-    ```
-2.  **Instalar las dependencias:**
-    ```bash
-    npm install
-    ```
-3.  **Configurar variables de entorno:**
-    Crea un archivo `.env` en la raíz del proyecto y agrega las credenciales de Firebase:
-    ```env
-    VITE_FIREBASE_API_KEY=tu_api_key
-    VITE_FIREBASE_AUTH_DOMAIN=tu_dominio
-    VITE_FIREBASE_PROJECT_ID=tu_project_id
-    VITE_FIREBASE_STORAGE_BUCKET=tu_storage
-    VITE_FIREBASE_MESSAGING_SENDER_ID=tu_sender_id
-    VITE_FIREBASE_APP_ID=tu_app_id
-    ```
-4.  **Iniciar el servidor de desarrollo:**
-    ```bash
-    npm run dev
-    ```
+/hooks: Lógica reutilizable de React (ej. useAutenticacion).
 
----
+/pages: Vistas completas agrupadas por perfil de usuario (/administrador, /empleados, /cliente, /publico).
 
-## 👨‍💻 Desarrollador
+/services: Archivos que gestionan peticiones a la base de datos y la lógica de negocio pura.
 
-**Agustín Hernández Escamilla**
-*Ingeniería en Software y Sistemas Computacionales*﻿# Genesis-Hardware
+Perfiles de Usuario y Módulos
+1. Cliente B2B (Tiendas Asociadas)
+Catálogo Interactivo: Visualización de componentes con stock en tiempo real.
+
+Trazabilidad (Tracking): Seguimiento paso a paso del estado del envío.
+
+Atención y Reclamos: Sistema de tickets para reportar mercancía dañada o faltantes vinculados a la orden de compra.
+
+Notificaciones: Alertas automatizadas sobre el procesamiento y envío de pedidos.
+
+2. Administración y Dirección
+Dashboard Analítico: Visualización de métricas de rentabilidad por ruta y eficacia de los repartidores.
+
+Gestión de Cuentas: Alta de empleados y repartidores sin interrumpir la sesión activa del director.
+
+Control de CEDIS: Alertas de reabastecimiento preventivo e ingreso de lotes por pieza o caja máster.
+
+3. Empleado de Bodega (CEDIS)
+Picking & Packing: Bandeja de manifiestos con botones de transición rápida de estado (Recibido -> En Empaque -> Listo para Despacho).
+
+Agrupación Logística: Unificación de pedidos basada en las zonas logísticas predefinidas (Norte, Centro, Sur, Este).
+
+4. Repartidor (Última Milla)
+Rutas Secuenciales: Listado de paradas organizadas en un orden numérico estático predefinido, optimizando el trayecto por carretera.
+
+Persistencia Offline: Caché de Firestore que permite confirmar entregas en zonas sin cobertura de internet, sincronizando los datos automáticamente al recuperar la señal.
+
+Comprobante de Entrega (POD) y Rechazos: Captura de firma/fotografía y botones rápidos para procesar devoluciones al inventario.
+
+Autor y Desarrollo
+Agustín Byron Giancarlos Hernández Escamilla - Ingeniería de Software, Liderazgo Técnico y Desarrollo Full-Stack.

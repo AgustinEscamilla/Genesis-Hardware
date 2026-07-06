@@ -3,14 +3,12 @@ import { BarraNavegacionAdministrador } from './barra_navegacion_administrador'
 import { cerrarSesion } from '../../services/servicio_autenticacion'
 import { Boton } from '../../components/boton'
 
-// aqui maestro yo agregue el boton para cerrar sesion en la parte superior derecha
 export function VistaPrincipalAdministrador() {
   const navegar = useNavigate()
 
-  // esto sirve para borrar la sesion local o de firebase y sacarnos de la ruta protegida
   const manejarSalida = async () => {
     await cerrarSesion()
-    navegar('/login')
+    navegar('/autenticacion')
   }
 
   return (

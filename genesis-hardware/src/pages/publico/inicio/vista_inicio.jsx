@@ -14,7 +14,7 @@ export function VistaInicio() {
         />
         <nav className="flex gap-6 text-sm text-mutado font-medium">
           <button className="hover:text-texto transition-colors">Catálogo</button>
-          <Link to="/login" className="hover:text-texto transition-colors text-primario">
+          <Link to="/autenticacion" className="hover:text-texto transition-colors text-primario">
             Inicio de Sesión
           </Link>
         </nav>

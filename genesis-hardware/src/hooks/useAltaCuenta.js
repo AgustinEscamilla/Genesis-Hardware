@@ -1,38 +1,35 @@
 import { useState } from 'react'
-import { crearCuenta } from '../services/servicio_cuentas'
+import { crearCuentaUsuario } from '../services/servicio_cuentas'
 
-export const useAltaCuenta = () => {
-    // aqui maestro yo inicie el estado para el rol
+export const useFormularioAltaCuenta = () => {
     const [rol, setRol] = useState('empleado')
+    const [datosFormulario, setDatosFormulario] = useState({ nombre: '', correo: '', pass: '', pass2: '' })
+    const [mensajeEstado, setMensajeEstado] = useState('')
 
-    // esto sirve para guardar la informacion de los textos y mensajes
-    const [datos, setDatos] = useState({ nombre: '', correo: '', pass: '', pass2: '' })
-    const [mensaje, setMensaje] = useState('')
+    // aqui maestro yo guardo el rol activo para construir la cuenta correcta
+    const cambiarRol = (nuevoRol) => setRol(nuevoRol)
 
-    // pos esto funciona para cambiar el rol con un clic
-    const cambiarRol = nuevoRol => setRol(nuevoRol)
+    // aqui maestro yo sincronizo cada campo del formulario con el estado local
+    const cambiarDato = (evento) => setDatosFormulario({ ...datosFormulario, [evento.target.name]: evento.target.value })
 
-    // maestro funciona asi yo guardo lo que se escribe en el estado
-    const cambiarDato = e => setDatos({ ...datos, [e.target.name]: e.target.value })
+    // esto sirve yo valido los datos antes de escribir en firebase
+    const enviar = async (evento) => {
+        evento.preventDefault()
+        setMensajeEstado('')
 
-    // aqui puse profe las variables exactas que tu servicio de firebase esta esperando
-    const enviar = async e => {
-        e.preventDefault()
-        setMensaje('')
+        if (!datosFormulario.nombre || !datosFormulario.correo) return setMensajeEstado('Completa nombre y correo')
+        if (datosFormulario.pass !== datosFormulario.pass2) return setMensajeEstado('Las contrasenas no coinciden')
 
-        if (!datos.nombre || !datos.correo) return setMensaje('Completa nombre y correo')
-        if (datos.pass !== datos.pass2) return setMensaje('Las contraseñas no coinciden')
-
-        await crearCuenta({
+        await crearCuentaUsuario({
             tipo: rol,
-            nombre: datos.nombre,
-            correo: `${datos.correo}@${rol}.com`,
-            contrasena: datos.pass
+            nombre: datosFormulario.nombre,
+            correo: `${datosFormulario.correo}@${rol}.com`,
+            contrasena: datosFormulario.pass
         })
 
-        setDatos({ nombre: '', correo: '', pass: '', pass2: '' })
-        setMensaje('Cuenta creada correctamente en Firebase')
+        setDatosFormulario({ nombre: '', correo: '', pass: '', pass2: '' })
+        setMensajeEstado('Cuenta creada correctamente en Firebase')
     }
 
-    return { rol, datos, mensaje, cambiarRol, cambiarDato, enviar }
+    return { rol, datos: datosFormulario, mensaje: mensajeEstado, cambiarRol, cambiarDato, enviar }
 }

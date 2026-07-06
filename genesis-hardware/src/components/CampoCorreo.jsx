@@ -1,4 +1,4 @@
-const CampoCorreo = ({ valor, alCambiar, rolSeleccionado }) => {
+export function CampoCorreoCuenta({ valor, alCambiar, rolSeleccionado }) {
     // maestro funciona asi yo pego la etiqueta del dominio al lado del input
     return (
         <div className="flex flex-col">
@@ -19,5 +19,3 @@ const CampoCorreo = ({ valor, alCambiar, rolSeleccionado }) => {
         </div>
     )
 }
-
-export default CampoCorreo

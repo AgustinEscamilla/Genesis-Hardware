@@ -1,4 +1,4 @@
-const BotonRol = ({ rol, seleccionado, alHacerClic, texto }) => {
+export function SelectorRolCuenta({ rol, seleccionado, alHacerClic, texto }) {
     // aqui maestro yo asigne las clases de colores segun si esta activo o inactivo
     const estilosActivo = 'bg-red-500 text-white'
     const estilosInactivo = 'bg-[#2a2a2a] text-gray-400 hover:bg-gray-700'
@@ -15,5 +15,3 @@ const BotonRol = ({ rol, seleccionado, alHacerClic, texto }) => {
         </button>
     )
 }
-
-export default BotonRol

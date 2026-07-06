@@ -13,7 +13,7 @@ export function RutaProtegida({ children }) {
   }
 
   if (!usuarioActual) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/autenticacion" replace />
   }
 
   return children

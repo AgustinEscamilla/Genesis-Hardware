@@ -1,0 +1,3 @@
+export function VistaPrincipalRepartidor() {
+  return <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8 text-slate-100"><div className="w-full max-w-3xl border border-slate-800 bg-slate-900 p-10 text-center"><p className="mb-3 text-xs uppercase tracking-[0.35em] text-slate-500">PORTAL REPARTIDOR</p><h1 className="mb-4 text-4xl font-black">Panel de repartidor</h1><p className="text-sm text-slate-400">Vista base lista para rutas entregas y seguimiento logistico</p></div></div>
+}

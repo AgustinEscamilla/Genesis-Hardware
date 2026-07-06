@@ -1,4 +1,4 @@
-const CampoEntrada = ({ etiqueta, tipo, nombre, valor, alCambiar }) => {
+export function CampoEntradaCuenta({ etiqueta, tipo, nombre, valor, alCambiar }) {
     // pos esto funciona para renderizar cualquier input normal del sistema
     return (
         <div className="flex flex-col">
@@ -13,5 +13,3 @@ const CampoEntrada = ({ etiqueta, tipo, nombre, valor, alCambiar }) => {
         </div>
     )
 }
-
-export default CampoEntrada

@@ -1,6 +1,5 @@
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 import { auth } from './conexion_firebase'
-import { guardarPerfilUsuario } from './servicio_usuarios'
 
 const claveSesionLocal = 'sesion_genesis_hardware'
 const usarSesionLocal = import.meta.env.DEV || import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
@@ -26,13 +25,11 @@ export const iniciarSesionConCorreo = async (correo, contrasena) => {
   }
 }
 
-export const iniciarSesionClienteConGoogle = async () => {
+// aqui maestro yo abro el popup de google para entregar la sesion al hook
+export const iniciarSesionConGoogle = async () => {
   if (usarSesionLocal) return guardarSesionLocal('cliente-local@genesis.com')
   const proveedor = new GoogleAuthProvider()
-  const credencial = await signInWithPopup(auth, proveedor)
-  await guardarPerfilUsuario({ uidAuth: credencial.user.uid, nombre: credencial.user.displayName || 'Cliente', correo: credencial.user.email || '', rol: 'cliente', origen: 'google' })
-  limpiarSesionLocal()
-  return credencial.user
+  return signInWithPopup(auth, proveedor)
 }
 
 export const cerrarSesion = async () => {

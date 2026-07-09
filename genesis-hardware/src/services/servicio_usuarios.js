@@ -3,12 +3,24 @@ import { db } from './conexion_firebase'
 
 const referenciaUsuario = (uidAuth) => doc(db, 'usuarios', uidAuth)
 const rutasPorRol = { administrador: '/administrador', empleado: '/empleados', repartidor: '/repartidores', cliente: '/clientes' }
-const inferirRutaDesdeCorreo = (correo = '') => {
-  const correoNormalizado = String(correo).toLowerCase()
-  if (correoNormalizado.includes('admin')) return rutasPorRol.administrador
-  if (correoNormalizado.includes('empleado')) return rutasPorRol.empleado
-  if (correoNormalizado.includes('repartidor')) return rutasPorRol.repartidor
-  return rutasPorRol.cliente
+const dominiosPorRol = {
+  administrador: ['@admin.genesis.com'],
+  empleado: ['@empleado.com', '@genesis.com'],
+  repartidor: ['@repartidor.com'],
+  cliente: ['@gmail.com']
+}
+
+const correoTerminaCon = (correo, lista) => lista.some((dominio) => correo.endsWith(dominio))
+const esSesionLocal = (uidAuth = '') => String(uidAuth).startsWith('uid-local')
+
+// aqui maestro yo valido dominios exactos para evitar cruces entre paneles
+export const inferirRolPorCorreo = (correo = '') => {
+  const correoNormalizado = String(correo).trim().toLowerCase()
+  if (correoTerminaCon(correoNormalizado, dominiosPorRol.administrador)) return 'administrador'
+  if (correoTerminaCon(correoNormalizado, dominiosPorRol.empleado)) return 'empleado'
+  if (correoTerminaCon(correoNormalizado, dominiosPorRol.repartidor)) return 'repartidor'
+  if (correoTerminaCon(correoNormalizado, dominiosPorRol.cliente)) return 'cliente'
+  return null
 }
 
 // esto sirve yo dejo un registro unico para cruzar uid y rol real
@@ -24,8 +36,10 @@ export const buscarPerfilUsuario = async (uidAuth) => {
 
 // aqui maestro yo resuelvo la ruta del panel usando firestore y el respaldo local de desarrollo
 export const resolverRutaAccesoUsuario = async ({ uidAuth, correo }) => {
+  const rol = inferirRolPorCorreo(correo)
+  if (esSesionLocal(uidAuth) && rol) return rutasPorRol[rol]
   const perfil = uidAuth ? await buscarPerfilUsuario(uidAuth) : null
   if (perfil?.rol) return rutasPorRol[String(perfil.rol).toLowerCase()] || '/autenticacion'
-  if (correo) return inferirRutaDesdeCorreo(correo)
+  if (rol) return rutasPorRol[rol]
   return '/autenticacion'
 }

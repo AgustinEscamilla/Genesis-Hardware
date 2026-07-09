@@ -7,7 +7,7 @@ export function BotonSalida() {
   const manejarCierre = async () => {
     try {
       await cerrarSesion()
-      navegar('/autenticacion')
+      navegar('/')
     } catch (error) {
       console.error("Error al cerrar sesión", error)
     }

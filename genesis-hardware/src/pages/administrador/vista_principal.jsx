@@ -8,7 +8,7 @@ export function VistaPrincipalAdministrador() {
 
   const manejarSalida = async () => {
     await cerrarSesion()
-    navegar('/autenticacion')
+    navegar('/')
   }
 
   return (

@@ -33,8 +33,7 @@ export const iniciarSesionConGoogle = async () => {
 }
 
 export const cerrarSesion = async () => {
-  if (usarSesionLocal) return limpiarSesionLocal()
-  try { await signOut(auth) } catch (error) { if (!String(error?.code || '').includes('api-key-not-valid')) throw error }
+  try { await signOut(auth) } catch (error) { if (!usarSesionLocal && !String(error?.code || '').includes('api-key-not-valid')) throw error }
   limpiarSesionLocal()
 }
 

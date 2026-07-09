@@ -4,14 +4,14 @@ import { auth } from '../services/conexion_firebase'
 import { obtenerUsuarioLocal } from '../services/servicio_autenticacion'
 
 const usarSesionLocal = import.meta.env.DEV || import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
-const sesionInicial = obtenerUsuarioLocal()
+const sesionActual = obtenerUsuarioLocal()
 
 export function useAutenticacion() {
-  const [usuarioActual, setUsuarioActual] = useState(() => sesionInicial)
-  const [cargando, setCargando] = useState(!sesionInicial && !usarSesionLocal)
+  const [usuarioActual, setUsuarioActual] = useState(() => sesionActual)
+  const [cargando, setCargando] = useState(!sesionActual && !usarSesionLocal)
 
   useEffect(() => {
-    if (usarSesionLocal || sesionInicial) return undefined
+    if (usarSesionLocal || sesionActual) return undefined
 
     const observador = onAuthStateChanged(auth, (user) => {
       setUsuarioActual(user)

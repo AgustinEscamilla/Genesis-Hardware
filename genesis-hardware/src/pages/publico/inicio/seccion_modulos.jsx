@@ -1,7 +1,10 @@
 import { TarjetaModulo } from '../../../components/tarjeta_modulo'
+import { useLineasPublico } from '../../../hooks/use_lineas_publico'
 
-// esto sirve para desplegar todas las tarjetas de mis productos
+// esto sirve para desplegar las tarjetas de lineas de producto desde firestore
 export function SeccionModulos() {
+  const { lineas, cargando } = useLineasPublico()
+
   return (
     <div className="py-20 px-8 max-w-7xl mx-auto bg-fondo">
       {/* aqui puse profe el encabezado con el titulo y el estado del stock */}
@@ -14,31 +17,19 @@ export function SeccionModulos() {
           Stock: Actualizado
         </div>
       </div>
-      {/* yo utilice este componente para organizar mis productos en tres columnas */}
+      {cargando && <p className="text-xs text-mutado">Cargando lineas...</p>}
+      {/* yo utilice este componente para organizar las lineas de producto en tres columnas */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <TarjetaModulo
-          titulo="Tarjetas Gráficas"
-          descripcion="Arquitectura de última generación con refrigeración de triple ventilador y disipadores de cobre puro."
-          metrica="Frecuencia Turbo"
-          valor="2.5 GHz+"
-          etiqueta="GPU"
-        />
-        {/* maestro funciona asi la tarjeta de procesadores */}
-        <TarjetaModulo
-          titulo="Procesadores y RAM"
-          descripcion="CPUs de múltiples núcleos y memorias RAM DDR5 de ultra baja latencia para un multitasking perfecto."
-          metrica="Frecuencia Base"
-          valor="6000 MHz"
-          etiqueta="CPU/RAM"
-        />
-        {/* aqui maestro puse la ultima tarjeta de enfriamiento */}
-        <TarjetaModulo
-          titulo="Sistemas de Enfriamiento"
-          descripcion="Ventiladores de levitación magnética y sistemas de refrigeración líquida para temperaturas críticas."
-          metrica="Flujo de Aire"
-          valor="85 CFM"
-          etiqueta="COOLING"
-        />
+        {lineas.map(l => (
+          <TarjetaModulo
+            key={l.id}
+            titulo={l.titulo}
+            descripcion={l.descripcion}
+            metrica={l.metrica}
+            valor={l.valor}
+            etiqueta={l.etiqueta}
+          />
+        ))}
       </div>
     </div>
   )

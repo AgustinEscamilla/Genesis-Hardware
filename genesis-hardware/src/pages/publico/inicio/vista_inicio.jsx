@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import logo from '../../../assets/Gemini_Generated_Image_.png'
 import { SeccionHero } from './seccion_hero'
 import { SeccionModulos } from './seccion_modulos'
+import { SeccionCatalogo } from './seccion_catalogo'
 
 export function VistaInicio() {
   return (
@@ -13,18 +14,19 @@ export function VistaInicio() {
           className="h-12 w-auto object-contain bg-[#0f0f0f] p-2 rounded-sm"
         />
         <nav className="flex gap-6 text-sm text-mutado font-medium">
-          <button className="hover:text-texto transition-colors">Catálogo</button>
+          <a href="#catalogo" className="hover:text-texto transition-colors">Catálogo</a>
           <Link to="/autenticacion" className="hover:text-texto transition-colors text-primario">
             Inicio de Sesión
           </Link>
         </nav>
       </header>
-      
+
       <main className="flex-1">
         <SeccionHero />
         <SeccionModulos />
+        <SeccionCatalogo />
       </main>
-      
+
       <footer className="border-t border-borde p-8 flex justify-between items-center text-xs text-mutado bg-fondo">
         <span className="font-bold tracking-wider">CORE-SYNC INDUSTRIAL</span>
         <div className="flex gap-6"><span>ISO-9001 Certificado</span><span>Especificaciones</span><span>Privacidad</span></div>

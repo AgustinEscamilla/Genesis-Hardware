@@ -2,6 +2,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { VistaPrincipalAdministrador } from './pages/administrador/vista_principal'
 import { VistaCrearCuentasAdministrador } from './pages/administrador/vista_crear_cuentas_administrador'
 import { VistaTablasAdministrador } from './pages/administrador/vista_tablas_administrador'
+import { VistaCatalogoAdministrador } from './pages/administrador/vista_catalogo_administrador'
+import { VistaMercanciaAdministrador } from './pages/administrador/vista_mercancia_administrador'
+import { VistaLineasAdministrador } from './pages/administrador/vista_lineas_administrador'
 import { VistaPrincipalCliente } from './pages/clientes/vista_principal'
 import { VistaPrincipalRepartidor } from './pages/repartidores/vista_principal'
 import { VistaAutenticacion } from './pages/autenticacion/vista_autenticacion'
@@ -23,6 +26,9 @@ export function App() {
           <Route index element={<Navigate to="tablas" replace />} />
           <Route path="tablas" element={<VistaTablasAdministrador />} />
           <Route path="crear-cuentas" element={<VistaCrearCuentasAdministrador />} />
+          <Route path="catalogo" element={<VistaCatalogoAdministrador />} />
+          <Route path="mercancia" element={<VistaMercanciaAdministrador />} />
+          <Route path="lineas" element={<VistaLineasAdministrador />} />
         </Route>
         <Route path="/admin" element={<Navigate to="/administrador" replace />} />
         <Route path="/clientes" element={<VistaPrincipalCliente />} />

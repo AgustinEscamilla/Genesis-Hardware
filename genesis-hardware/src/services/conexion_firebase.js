@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
 
 // aqui puse profe la configuracion para conectar la aplicacion con firebase usando el entorno local
 export const configuracionFirebase = {
@@ -20,3 +21,4 @@ const app = initializeApp(configuracionFirebase)
 
 export const auth = getAuth(app)
 export const db = getFirestore(app)
+export const storage = getStorage(app)

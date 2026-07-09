@@ -10,7 +10,7 @@ export function useRedireccionAuth() {
   const navegar = useNavigate()
   const [cargando, setCargando] = useState(true)
 
-  // aqui maestro yo escucho el uid y mando cada rol a su panel
+  // aqui maestro el uid y mando cada rol a su panel
   useEffect(() => onAuthStateChanged(auth, async (usuario) => {
     if (!usuario) return setCargando(false)
     const perfil = await buscarPerfilUsuario(usuario.uid)

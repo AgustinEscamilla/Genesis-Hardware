@@ -8,6 +8,8 @@ import { VistaAutenticacion } from './pages/autenticacion/vista_autenticacion'
 import { VistaInicio } from './pages/publico/inicio/vista_inicio'
 import { VistaPrincipal } from './pages/empleados/produccion/vista_principal'
 import { PlantillaEmpleados } from './pages/empleados/plantilla_empleados'
+import { VistaOnboardingEmpleado } from './pages/onboarding/empleados/vista_onboarding_empleado'
+import { VistaOnboardingRepartidor } from './pages/onboarding/repartidores/vista_onboarding_repartidor'
 
 export function App() {
   return (
@@ -26,6 +28,8 @@ export function App() {
         <Route path="/clientes" element={<VistaPrincipalCliente />} />
         <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
         <Route path="/repartidores" element={<VistaPrincipalRepartidor />} />
+        <Route path="/onboarding/empleados" element={<VistaOnboardingEmpleado />} />
+        <Route path="/onboarding/repartidores" element={<VistaOnboardingRepartidor />} />
         <Route path="/empleados" element={<PlantillaEmpleados />}>
           <Route index element={<VistaPrincipal />} />
         </Route>

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { EntradaTexto } from '../../components/entrada_texto'
 import { BotonPrincipal } from '../../components/boton_principal'
 import { iniciarSesionConCorreo } from '../../services/servicio_autenticacion'
-import { resolverRutaAccesoUsuario } from '../../services/servicio_usuarios'
+import { resolverRutaAcceso } from '../../services/servicio_rutas_acceso'
+import { validarAccesoCorreoContrasena } from '../../services/servicio_validaciones_acceso'
 
 export function FormularioAcceso() {
   const [correo, setCorreo] = useState('')
@@ -16,8 +17,10 @@ export function FormularioAcceso() {
     evento.preventDefault()
     setMensajeError('')
     try {
+      const validacion = await validarAccesoCorreoContrasena(correo)
+      if (!validacion.permitido) return setMensajeError(validacion.mensaje)
       const usuario = await iniciarSesionConCorreo(correo, contrasena)
-      navegar(await resolverRutaAccesoUsuario({ uidAuth: usuario?.uid, correo: usuario?.correo || correo }), { replace: true })
+      navegar(await resolverRutaAcceso({ uidAuth: usuario?.uid, correo: usuario?.correo || correo }), { replace: true })
     } catch { setMensajeError('No se pudo validar el acceso') }
   }
 

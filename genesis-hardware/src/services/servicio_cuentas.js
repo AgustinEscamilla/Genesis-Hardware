@@ -30,11 +30,12 @@ export const crearCuentaUsuario = async ({ tipo, nombre, correo, contrasena }) =
   }
 
   await guardarPerfilUsuario({ uidAuth, nombre, correo, rol: obtenerRol(tipo), origen: tipo })
-  await addDoc(referencia, { nombre, correo, rol: obtenerRol(tipo), estado: 'Activo', tipo, uidAuth, creadoEn: serverTimestamp() })
+  await addDoc(referencia, { nombre, correo, rol: obtenerRol(tipo), estadoActivo: true, onboardingCompleto: false, tipo, uidAuth, creadoEn: serverTimestamp() })
 }
 
 export const actualizarEstadoUsuario = async (tipo, id, estado) => {
-  await updateDoc(doc(db, colecciones[tipo] || colecciones.empleado, id), { estado })
+  const estadoActivo = Boolean(estado)
+  await updateDoc(doc(db, colecciones[tipo] || colecciones.empleado, id), { estadoActivo, estado: estadoActivo ? 'Activo' : 'Inactivo' })
 }
 
 export const eliminarUsuario = async (tipo, id) => {

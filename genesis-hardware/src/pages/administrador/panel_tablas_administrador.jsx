@@ -8,7 +8,7 @@ export function PanelTablasAdministrador() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2"><SeccionInventario /></div>
       <div><SeccionLogistica /></div>
-      <div className="lg:col-span-3"><TablaCuentasFirestore tipo="empleado" titulo="Plantilla Activa" /></div>
+      <div className="lg:col-span-3"><TablaCuentasFirestore tipo="empleado" titulo="Cuentas de Empleados" /></div>
       <div className="lg:col-span-3"><TablaCuentasFirestore tipo="repartidor" titulo="Cuentas de Repartidores" /></div>
     </div>
   )

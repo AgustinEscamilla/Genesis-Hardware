@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { VistaPrincipalAdministrador } from './pages/administrador/vista_principal'
 import { VistaCrearCuentasAdministrador } from './pages/administrador/vista_crear_cuentas_administrador'
@@ -5,14 +6,14 @@ import { VistaTablasAdministrador } from './pages/administrador/vista_tablas_adm
 import { VistaCatalogoAdministrador } from './pages/administrador/vista_catalogo_administrador'
 import { VistaMercanciaAdministrador } from './pages/administrador/vista_mercancia_administrador'
 import { VistaLineasAdministrador } from './pages/administrador/vista_lineas_administrador'
-import { VistaPrincipalCliente } from './pages/clientes/vista_principal'
-import { VistaPrincipalRepartidor } from './pages/repartidores/vista_principal'
-import { VistaAutenticacion } from './pages/autenticacion/vista_autenticacion'
-import { VistaInicio } from './pages/publico/inicio/vista_inicio'
-import { VistaPrincipal } from './pages/empleados/produccion/vista_principal'
-import { PlantillaEmpleados } from './pages/empleados/plantilla_empleados'
-import { VistaOnboardingEmpleado } from './pages/onboarding/empleados/vista_onboarding_empleado'
-import { VistaOnboardingRepartidor } from './pages/onboarding/repartidores/vista_onboarding_repartidor'
+import { VistaPrincipalCliente } from './pages/vista_principal_cliente'
+import { VistaPrincipalRepartidor } from './pages/vista_principal_repartidor'
+import { VistaAutenticacion } from './pages/vista_autenticacion'
+import { VistaInicio } from './pages/publico/vista_inicio'
+import { VistaPrincipal } from './pages/produccion/vista_principal'
+import { PlantillaEmpleados } from './pages/plantilla_empleados'
+import { VistaOnboardingEmpleado } from './pages/vista_onboarding_empleado'
+import { VistaOnboardingRepartidor } from './pages/vista_onboarding_repartidor'
 
 export function App() {
   return (

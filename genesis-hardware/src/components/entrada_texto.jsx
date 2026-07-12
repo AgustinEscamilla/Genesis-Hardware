@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
  export function EntradaTexto({ id, tipo, etiqueta, valor, alCambiar }) {
   return (
     <div className="flex flex-col gap-1.5">

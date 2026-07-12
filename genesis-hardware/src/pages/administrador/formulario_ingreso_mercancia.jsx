@@ -24,7 +24,7 @@ export function FormularioIngresoMercancia({ forma, cambiar, enviar, guardando, 
         className="bg-fondo border border-borde text-texto px-3 py-2 text-xs"
       >
         <option value="pieza">Pieza</option>
-        <option value="caja maestra">Caja maestra</option>
+        <option value="tipo docena">Tipo docena</option>
       </select>
       <button type="submit" disabled={guardando} className="border border-primario text-primario text-xs px-4 py-2 hover:bg-primario hover:text-fondo disabled:opacity-50 transition-colors">
         {guardando ? 'Guardando...' : 'Registrar mercancia'}

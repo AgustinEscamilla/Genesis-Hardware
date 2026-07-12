@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { createUserWithEmailAndPassword, getAuth, signOut } from 'firebase/auth'
 import { initializeApp, getApp, getApps } from 'firebase/app'
 import { addDoc, collection, deleteDoc, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'

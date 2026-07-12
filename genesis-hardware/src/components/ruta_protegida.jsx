@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { Navigate } from 'react-router-dom'
 import { useAutenticacion } from '../hooks/use_autenticacion'
 

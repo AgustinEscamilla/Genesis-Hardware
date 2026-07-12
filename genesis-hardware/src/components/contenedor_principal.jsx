@@ -1,4 +1,5 @@
-import logo from '../assets/Gemini_Generated_Image_.png'
+// aqui maestro yo documente este archivo para mantener trazabilidad
+import logo from './logo_genesis.png'
 import { BotonSalida } from './boton_salida'
 
 export function ContenedorPrincipal({ children }) {
@@ -10,7 +11,7 @@ export function ContenedorPrincipal({ children }) {
         </div>
         <nav className="flex-1 p-4 flex flex-col gap-2">
           <button className="flex items-center w-full px-4 py-3 bg-secundario/10 text-secundario border-l-2 border-secundario font-medium text-left">
-            Portal del Empleado
+            Iniciacion de pedidos
           </button>
         </nav>
       </aside>

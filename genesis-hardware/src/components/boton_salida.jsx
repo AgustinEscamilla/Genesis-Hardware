@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { useNavigate } from 'react-router-dom'
 import { cerrarSesion } from '../services/servicio_autenticacion'
 

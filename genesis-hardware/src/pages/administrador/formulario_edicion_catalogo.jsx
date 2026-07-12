@@ -4,16 +4,17 @@ import { useState } from 'react'
 export function FormularioEdicionCatalogo({ seleccionado, alGuardar, urlImagen, subiendo, alCambiarArchivo }) {
   const [forma, setForma] = useState(() =>
     seleccionado
-      ? { nombre: seleccionado.nombre || '', descripcionPrecios: seleccionado.descripcionPrecios || '' }
-      : { nombre: '', descripcionPrecios: '' }
+      ? { nombre: seleccionado.nombre || '', descripcionPrecios: seleccionado.descripcionPrecios || '', stockVisible: seleccionado.stockVisible ?? 0 }
+      : { nombre: '', descripcionPrecios: '', stockVisible: 0 }
   )
 
   const cambiar = campo => e => setForma(prev => ({ ...prev, [campo]: e.target.value }))
 
   return (
-    <form onSubmit={e => { e.preventDefault(); alGuardar({ ...forma, imagen: urlImagen }) }} className="flex flex-col gap-3">
+    <form onSubmit={e => { e.preventDefault(); alGuardar({ ...forma, imagen: urlImagen, stockVisible: Number(forma.stockVisible || 0) }) }} className="flex flex-col gap-3">
       <p className="text-xs uppercase tracking-widest text-primario">{seleccionado ? 'Editar producto' : 'Agregar producto'}</p>
       <input value={forma.nombre} onChange={cambiar('nombre')} placeholder="Nombre del producto" required className="bg-fondo border border-borde text-texto px-3 py-2 text-xs" />
+      <input type="number" min="0" value={forma.stockVisible} onChange={cambiar('stockVisible')} placeholder="Stock visible" className="bg-fondo border border-borde text-texto px-3 py-2 text-xs" />
       <label className="flex flex-col gap-1">
         <span className="text-xs text-mutado">Imagen del producto</span>
         <input type="file" accept="image/*" onChange={e => alCambiarArchivo(e.target.files[0])} className="bg-fondo border border-borde text-texto px-3 py-2 text-xs file:mr-2 file:border-0 file:bg-primario file:text-fondo file:text-xs file:px-2 file:py-1 cursor-pointer" />

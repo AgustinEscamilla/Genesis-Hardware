@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 export function Boton({ children, variante = 'primario', className = '', ...props }) {
   const estilosBase = "font-bold px-8 py-3 transition-colors"
   

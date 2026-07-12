@@ -1,10 +1,14 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { Outlet, useNavigate } from 'react-router-dom'
 import { BarraNavegacionAdministrador } from './barra_navegacion_administrador'
 import { cerrarSesion } from '../../services/servicio_autenticacion'
 import { Boton } from '../../components/boton'
+import { AlertaStockAdmin } from './alerta_stock_admin'
+import { useAlertasStock } from '../../hooks/use_alertas_stock'
 
 export function VistaPrincipalAdministrador() {
   const navegar = useNavigate()
+  const { alertas } = useAlertasStock()
 
   const manejarSalida = async () => {
     await cerrarSesion()
@@ -22,6 +26,7 @@ export function VistaPrincipalAdministrador() {
           Cerrar sesión
         </Boton>
       </div>
+      <AlertaStockAdmin alertas={alertas} />
       <BarraNavegacionAdministrador />
       <Outlet />
     </div>

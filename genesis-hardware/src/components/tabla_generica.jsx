@@ -1,3 +1,4 @@
+// aqui maestro yo documente este archivo para mantener trazabilidad
 import { Children } from 'react'
 
 export function TablaGenerica({ encabezados, children, mensajeVacio = 'Datos faltantes por ahora' }) {

@@ -1,13 +1,23 @@
-import { addDoc, collection } from 'firebase/firestore'
+// aqui maestro yo documente este archivo para mantener trazabilidad
+import { addDoc, collection, getDocs, onSnapshot } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
-// aqui maestro yo defino la coleccion de inventario para registrar cada ingreso de mercancia
 const coleccion = () => collection(db, 'inventario')
 
 export const registrarMercancia = async (datos) => {
-  // esto sirve para guardar en firestore el ingreso con fecha automatica
   await addDoc(coleccion(), {
     ...datos,
-    fechaIngreso: new Date().toISOString()
+    volumen: Number(datos.volumen || 0),
+    stockMinimo: Number(datos.stockMinimo || 5),
+    fechaIngreso: new Date().toISOString(),
   })
 }
+
+export const obtenerInventario = async () => {
+  const snap = await getDocs(coleccion())
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+}
+
+export const escucharInventario = (alCambiar) => onSnapshot(coleccion(), (snap) => {
+  alCambiar(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+})

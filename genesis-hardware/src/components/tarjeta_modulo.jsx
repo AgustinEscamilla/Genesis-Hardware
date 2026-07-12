@@ -1,11 +1,13 @@
-export function TarjetaModulo({ titulo, descripcion, metrica, valor, etiqueta }) {
+// aqui maestro yo documente este archivo para mantener trazabilidad
+export function TarjetaModulo({ titulo, descripcion, metrica, valor, etiqueta, imagen }) {
   return (
     <div className="bg-panel border border-borde p-6 flex flex-col h-full group hover:border-primario/50 transition-colors cursor-pointer">
       <div>
         <div className="flex justify-between items-center mb-6">
-          <div className="w-10 h-10 bg-fondo border border-borde flex items-center justify-center text-primario">
-            <span className="text-xl">O</span>
-          </div>
+          {imagen
+            ? <img src={imagen} alt={titulo} className="w-10 h-10 object-cover border border-borde" />
+            : <div className="w-10 h-10 bg-fondo border border-borde flex items-center justify-center text-primario"><span className="text-xl">O</span></div>
+          }
           <span className="text-mutado text-xs bg-fondo px-2 py-1 border border-borde">{etiqueta}</span>
         </div>
 

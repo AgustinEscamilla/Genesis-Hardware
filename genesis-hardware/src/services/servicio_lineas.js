@@ -1,5 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
-import { db } from './conexion_firebase'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { db, storage } from './conexion_firebase'
 
 // aqui maestro yo defino la coleccion de lineas de producto en firestore
 const coleccion = () => collection(db, 'lineas_producto')
@@ -23,4 +24,11 @@ export const actualizarLinea = async (id, datos) => {
 export const eliminarLinea = async (id) => {
   // pos esto funciona para borrar una linea por su id
   await deleteDoc(doc(db, 'lineas_producto', id))
+}
+
+// aqui maestro yo subo imagen de linea para mostrarla en menu principal
+export const subirImagenLinea = async (archivo) => {
+  const storageRef = ref(storage, `lineas/${Date.now()}_${archivo.name}`)
+  await uploadBytes(storageRef, archivo)
+  return getDownloadURL(storageRef)
 }

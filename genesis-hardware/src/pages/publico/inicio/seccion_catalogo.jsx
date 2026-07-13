@@ -1,4 +1,4 @@
-import { useCatalogoPublico } from '../../hooks/use_catalogo_publico'
+import { useCatalogoPublico } from '../../../hooks/use_catalogo_publico'
 import { TarjetaCatalogoPublico } from './tarjeta_catalogo_publico'
 
 // aqui maestro yo renderizo la seccion del catalogo con datos dinamicos desde firestore
@@ -15,7 +15,7 @@ export function SeccionCatalogo() {
       </div>
       {cargando && <p className="text-xs text-mutado">Cargando catalogo...</p>}
       {!cargando && !productos.length && <p className="text-xs text-mutado">Catalogo en preparacion</p>}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {productos.map(p => <TarjetaCatalogoPublico key={p.id} producto={p} />)}
       </div>
     </section>

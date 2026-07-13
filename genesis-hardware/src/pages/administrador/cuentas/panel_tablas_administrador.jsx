@@ -1,5 +1,5 @@
-import { SeccionInventario } from './seccion_inventario'
-import { SeccionLogistica } from './seccion_logistica'
+import { SeccionInventario } from '../seccion_inventario'
+import { SeccionLogistica } from '../seccion_logistica'
 import { TablaCuentasFirestore } from './tabla_cuentas_firestore'
 
 // maestro funciona asi yo agrupo todas las tablas aqui para mantener el archivo padre limpio y modular

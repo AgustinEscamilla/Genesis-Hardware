@@ -1,12 +1,12 @@
-import { useSubidaImagen } from '../../hooks/use_subida_imagen'
+import { useSubidaImagen } from '../../../hooks/use_subida_imagen'
 import { FormularioEdicionCatalogo } from './formulario_edicion_catalogo'
 import { ListaCatalogo } from './lista_catalogo'
-import { useCatalogo } from '../../hooks/use_catalogo'
+import { useCatalogo } from '../../../hooks/use_catalogo'
 
 // aqui maestro yo uno el formulario con la lista y la subida de imagen usando dos hooks
 export function VistaCatalogoAdministrador() {
-  const { productos, cargando, seleccionado, setSeleccionado, guardar } = useCatalogo()
-  const { urlImagen, subiendo, subir, limpiar } = useSubidaImagen()
+  const { productos, cargando, guardando, mensaje, seleccionado, setSeleccionado, guardar, eliminar } = useCatalogo()
+  const { urlImagen, subiendo, mensaje: mensajeSubida, subir, limpiar } = useSubidaImagen()
 
   const seleccionar = (prod) => { limpiar(); setSeleccionado(prod) }
 
@@ -25,10 +25,13 @@ export function VistaCatalogoAdministrador() {
           seleccionado={seleccionado}
           alGuardar={manejarGuardado}
           urlImagen={urlImagen || seleccionado?.imagen || ''}
+          guardando={guardando}
+          mensaje={mensaje}
+          mensajeSubida={mensajeSubida}
           subiendo={subiendo}
           alCambiarArchivo={subir}
         />
-        <ListaCatalogo productos={productos} cargando={cargando} alSeleccionar={seleccionar} />
+        <ListaCatalogo productos={productos} cargando={cargando} alSeleccionar={seleccionar} alEliminar={eliminar} />
       </div>
     </div>
   )

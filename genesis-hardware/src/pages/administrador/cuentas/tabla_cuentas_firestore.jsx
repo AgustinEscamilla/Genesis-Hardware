@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Boton } from '../../components/boton'
-import { TablaGenerica } from '../../components/tabla_generica'
-import { actualizarEstadoUsuario, eliminarUsuario, escucharUsuariosPorTipo } from '../../services/servicio_cuentas'
+import { Boton } from '../../../components/boton'
+import { TablaGenerica } from '../../../components/tabla_generica'
+import { actualizarEstadoUsuario, eliminarUsuario, escucharUsuariosPorTipo } from '../../../services/servicio_cuentas'
 
 export function TablaCuentasFirestore({ tipo, titulo }) {
   const [cuentas, setCuentas] = useState([])

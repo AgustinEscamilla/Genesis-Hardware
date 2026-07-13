@@ -1,5 +1,5 @@
-import { useFormularioAltaCuenta } from '../../hooks/useAltaCuenta'
-import { FormularioNuevaCuenta } from './FormularioAltaCuenta'
+import { useFormularioAltaCuenta } from '../../../hooks/use_alta_cuenta'
+import { FormularioNuevaCuenta } from './formulario_alta_cuenta'
 
 // Le agregamos el 'export' directo a la constante para que coincida con las llaves de App.jsx
 export const VistaCrearCuentasAdministrador = () => {

@@ -1,6 +1,6 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 import { Link } from 'react-router-dom'
-import logo from '../../components/logo_genesis.png'
+import logo from '../../../components/logo_genesis.png'
 import { SeccionHero } from './seccion_hero'
 import { SeccionModulos } from './seccion_modulos'
 import { SeccionCatalogo } from './seccion_catalogo'

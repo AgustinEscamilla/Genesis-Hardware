@@ -14,7 +14,7 @@ export function ClienteFiltrosCatalogo() {
         <p className="text-xs tracking-widest text-mutado">SOCKET</p>
         {sockets.map((s, i) => <label key={s} className="text-xs text-texto flex gap-2"><input type="checkbox" defaultChecked={i === 0} />{s}</label>)}
       </div>
-      <button className="mt-auto border border-borde text-xs text-texto px-3 py-2 hover:border-primario">RESET FILTROS</button>
+      <button className="mt-auto border border-borde text-xs text-texto px-3 py-2 hover:border-primario">REINICIAR FILTROS</button>
     </aside>
   )
 }

@@ -1,4 +1,4 @@
-import { Boton } from '../../components/boton'
+import { Boton } from '../../../components/boton'
 
 // aqui maestro exporte el componente hero para mostrar el encabezado principal
 export function SeccionHero() {

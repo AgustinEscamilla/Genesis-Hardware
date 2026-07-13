@@ -1,12 +1,12 @@
 import { FormularioLinea } from './formulario_linea'
 import { ListaLineas } from './lista_lineas'
-import { useLineas } from '../../hooks/use_lineas'
-import { useSubidaLinea } from '../../hooks/use_subida_linea'
+import { useLineas } from '../../../hooks/use_lineas'
+import { useSubidaLinea } from '../../../hooks/use_subida_linea'
 
 // aqui maestro yo uno el formulario con la lista de lineas usando el hook centralizado
 export function VistaLineasAdministrador() {
-  const { lineas, cargando, seleccionada, setSeleccionada, guardar, eliminar } = useLineas()
-  const { urlImagen, subiendo, subir, limpiar } = useSubidaLinea()
+  const { lineas, cargando, guardando, mensaje, seleccionada, setSeleccionada, guardar, eliminar } = useLineas()
+  const { urlImagen, subiendo, mensaje: mensajeSubida, subir, limpiar } = useSubidaLinea()
 
   const seleccionar = (item) => { limpiar(); setSeleccionada(item) }
 
@@ -19,6 +19,9 @@ export function VistaLineasAdministrador() {
           seleccionada={seleccionada}
           alGuardar={async (datos) => { await guardar(datos); limpiar() }}
           urlImagen={urlImagen}
+          guardando={guardando}
+          mensaje={mensaje}
+          mensajeSubida={mensajeSubida}
           subiendo={subiendo}
           alCambiarArchivo={subir}
         />

@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from './conexion_firebase'
 
@@ -19,6 +19,11 @@ export const actualizarProducto = async (id, datos) => {
 export const agregarProducto = async (datos) => {
   // maestro funciona asi al insertar un producto nuevo al catalogo
   await addDoc(coleccion(), datos)
+}
+
+export const eliminarProducto = async (id) => {
+  // esto sirve para borrar un producto existente del catalogo
+  await deleteDoc(doc(db, 'catalogo', id))
 }
 
 export const subirImagenProducto = async (archivo) => {

@@ -7,6 +7,8 @@ export function useLineas() {
   const [cargando, setCargando] = useState(true)
   const [seleccionada, setSeleccionada] = useState(null)
   const [recarga, setRecarga] = useState(0)
+  const [guardando, setGuardando] = useState(false)
+  const [mensaje, setMensaje] = useState('')
 
   useEffect(() => {
     // pos esto funciona cargando las lineas cada vez que recarga cambia
@@ -18,10 +20,16 @@ export function useLineas() {
 
   const guardar = async (datos) => {
     // esto sirve para actualizar o agregar segun si hay linea seleccionada
-    if (seleccionada) await actualizarLinea(seleccionada.id, datos)
-    else await agregarLinea(datos)
-    setSeleccionada(null)
-    setRecarga(n => n + 1)
+    setGuardando(true)
+    setMensaje('')
+    try {
+      if (seleccionada) await actualizarLinea(seleccionada.id, datos)
+      else await agregarLinea(datos)
+      setSeleccionada(null)
+      setRecarga(n => n + 1)
+      setMensaje('Linea guardada exitosamente para inicio')
+    } catch { setMensaje('No se pudo guardar la linea de producto') }
+    finally { setGuardando(false) }
   }
 
   const eliminar = async (id) => {
@@ -29,5 +37,5 @@ export function useLineas() {
     setRecarga(n => n + 1)
   }
 
-  return { lineas, cargando, seleccionada, setSeleccionada, guardar, eliminar }
+  return { lineas, cargando, guardando, mensaje, seleccionada, setSeleccionada, guardar, eliminar }
 }

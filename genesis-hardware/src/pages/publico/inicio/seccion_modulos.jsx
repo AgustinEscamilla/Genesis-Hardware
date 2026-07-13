@@ -1,5 +1,5 @@
-import { TarjetaModulo } from '../../components/tarjeta_modulo'
-import { useLineasPublico } from '../../hooks/use_lineas_publico'
+import { TarjetaModulo } from '../../../components/tarjeta_modulo'
+import { useLineasPublico } from '../../../hooks/use_lineas_publico'
 
 // esto sirve para desplegar las tarjetas de lineas de producto desde firestore
 export function SeccionModulos() {
@@ -10,8 +10,8 @@ export function SeccionModulos() {
       {/* aqui puse profe el encabezado con el titulo y el estado del stock */}
       <div className="flex justify-between items-end mb-10 border-b border-borde pb-4">
         <div>
-          <h2 className="text-2xl font-bold text-texto flex items-center gap-2">Líneas de Producto</h2>
-          <p className="text-mutado text-sm mt-2">Fabricación de piezas clave para armados extremos y gaming.</p>
+          <h2 className="text-2xl font-bold text-texto flex items-center gap-2">Tablero de informacion comercial</h2>
+          <p className="text-mutado text-sm mt-2">Conoce mas sobre la empresa nuestras lineas disponibles y la propuesta comercial actual</p>
         </div>
         <div className="text-xs text-mutado bg-panel px-3 py-2 border border-borde">
           Stock: Actualizado

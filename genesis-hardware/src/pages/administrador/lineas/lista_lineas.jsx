@@ -1,4 +1,4 @@
-import { TarjetaLineaAdmin } from './tarjeta_linea_admin'
+import { TarjetaLineaAdmin } from './tarjeta_linea_administrador'
 
 // pos esto funciona para listar todas las lineas de producto en el panel del admin
 export function ListaLineas({ lineas, cargando, alSeleccionar, alEliminar }) {

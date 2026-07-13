@@ -3,7 +3,7 @@ import { useInventario } from '../../hooks/use_inventario'
 
 // aqui maestro yo uno el hook de inventario con el formulario y paso los datos como props
 export function VistaMercanciaAdministrador() {
-  const { forma, cambiar, enviar, guardando, exito } = useInventario()
+  const { forma, cambiar, enviar, guardando, mensaje } = useInventario()
 
   return (
     <div className="min-h-screen bg-fondo p-6 flex flex-col gap-6">
@@ -13,7 +13,7 @@ export function VistaMercanciaAdministrador() {
         cambiar={cambiar}
         enviar={enviar}
         guardando={guardando}
-        exito={exito}
+        mensaje={mensaje}
       />
     </div>
   )

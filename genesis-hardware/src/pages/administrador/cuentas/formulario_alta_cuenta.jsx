@@ -1,6 +1,6 @@
-import { SelectorRolCuenta } from '../../components/BotonRol'
-import { CampoEntradaCuenta } from '../../components/CampoEntrada'
-import { CampoCorreoCuenta } from '../../components/CampoCorreo'
+import { SelectorRolCuenta } from '../../../components/selector_rol_cuenta'
+import { CampoEntradaCuenta } from '../../../components/campo_entrada_cuenta'
+import { CampoCorreoCuenta } from '../../../components/campo_correo_cuenta'
 
 export function FormularioNuevaCuenta({ rolSeleccionado, datos, mensaje, cambiarRol, cambiarDato, enviar }) {
     // aqui maestro yo junto los campos para crear cuentas sin mezclar la logica

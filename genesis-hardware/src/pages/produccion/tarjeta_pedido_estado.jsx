@@ -6,9 +6,11 @@ export function TarjetaPedidoEstado({ pedido, accion, textoAccion }) {
       <div className="flex flex-col gap-1">
         {pedido.carrito?.map((i, idx) => <p key={idx} className="text-xs text-texto">{i.nombre} x {i.cantidad}</p>)}
       </div>
-      <button onClick={() => accion(pedido.id)} className="text-xs border border-primario text-primario px-3 py-1 hover:bg-primario hover:text-fondo transition-colors">
-        {textoAccion}
-      </button>
+      {accion
+        ? <button onClick={() => accion(pedido)} className="text-xs border border-primario text-primario px-3 py-1 hover:bg-primario hover:text-fondo transition-colors">
+            {textoAccion}
+          </button>
+        : <p className="text-xs text-mutado">{textoAccion}</p>}
     </div>
   )
 }

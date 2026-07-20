@@ -1,9 +1,12 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 import { useState } from 'react'
+import { useAutenticacion } from './use_autenticacion'
 import { confirmarPedido } from '../services/servicio_pedidos'
 
 export function useCarritoPedidos(origen = 'cliente') {
+  const { usuarioActual } = useAutenticacion()
   const [carrito, setCarrito] = useState([])
+  const [zonaLogistica, setZonaLogistica] = useState('norte')
   const [guardando, setGuardando] = useState(false)
   const [mensaje, setMensaje] = useState('')
 
@@ -21,10 +24,13 @@ export function useCarritoPedidos(origen = 'cliente') {
   const confirmar = async () => {
     if (!carrito.length) return
     setGuardando(true)
-    try { await confirmarPedido({ carrito, origen }); setCarrito([]); setMensaje('Pedido confirmado') }
-    catch (e) { setMensaje(String(e?.message || 'No se pudo confirmar')) }
+    try {
+      await confirmarPedido({ carrito, origen, zonaLogistica, clienteId: usuarioActual?.uid || null })
+      setCarrito([])
+      setMensaje('Pedido confirmado')
+    } catch (e) { setMensaje(String(e?.message || 'No se pudo confirmar')) }
     setGuardando(false)
   }
 
-  return { carrito, agregar, ajustar, quitar, confirmar, guardando, mensaje }
+  return { carrito, agregar, ajustar, quitar, confirmar, guardando, mensaje, zonaLogistica, setZonaLogistica }
 }

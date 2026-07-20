@@ -1,5 +1,23 @@
-import { collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore'
+import { arrayUnion, collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore'
 import { db } from './conexion_firebase'
+import { crearNotificacion } from './servicio_notificaciones'
+
+// aqui maestro yo dejo la secuencia oficial de estados operativos del pedido
+export const ESTADOS_PEDIDO = {
+  RECIBIDO: 'recibido',
+  EN_EMPAQUE: 'en_empaque',
+  LISTO_DESPACHO: 'listo_despacho',
+  EN_REPARTO: 'en_reparto',
+  ENTREGADO: 'entregado'
+}
+
+const mensajesPorEstado = {
+  recibido: 'tu pedido fue recibido y entra a la cola de empaque',
+  en_empaque: 'tu pedido esta en proceso de empaque',
+  listo_despacho: 'tu pedido esta listo para despacho',
+  en_reparto: 'tu pedido esta en camino con el repartidor',
+  entregado: 'tu pedido fue entregado con exito'
+}
 
 // aqui maestro yo escucho pedidos por estado para render en tiempo real
 export const escucharPedidosPorEstado = (estado, alCambiar) => {
@@ -7,7 +25,17 @@ export const escucharPedidosPorEstado = (estado, alCambiar) => {
   return onSnapshot(q, (snap) => alCambiar(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
 }
 
-// pos esto funciona para mover pedidos entre etapas operativas
-export const actualizarEstadoPedido = async (id, estado) => {
-  await updateDoc(doc(db, 'pedidos', id), { estado, fechaEstado: new Date().toISOString() })
+// pos esto funciona para mover un pedido a la siguiente etapa y avisar al cliente
+export const actualizarEstadoPedido = async (pedido, estado, camposExtra = {}) => {
+  const fecha = new Date().toISOString()
+  await updateDoc(doc(db, 'pedidos', pedido.id), {
+    estado,
+    fechaEstado: fecha,
+    historialEstados: arrayUnion({ estado, fecha }),
+    ...camposExtra
+  })
+  const mensaje = mensajesPorEstado[estado]
+  if (pedido.clienteId && mensaje) {
+    await crearNotificacion({ clienteId: pedido.clienteId, pedidoId: pedido.id, mensaje })
+  }
 }

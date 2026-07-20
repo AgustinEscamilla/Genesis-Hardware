@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const colNotificaciones = () => collection(db, 'notificaciones')
@@ -15,6 +15,14 @@ export const escucharNotificacionesCliente = (clienteId, alCambiar) => {
   return onSnapshot(q, (snap) => {
     const datos = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
     datos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+    alCambiar(datos)
+  })
+}
+
+export const escucharNotificacionesAdmin = (alCambiar) => {
+  const q = query(colNotificaciones(), orderBy('fecha', 'desc'))
+  return onSnapshot(q, (snap) => {
+    const datos = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
     alCambiar(datos)
   })
 }

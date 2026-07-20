@@ -26,6 +26,10 @@ export function VistaPrincipalCliente() {
         notificaciones={notificaciones}
         alMarcarLeida={marcarLeida}
       />
+      <div className="bg-panel border border-borde p-6 m-4 rounded-lg">
+        <h1 className="text-2xl font-bold text-texto">Bienvenido a Genesis Hardware</h1>
+        <p className="text-xs text-mutado mt-2">Explora nuestro catalogo y confirma tu pedido seguro.</p>
+      </div>
       <div className="flex-1 p-4 flex gap-4">
         <ClienteFiltrosCatalogo />
         <ClienteGrillaCatalogo productos={productos} cargando={cargando} alAgregar={agregar} />

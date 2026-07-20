@@ -1,9 +1,12 @@
 import { NavLink } from 'react-router-dom'
+import { CampanaNotificaciones } from '../../components/campana_notificaciones'
+import { useNotificacionesAdmin } from '../../hooks/use_notificaciones_admin'
 
 const estilosBase = 'px-4 py-2 text-xs uppercase tracking-wide border'
 
 // aqui maestro yo arme esta barra para navegar entre las vistas de administracion
 export function BarraNavegacionAdministrador() {
+  const { notificaciones, marcarLeida } = useNotificacionesAdmin()
 
   // esto sirve para cambiar de rutas y marcar visualmente la opcion activa
   const estilo = ({ isActive }) =>
@@ -16,6 +19,9 @@ export function BarraNavegacionAdministrador() {
       <NavLink to="catalogo" className={estilo}>Catalogo</NavLink>
       <NavLink to="mercancia" className={estilo}>Mercancia</NavLink>
       <NavLink to="lineas" className={estilo}>Lineas</NavLink>
+      <div className="ml-auto">
+        <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
+      </div>
     </div>
   )
 }

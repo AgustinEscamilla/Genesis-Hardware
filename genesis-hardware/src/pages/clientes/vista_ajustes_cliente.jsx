@@ -1,0 +1,23 @@
+import { useAjustesCliente } from '../../hooks/use_ajustes_cliente'
+import { FormularioAjustesCliente } from './formulario_ajustes_cliente'
+
+// aqui maestro yo muestro el formulario donde el cliente actualiza su perfil
+export function VistaAjustesCliente() {
+  const { forma, cambiar, guardar, mensaje } = useAjustesCliente()
+
+  return (
+    <div className="min-h-screen bg-fondo p-6 text-texto">
+      <div className="mx-auto max-w-3xl space-y-6">
+        <header className="rounded-xl bg-panel border border-borde p-6 shadow-sm">
+          <h1 className="text-3xl font-bold mb-2">Ajustes de cliente</h1>
+          <p className="text-sm text-texto/70">Actualiza tus datos de perfil para que la entrega y la comunicación sean correctas.</p>
+        </header>
+
+        <section className="rounded-xl bg-panel border border-borde p-6 shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">Información de perfil</h2>
+          <FormularioAjustesCliente forma={forma} cambiar={cambiar} guardar={guardar} mensaje={mensaje} />
+        </section>
+      </div>
+    </div>
+  )
+}

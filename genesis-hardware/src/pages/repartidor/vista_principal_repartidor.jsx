@@ -1,24 +1,23 @@
-import { useCerrarSesion } from '../../hooks/use_cerrar_sesion'
-import { useManifiestos } from '../../hooks/use_manifiestos'
-import { RepartidorBarraLateral } from './repartidor_barra_lateral'
-import { RepartidorZonasPendientes } from './repartidor_zonas_pendientes'
-import { RepartidorListaManifiestos } from './repartidor_lista_manifiestos'
-
-// aqui maestro yo muestro el panel del repartidor con manifiestos por zona
+// aqui maestro yo muestro el dashboard inicial del repartidor con los valores de la empresa
 export function VistaPrincipalRepartidor() {
-  const { salir } = useCerrarSesion()
-  const { zonasPendientes, manifiestos, pedidosEnReparto, generar, entregar } = useManifiestos()
-
   return (
-    <div className="min-h-screen bg-fondo text-texto flex">
-      <RepartidorBarraLateral />
-      <div className="flex-1 flex flex-col">
-        <div className="h-14 border-b border-borde bg-panel px-4 flex items-center justify-end">
-          <button onClick={salir} className="border border-borde text-xs px-4 py-2 hover:bg-red-700 hover:border-red-700">Cerrar sesion</button>
-        </div>
-        <div className="flex-1 p-4 flex flex-col gap-4">
-          <RepartidorZonasPendientes zonasPendientes={zonasPendientes} alGenerar={generar} />
-          <RepartidorListaManifiestos manifiestos={manifiestos} pedidosEnReparto={pedidosEnReparto} alEntregar={entregar} />
+    <div className="min-h-screen bg-fondo text-texto">
+      <div className="bg-panel border border-borde p-6 rounded-lg">
+        <h2 className="text-2xl font-bold mb-3">Dashboard de reparto</h2>
+        <p className="text-xs text-mutado mb-4">Aqui encuentras los principios operativos para cada ruta de entrega</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="border border-borde p-4 rounded-lg">
+            <p className="text-xs uppercase text-mutado">Seguridad</p>
+            <p className="text-sm text-texto">El reparto comienza con un vehiculo seguro y revisado</p>
+          </div>
+          <div className="border border-borde p-4 rounded-lg">
+            <p className="text-xs uppercase text-mutado">Puntualidad</p>
+            <p className="text-sm text-texto">Siempre cumplir con la ruta planificada y mantener el control</p>
+          </div>
+          <div className="border border-borde p-4 rounded-lg">
+            <p className="text-xs uppercase text-mutado">Calidad</p>
+            <p className="text-sm text-texto">Entregar cada pedido completo y con informacion de cliente clara</p>
+          </div>
         </div>
       </div>
     </div>

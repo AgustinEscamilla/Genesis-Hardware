@@ -1,11 +1,19 @@
 import { useState } from 'react'
 
+const categorias = ['Procesadores', 'Memoria RAM', 'Tarjetas de video', 'Discos duros', 'SSD', 'Ventiladores']
+
 // aqui maestro yo armo el formulario con subida de archivo y preview de la imagen actual
 export function FormularioEdicionCatalogo({ seleccionado, alGuardar, urlImagen, guardando, mensaje, mensajeSubida, subiendo, alCambiarArchivo }) {
   const [forma, setForma] = useState(() =>
     seleccionado
-      ? { nombre: seleccionado.nombre || '', descripcionPrecios: seleccionado.descripcionPrecios || '', stockVisible: seleccionado.stockVisible ?? 0 }
-      : { nombre: '', descripcionPrecios: '', stockVisible: 0 }
+      ? {
+          nombre: seleccionado.nombre || '',
+          descripcionPrecios: seleccionado.descripcionPrecios || '',
+          descripcionTecnica: seleccionado.descripcionTecnica || '',
+          categoria: seleccionado.categoria || categorias[0],
+          stockVisible: seleccionado.stockVisible ?? 0
+        }
+      : { nombre: '', descripcionPrecios: '', descripcionTecnica: '', categoria: categorias[0], stockVisible: 0 }
   )
 
   const cambiar = campo => e => setForma(prev => ({ ...prev, [campo]: e.target.value }))
@@ -14,6 +22,10 @@ export function FormularioEdicionCatalogo({ seleccionado, alGuardar, urlImagen, 
     <form onSubmit={e => { e.preventDefault(); alGuardar({ ...forma, imagen: urlImagen, stockVisible: Number(forma.stockVisible || 0) }) }} className="flex flex-col gap-3">
       <p className="text-xs uppercase tracking-widest text-primario">{seleccionado ? 'Editar producto' : 'Agregar producto'}</p>
       <input value={forma.nombre} onChange={cambiar('nombre')} placeholder="Nombre del producto" required className="bg-fondo border border-borde text-texto px-3 py-2 text-xs" />
+      <select value={forma.categoria} onChange={cambiar('categoria')} className="bg-fondo border border-borde text-texto px-3 py-2 text-xs">
+        {categorias.map((item) => <option key={item} value={item}>{item}</option>)}
+      </select>
+      <textarea value={forma.descripcionTecnica} onChange={cambiar('descripcionTecnica')} placeholder="Descripcion tecnica detallada" rows={4} className="bg-fondo border border-borde text-texto px-3 py-2 text-xs resize-none" />
       <input type="number" min="0" value={forma.stockVisible} onChange={cambiar('stockVisible')} placeholder="Stock visible" className="bg-fondo border border-borde text-texto px-3 py-2 text-xs" />
       <label className="flex flex-col gap-1">
         <span className="text-xs text-mutado">Imagen del producto</span>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { BotonSalida } from '../components/boton_salida'
 import { CampanaNotificaciones } from '../components/campana_notificaciones'
 import { ZONAS_LOGISTICAS } from '../services/servicio_pedidos'
@@ -17,6 +18,10 @@ export function ClienteBarraCatalogo({ alConfirmar, total, zonaLogistica, alCamb
         <button onClick={alConfirmar} className="border border-primario text-primario px-3 py-2 hover:bg-primario hover:text-fondo transition-colors">
           Confirmar {total}
         </button>
+        <Link to="/clientes/ajustes" className="border border-borde text-texto px-3 py-2 text-xs hover:bg-panel transition-colors flex items-center gap-2">
+          <span aria-hidden="true">⚙️</span>
+          Ajustes
+        </Link>
         <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={alMarcarLeida} />
         <BotonSalida />
       </nav>

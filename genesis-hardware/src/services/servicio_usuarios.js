@@ -1,14 +1,9 @@
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const referenciaUsuario = (uidAuth) => doc(db, 'usuarios', uidAuth)
 const rutasPorRol = { administrador: '/administrador', empleado: '/empleados', repartidor: '/repartidores', cliente: '/clientes' }
-const dominiosPorRol = {
-  administrador: ['@admin.genesis.com'],
-  empleado: ['@empleado.com', '@genesis.com'],
-  repartidor: ['@repartidor.com'],
-  cliente: ['@gmail.com']
-}
+const dominiosPorRol = { administrador: ['@admin.genesis.com'], empleado: ['@empleado.com', '@genesis.com'], repartidor: ['@repartidor.com'], cliente: ['@gmail.com'] }
 
 const correoTerminaCon = (correo, lista) => lista.some((dominio) => correo.endsWith(dominio))
 const esSesionLocal = (uidAuth = '') => String(uidAuth).startsWith('uid-local')
@@ -33,6 +28,12 @@ export const buscarPerfilUsuario = async (uidAuth) => {
   const snapshot = await getDoc(referenciaUsuario(uidAuth))
   return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null
 }
+
+export const actualizarPerfilUsuario = async (uidAuth, datos) => {
+  await setDoc(referenciaUsuario(uidAuth), { ...datos, actualizadoEn: serverTimestamp() }, { merge: true })
+}
+
+export const escucharUsuarios = (alCambiar) => onSnapshot(collection(db, 'usuarios'), (snap) => alCambiar(snap.docs.map((d) => ({ id: d.id, ...d.data() }))))
 
 // aqui maestro yo resuelvo la ruta del panel usando firestore y el respaldo local de desarrollo
 export const resolverRutaAccesoUsuario = async ({ uidAuth, correo }) => {

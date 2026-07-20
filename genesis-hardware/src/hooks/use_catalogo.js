@@ -32,6 +32,8 @@ export function useCatalogo() {
     finally { setGuardando(false) }
   }
 
+  const recargar = () => setRecarga(n => n + 1)
+
   const eliminar = async (id) => {
     setGuardando(true)
     setMensaje('')
@@ -44,5 +46,5 @@ export function useCatalogo() {
     finally { setGuardando(false) }
   }
 
-  return { productos, cargando, guardando, mensaje, seleccionado, setSeleccionado, guardar, eliminar }
+  return { productos, cargando, guardando, mensaje, seleccionado, setSeleccionado, guardar, eliminar, recargar }
 }

@@ -1,4 +1,4 @@
-const categorias = ['Todos', 'Tarjetas de video', 'Memoria RAM', 'Procesadores', 'Discos duros', 'SSD', 'Ventiladores']
+const categorias = ['Todos', 'Tarjetas de video', 'Memoria RAM', 'Procesadores', 'Discos duros', 'SSD NVMe', 'Ventiladores', 'SSD']
 
 // aqui maestro yo presento los filtros del catalogo y el boton de datos de prueba
 export function FiltrosCatalogoAdministrador({ busqueda, categoria, setBusqueda, setCategoria, onSembrar }) {

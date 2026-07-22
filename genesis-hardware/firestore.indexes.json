@@ -1,0 +1,19 @@
+{
+    "indexes": [
+        {
+            "collectionGroup": "catalogo",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "categoria",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "nombre",
+                    "order": "ASCENDING"
+                }
+            ]
+        }
+    ],
+    "fieldOverrides": []
+}

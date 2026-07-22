@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { useManifiestos } from '../../hooks/use_manifiestos'
 import { RepartidorListaManifiestos } from './repartidor_lista_manifiestos'
 
@@ -9,7 +10,10 @@ export function VistaComenzarRutaRepartidor() {
   const paradas = useMemo(() => {
     return manifiestos
       .filter((m) => m.estado === 'en_reparto')
-      .map((m, index) => ({ orden: index + 1, zona: m.zona, pedidos: pedidosEnReparto.filter((p) => p.manifiestoId === m.id).length }))
+      .map((m, index) => {
+        const pedidosDeParada = pedidosEnReparto.filter((p) => p.manifiestoId === m.id)
+        return { orden: index + 1, zona: m.zona, pedidos: pedidosDeParada.length, primerPedido: pedidosDeParada[0] || null }
+      })
   }, [manifiestos, pedidosEnReparto])
 
   return (
@@ -22,6 +26,11 @@ export function VistaComenzarRutaRepartidor() {
               <p className="text-sm font-semibold text-texto">Parada {parada.orden}</p>
               <p className="text-[10px] text-texto">Zona {parada.zona}</p>
               <p className="text-[10px] text-mutado">Pedidos {parada.pedidos}</p>
+              {parada.primerPedido && (
+                <Link to="/repartidores/mapa" state={{ pedido: parada.primerPedido }} className="text-[10px] text-primario underline">
+                  Ver mapa
+                </Link>
+              )}
             </div>
           ))}
           {!paradas.length && <p className="text-xs text-mutado">No hay manifiestos en camino todavia</p>}

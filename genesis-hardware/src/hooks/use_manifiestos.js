@@ -6,12 +6,14 @@ import { agruparPedidosPorZona, escucharManifiestos, generarManifiesto, marcarMa
 // esto sirve para exponer zonas pendientes y manifiestos activos al repartidor
 export function useManifiestos() {
   const { pedidos: listosDespacho } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
+  const { pedidos: pendientesRecoleccion } = usePedidosEstado(ESTADOS_PEDIDO.PENDIENTE_RECOLECCION)
   const { pedidos: pedidosEnReparto } = usePedidosEstado(ESTADOS_PEDIDO.EN_REPARTO)
   const [manifiestos, setManifiestos] = useState([])
 
   useEffect(() => escucharManifiestos(setManifiestos), [])
 
-  const zonasPendientes = useMemo(() => agruparPedidosPorZona(listosDespacho), [listosDespacho])
+  const pedidosParaAgrupar = useMemo(() => [...listosDespacho, ...pendientesRecoleccion], [listosDespacho, pendientesRecoleccion])
+  const zonasPendientes = useMemo(() => agruparPedidosPorZona(pedidosParaAgrupar), [pedidosParaAgrupar])
 
   const pedidosDelManifiesto = (manifiesto) => pedidosEnReparto.filter((p) => p.manifiestoId === manifiesto.id)
 

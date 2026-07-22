@@ -5,14 +5,16 @@ import { crearNotificacion } from './servicio_notificaciones'
 // aqui maestro yo dejo la secuencia oficial de estados operativos del pedido
 export const ESTADOS_PEDIDO = {
   RECIBIDO: 'recibido',
+  PENDIENTE_RECOLECCION: 'pendiente_recoleccion',
   EN_EMPAQUE: 'en_empaque',
   LISTO_DESPACHO: 'listo_despacho',
   EN_REPARTO: 'en_reparto',
   ENTREGADO: 'entregado'
 }
 
-const mensajesPorEstado = {
+export const mensajesPorEstado = {
   recibido: 'tu pedido fue recibido y entra a la cola de empaque',
+  pendiente_recoleccion: 'tu pedido fue pagado y esta pendiente de recoleccion por el repartidor',
   en_empaque: 'tu pedido esta en proceso de empaque',
   listo_despacho: 'tu pedido esta listo para despacho',
   en_reparto: 'tu pedido esta en camino con el repartidor',

@@ -7,11 +7,34 @@ export function useCatalogoPublico() {
   const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
-    // pos esto funciona para traer los productos y mostrarlos en la seccion publica
-    obtenerCatalogo().then(datos => {
-      setProductos(datos)
-      setCargando(false)
-    })
+    let activo = true
+
+    const cargarCatalogo = async () => {
+      try {
+        const timeoutMs = 8000
+        const datos = await Promise.race([
+          obtenerCatalogo(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Timeout al cargar catalogo')), timeoutMs)
+          )
+        ])
+        if (!activo) return
+        setProductos(datos)
+      } catch (error) {
+        // Si Firestore falla (permisos/red), no bloqueamos la interfaz de cliente.
+        if (!activo) return
+        console.error('No se pudo cargar el catalogo publico:', error)
+        setProductos([])
+      } finally {
+        if (activo) setCargando(false)
+      }
+    }
+
+    cargarCatalogo()
+
+    return () => {
+      activo = false
+    }
   }, [])
 
   return { productos, cargando }

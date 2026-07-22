@@ -7,8 +7,7 @@ import { BarraNavegacionEmpleado } from '../components/barra_navegacion_empleado
 export function PlantillaEmpleados() {
   return (
     <RutaProtegida>
-      <ContenedorPrincipal>
-        <BarraNavegacionEmpleado />
+      <ContenedorPrincipal navbar={<BarraNavegacionEmpleado />}>
         <Outlet />
       </ContenedorPrincipal>
     </RutaProtegida>

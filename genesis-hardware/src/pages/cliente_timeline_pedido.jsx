@@ -1,6 +1,9 @@
+import { MapaClienteRastreo } from '../components/mapa_cliente_rastreo'
+
 // aqui maestro yo dejo las etiquetas visibles para cada estado del pedido
 const etiquetasPorEstado = {
   recibido: 'Recibido',
+  pendiente_recoleccion: 'Pendiente de recoleccion',
   en_empaque: 'En empaque',
   listo_despacho: 'Listo para despacho',
   en_reparto: 'En reparto',
@@ -23,6 +26,7 @@ export function ClienteTimelinePedido({ pedido }) {
           </div>
         ))}
       </div>
+      {pedido.estado === 'en_reparto' && <MapaClienteRastreo pedido_id={pedido.id} />}
     </div>
   )
 }

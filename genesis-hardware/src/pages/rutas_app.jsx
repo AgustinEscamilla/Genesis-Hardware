@@ -17,14 +17,14 @@ export function RutasApp() {
       <Route path="/autenticacion" element={<VistaAutenticacion />} />
       <Route path="/login" element={<Navigate to="/autenticacion" replace />} />
       <Route path="/empleados/acceso" element={<Navigate to="/autenticacion" replace />} />
-      <RutasAdministrador />
+      {RutasAdministrador()}
       <Route path="/clientes" element={<VistaPrincipalCliente />} />
       <Route path="/clientes/ajustes" element={<VistaAjustesCliente />} />
       <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
-      <RutasRepartidor />
+      {RutasRepartidor()}
       <Route path="/onboarding/empleados" element={<VistaOnboardingEmpleado />} />
       <Route path="/onboarding/repartidores" element={<VistaOnboardingRepartidor />} />
-      <RutasEmpleados />
+      {RutasEmpleados()}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

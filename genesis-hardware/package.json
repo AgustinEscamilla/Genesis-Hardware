@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "firebase:rules:deploy": "npx firebase-tools deploy --only firestore:rules --project genesis-hardware",
+    "firebase:rules:check": "npx firebase-tools firestore:rules:get --project genesis-hardware",
+    "firebase:indexes:deploy": "npx firebase-tools deploy --only firestore:indexes --project genesis-hardware"
   },
   "dependencies": {
     "firebase": "^12.15.0",

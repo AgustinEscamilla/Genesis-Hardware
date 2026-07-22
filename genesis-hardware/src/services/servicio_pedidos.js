@@ -1,7 +1,7 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 import { collection, doc, getDocs, runTransaction } from 'firebase/firestore'
 import { db } from './conexion_firebase'
-import { ESTADOS_PEDIDO } from './servicio_flujo_pedidos'
+import { ESTADOS_PEDIDO, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
 
 export const ZONAS_LOGISTICAS = ['norte', 'sur', 'centro', 'oriente', 'poniente']
@@ -17,11 +17,12 @@ const mapaInventarioPorNombre = async () => {
   }, {})
 }
 
-// pos esto funciona para crear el pedido con su zona y avisar al cliente dueno
+// pos esto funciona para crear el pedido cobrar el total y avisar al cliente dueno
 export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaLogistica = 'sin_zona', clienteId = null }) => {
   const refs = await mapaInventarioPorNombre()
-  const estadoInicial = origen === 'cliente' ? ESTADOS_PEDIDO.RECIBIDO : ESTADOS_PEDIDO.EN_EMPAQUE
+  const estadoInicial = origen === 'cliente' ? ESTADOS_PEDIDO.PENDIENTE_RECOLECCION : ESTADOS_PEDIDO.EN_EMPAQUE
   const fecha = new Date().toISOString()
+  const total = carrito.reduce((acc, item) => acc + Number(item.precio || 0) * Number(item.cantidad || 0), 0)
   const idPedido = await runTransaction(db, async (tx) => {
     for (const item of carrito) {
       const ref = refs[String(item.nombre || '').toLowerCase()]
@@ -34,14 +35,14 @@ export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaL
     }
     const pedidoRef = doc(collection(db, 'pedidos'))
     tx.set(pedidoRef, {
-      carrito, origen, zonaLogistica, clienteId,
+      carrito, origen, zonaLogistica, clienteId, total,
       estado: estadoInicial, fecha,
       historialEstados: [{ estado: estadoInicial, fecha }]
     })
     return pedidoRef.id
   })
   if (clienteId) {
-    await crearNotificacion({ clienteId, pedidoId: idPedido, mensaje: 'tu pedido fue recibido y entra a la cola de empaque' })
+    await crearNotificacion({ clienteId, pedidoId: idPedido, mensaje: mensajesPorEstado[estadoInicial] })
   }
-  return idPedido
+  return { id: idPedido, total, fecha }
 }

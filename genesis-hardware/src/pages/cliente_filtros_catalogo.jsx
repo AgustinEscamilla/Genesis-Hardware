@@ -1,20 +1,20 @@
-// pos esto funciona yo renderizo filtros laterales con estilo de panel catalogo
-export function ClienteFiltrosCatalogo() {
-  const categorias = ['Procesadores', 'Placas Base', 'Memoria RAM', 'Almacenamiento']
-  const sockets = ['LGA 1700', 'AM5', 'AM4']
-
+// pos esto funciona yo renderizo filtros laterales controlados por categoria activa
+export function ClienteFiltrosCatalogo({ categoria, categorias, alCambiarCategoria }) {
   return (
     <aside className="w-60 border border-borde bg-panel p-3 flex flex-col gap-4">
       <p className="text-sm text-texto font-semibold">Filtros</p>
       <div className="border border-borde p-3 flex flex-col gap-2">
         <p className="text-xs tracking-widest text-mutado">CATEGORIA</p>
-        {categorias.map((c, i) => <label key={c} className="text-xs text-texto flex gap-2"><input type="checkbox" defaultChecked={i === 0} />{c}</label>)}
+        {categorias.map((c) => (
+          <label key={c} className="text-xs text-texto flex gap-2">
+            <input type="radio" name="categoria" checked={categoria === c} onChange={() => alCambiarCategoria(c)} />
+            {c}
+          </label>
+        ))}
       </div>
-      <div className="border border-borde p-3 flex flex-col gap-2">
-        <p className="text-xs tracking-widest text-mutado">SOCKET</p>
-        {sockets.map((s, i) => <label key={s} className="text-xs text-texto flex gap-2"><input type="checkbox" defaultChecked={i === 0} />{s}</label>)}
-      </div>
-      <button className="mt-auto border border-borde text-xs text-texto px-3 py-2 hover:border-primario">REINICIAR FILTROS</button>
+      <button onClick={() => alCambiarCategoria('Todos')} className="mt-auto border border-borde text-xs text-texto px-3 py-2 hover:border-primario">
+        REINICIAR FILTROS
+      </button>
     </aside>
   )
 }

@@ -2,18 +2,11 @@
 import logo from './logo_genesis.png'
 import { BotonSalida } from './boton_salida'
 
-export function ContenedorPrincipal({ children }) {
+export function ContenedorPrincipal({ children, navbar }) {
   return (
-    <div className="min-h-screen bg-fondo text-texto flex font-sans">
-      <aside className="w-64 bg-panel border-r border-borde flex flex-col">
-        <div className="p-6 border-b border-borde">
-          <img src={logo} alt="Logo" className="w-32 h-auto mx-auto bg-[#0f0f0f] p-2 rounded-sm" />
-        </div>
-        <nav className="flex-1 p-4 flex flex-col gap-2">
-          <button className="flex items-center w-full px-4 py-3 bg-secundario/10 text-secundario border-l-2 border-secundario font-medium text-left">
-            Iniciacion de pedidos
-          </button>
-        </nav>
+    <div className="min-h-screen bg-fondo text-texto flex flex-col font-sans">
+      <aside className="w-full bg-panel border-b border-borde p-2">
+        {navbar}
       </aside>
       <div className="flex-1 flex flex-col">
         <header className="h-20 bg-fondo border-b border-borde flex items-center px-8">

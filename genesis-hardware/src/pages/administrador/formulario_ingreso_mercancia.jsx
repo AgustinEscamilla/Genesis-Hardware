@@ -1,13 +1,16 @@
-// aqui maestro yo armo el formulario con volumen obligatorio y selector de tipo de unidad de venta
-export function FormularioIngresoMercancia({ forma, cambiar, enviar, guardando, mensaje }) {
+// aqui maestro yo armo el formulario ligado al catalogo por id para evitar cruces por nombre
+export function FormularioIngresoMercancia({ forma, catalogo = [], cambiar, enviar, guardando, mensaje }) {
   return (
     <form onSubmit={e => { e.preventDefault(); enviar() }} className="flex flex-col gap-4 max-w-md">
-      <input
-        value={forma.nombre}
-        onChange={e => cambiar('nombre', e.target.value)}
-        placeholder="Nombre del articulo"
+      <select
+        value={forma.productoId}
+        onChange={e => cambiar('productoId', e.target.value)}
+        required
         className="bg-fondo border border-borde text-texto px-3 py-2 text-xs"
-      />
+      >
+        <option value="">Selecciona un producto del catalogo</option>
+        {catalogo.map(p => <option key={p.id} value={p.id}>{p.nombre}</option>)}
+      </select>
       <input
         type="number"
         min="1"

@@ -17,17 +17,19 @@ export function VistaComenzarRutaRepartidor() {
   }, [manifiestos, pedidosEnReparto])
 
   return (
-    <div className="min-h-screen bg-fondo p-6 text-texto flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="bg-panel border border-borde p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-3">Ruta de entrega sugerida</h2>
-        <div className="grid grid-cols-1 gap-3">
+        <div className="flex flex-col gap-3">
           {paradas.map((parada) => (
-            <div key={parada.orden} className="border border-borde p-4 rounded-lg bg-[#111]">
-              <p className="text-sm font-semibold text-texto">Parada {parada.orden}</p>
-              <p className="text-[10px] text-texto">Zona {parada.zona}</p>
-              <p className="text-[10px] text-mutado">Pedidos {parada.pedidos}</p>
+            <div key={parada.orden} className="flex items-center gap-3 border border-borde rounded-lg p-4 bg-fondo hover:border-terciario transition-colors">
+              <span className="w-8 h-8 shrink-0 rounded-full bg-terciario/10 border border-terciario text-terciario text-sm font-bold flex items-center justify-center">{parada.orden}</span>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-texto uppercase">Zona {parada.zona}</p>
+                <p className="text-[10px] text-mutado">{parada.pedidos} pedidos en esta parada</p>
+              </div>
               {parada.primerPedido && (
-                <Link to="/repartidores/mapa" state={{ pedido: parada.primerPedido }} className="text-[10px] text-primario underline">
+                <Link to="/repartidores/mapa" state={{ pedido: parada.primerPedido }} className="text-[10px] text-primario border border-primario rounded px-2 py-1 hover:bg-primario hover:text-fondo transition-colors">
                   Ver mapa
                 </Link>
               )}

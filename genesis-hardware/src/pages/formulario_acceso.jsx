@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EntradaTexto } from '../components/entrada_texto'
 import { BotonPrincipal } from '../components/boton_principal'
-import { iniciarSesionConCorreo } from '../services/servicio_autenticacion'
+import { cerrarSesion, iniciarSesionConCorreo } from '../services/servicio_autenticacion'
 import { resolverRutaAcceso } from '../services/servicio_rutas_acceso'
 import { validarAccesoCorreoContrasena } from '../services/servicio_validaciones_acceso'
 
@@ -12,14 +12,17 @@ export function FormularioAcceso() {
   const [mensajeError, setMensajeError] = useState('')
   const navegar = useNavigate()
 
-  // aqui maestro yo valido correo y contrasena sin mezclar la navegacion
+  // aqui maestro yo autentico primero para que la validacion en firestore ya tenga permisos
   const manejarEnvio = async (evento) => {
     evento.preventDefault()
     setMensajeError('')
     try {
-      const validacion = await validarAccesoCorreoContrasena(correo)
-      if (!validacion.permitido) return setMensajeError(validacion.mensaje)
       const usuario = await iniciarSesionConCorreo(correo, contrasena)
+      const validacion = await validarAccesoCorreoContrasena(correo)
+      if (!validacion.permitido) {
+        await cerrarSesion()
+        return setMensajeError(validacion.mensaje)
+      }
       navegar(await resolverRutaAcceso({ uidAuth: usuario?.uid, correo: usuario?.correo || correo }), { replace: true })
     } catch { setMensajeError('No se pudo validar el acceso') }
   }

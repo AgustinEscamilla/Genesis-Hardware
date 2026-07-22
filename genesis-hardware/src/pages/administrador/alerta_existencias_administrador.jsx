@@ -7,7 +7,7 @@ export function AlertaStockAdmin({ alertas }) {
       <p className="text-xs uppercase tracking-widest text-primario">Alerta preventiva de stock</p>
       {alertas.map(a => (
         <p key={a.id} className="text-xs text-texto">
-          {a.nombre} en minimo {a.volumen} de {a.stockMinimo}
+          {a.nombreProducto} en minimo {a.volumen} de {a.stockMinimo}
         </p>
       ))}
     </div>

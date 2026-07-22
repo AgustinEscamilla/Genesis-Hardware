@@ -5,8 +5,8 @@ export function RepartidorListaManifiestos({ manifiestos, pedidosEnReparto, alEn
   const pedidosDe = (manifiesto) => pedidosEnReparto.filter((p) => p.manifiestoId === manifiesto.id)
 
   return (
-    <div className="border border-borde bg-fondo p-4 flex flex-col gap-3">
-      <p className="text-xs uppercase tracking-widest text-primario">Manifiestos de carga</p>
+    <div className="border border-borde bg-panel rounded-lg p-4 flex flex-col gap-3">
+      <p className="text-xs uppercase tracking-widest text-terciario flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-terciario" />Manifiestos de carga</p>
       {!manifiestos.length && <p className="text-xs text-mutado">Aun no hay manifiestos generados</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {manifiestos.map((m) => (

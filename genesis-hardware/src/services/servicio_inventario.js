@@ -1,16 +1,20 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
-import { addDoc, collection, getDocs, onSnapshot } from 'firebase/firestore'
+import { collection, doc, getDocs, increment, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const coleccion = () => collection(db, 'inventario')
+const referencia = (productoId) => doc(db, 'inventario', productoId)
 
-export const registrarMercancia = async (datos) => {
-  await addDoc(coleccion(), {
-    ...datos,
-    volumen: Number(datos.volumen || 0),
-    stockMinimo: Number(datos.stockMinimo || 5),
+// pos esto funciona para sumar stock ligado estrictamente al id del producto del catalogo
+export const registrarMercancia = async ({ productoId, nombreProducto, volumen, tipoUnidad }) => {
+  await setDoc(referencia(productoId), {
+    productoId,
+    nombreProducto,
+    tipoUnidad,
+    stockMinimo: 5,
+    volumen: increment(Number(volumen || 0)),
     fechaIngreso: new Date().toISOString(),
-  })
+  }, { merge: true })
 }
 
 export const obtenerInventario = async () => {

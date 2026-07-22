@@ -9,14 +9,14 @@ export function MapaEntrega({ ubicacion, destino }) {
 
     if (clave_maps) {
         const src = `https://www.google.com/maps/embed/v1/place?key=${clave_maps}&q=${destino.lat},${destino.lng}`
-        return <iframe title="mapa entrega" className="w-full h-64 border border-borde" src={src} />
+        return <iframe title="mapa entrega" className="w-full h-64 border border-borde rounded-lg" src={src} />
     }
 
     const porcentaje_x = limitar(50 + (ubicacion.lng - destino.lng) * 4000)
     const porcentaje_y = limitar(50 + (ubicacion.lat - destino.lat) * 4000)
 
     return (
-        <div className="relative w-full h-64 border border-borde bg-fondo overflow-hidden bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
+        <div className="relative w-full h-64 border border-borde rounded-lg bg-fondo overflow-hidden bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
             <MapaMarcadorMovil porcentaje_x={porcentaje_x} porcentaje_y={porcentaje_y} />
             <div className="absolute right-2 bottom-2 w-3 h-3 rounded-full bg-[#fca5a5]" title="destino" />
         </div>

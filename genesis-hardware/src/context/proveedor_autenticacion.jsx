@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../services/conexion_firebase'
 import { obtenerUsuarioLocal } from '../services/servicio_autenticacion'
+import { useRolSesion } from '../hooks/use_rol_sesion'
 import { ContextoAutenticacion } from './contexto_autenticacion'
 
 const usarSesionLocal = import.meta.env.DEV || import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
@@ -13,6 +14,7 @@ export function ProveedorAutenticacion({ children }) {
   const usuarioLocalInicial = obtenerUsuarioLocal()
   const [usuarioActual, setUsuarioActual] = useState(() => usuarioLocalInicial)
   const [cargando, setCargando] = useState(() => !usuarioLocalInicial && !usarSesionLocal)
+  const rol = useRolSesion(usuarioActual)
 
   useEffect(() => {
     if (usarSesionLocal) {
@@ -40,7 +42,7 @@ export function ProveedorAutenticacion({ children }) {
   }, [])
 
   return (
-    <ContextoAutenticacion.Provider value={{ usuarioActual, cargando }}>
+    <ContextoAutenticacion.Provider value={{ usuarioActual, cargando, rol }}>
       {children}
     </ContextoAutenticacion.Provider>
   )

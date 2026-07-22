@@ -8,6 +8,7 @@ import { VistaOnboardingRepartidor } from './vista_onboarding_repartidor'
 import { RutasAdministrador } from './rutas_administrador'
 import { RutasEmpleados } from './rutas_empleados'
 import { RutasRepartidor } from './rutas_repartidor'
+import { RutaProtegida } from '../components/ruta_protegida'
 
 // aqui maestro yo agrupo todas las rutas en un unico componente de navegacion
 export function RutasApp() {
@@ -18,8 +19,8 @@ export function RutasApp() {
       <Route path="/login" element={<Navigate to="/autenticacion" replace />} />
       <Route path="/empleados/acceso" element={<Navigate to="/autenticacion" replace />} />
       {RutasAdministrador()}
-      <Route path="/clientes" element={<VistaPrincipalCliente />} />
-      <Route path="/clientes/ajustes" element={<VistaAjustesCliente />} />
+      <Route path="/clientes" element={<RutaProtegida rolPermitido="cliente"><VistaPrincipalCliente /></RutaProtegida>} />
+      <Route path="/clientes/ajustes" element={<RutaProtegida rolPermitido="cliente"><VistaAjustesCliente /></RutaProtegida>} />
       <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
       {RutasRepartidor()}
       <Route path="/onboarding/empleados" element={<VistaOnboardingEmpleado />} />

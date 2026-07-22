@@ -11,6 +11,8 @@ export function BarraNavegacionEmpleado() {
     <nav className="bg-panel border border-borde p-3 flex flex-wrap gap-2">
       <NavLink to="." end className={estilo}>Dashboard</NavLink>
       <NavLink to="recepcion" className={estilo}>Recepcion</NavLink>
+      <NavLink to="empaque" className={estilo}>Empaque</NavLink>
+      <NavLink to="anden-salida" className={estilo}>Anden de salida</NavLink>
       <NavLink to="busqueda-pedidos" className={estilo}>Busqueda pedidos</NavLink>
       <NavLink to="inventario" className={estilo}>Inventario</NavLink>
       <NavLink to="gestion-pedidos" className={estilo}>Gestion pedidos</NavLink>

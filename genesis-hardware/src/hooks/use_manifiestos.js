@@ -12,7 +12,11 @@ export function useManifiestos() {
 
   useEffect(() => escucharManifiestos(setManifiestos), [])
 
-  const pedidosParaAgrupar = useMemo(() => [...listosDespacho, ...pendientesRecoleccion], [listosDespacho, pendientesRecoleccion])
+  // aqui maestro yo dejo pasar solo los pedidos que el empleado libero en el anden
+  const pedidosParaAgrupar = useMemo(
+    () => [...listosDespacho.filter((p) => p.liberadoParaRepartidor), ...pendientesRecoleccion],
+    [listosDespacho, pendientesRecoleccion]
+  )
   const zonasPendientes = useMemo(() => agruparPedidosPorZona(pedidosParaAgrupar), [pedidosParaAgrupar])
 
   const pedidosDelManifiesto = (manifiesto) => pedidosEnReparto.filter((p) => p.manifiestoId === manifiesto.id)

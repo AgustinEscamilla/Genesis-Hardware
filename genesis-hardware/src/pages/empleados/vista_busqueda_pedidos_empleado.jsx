@@ -8,7 +8,7 @@ export function VistaBusquedaPedidosEmpleado() {
 
   const resultados = useMemo(() => {
     const termino = busqueda.toLowerCase()
-    return inventario.filter((item) => String(item.nombre).toLowerCase().includes(termino))
+    return inventario.filter((item) => String(item.nombreProducto).toLowerCase().includes(termino))
   }, [busqueda, inventario])
 
   return (
@@ -19,7 +19,7 @@ export function VistaBusquedaPedidosEmpleado() {
         <div className="grid grid-cols-1 gap-3">
           {resultados.map((item) => (
             <div key={item.id} className="border border-borde p-3 rounded-lg bg-[#111]">
-              <p className="text-sm font-semibold text-texto">{item.nombre}</p>
+              <p className="text-sm font-semibold text-texto">{item.nombreProducto}</p>
               <p className="text-[10px] text-mutado">Stock disponible {item.volumen ?? 0} {item.tipoUnidad}</p>
             </div>
           ))}

@@ -1,4 +1,4 @@
-const almacen = { lat: 19.4326, lng: -99.1332 }
+export const almacen = { lat: 19.4326, lng: -99.1332 }
 
 // aqui maestro yo genero una ruta falsa determinista a partir del folio del pedido
 export const generar_ruta_simulada = (pedido_id) => {

@@ -6,7 +6,7 @@ import { BarraNavegacionEmpleado } from '../components/barra_navegacion_empleado
 
 export function PlantillaEmpleados() {
   return (
-    <RutaProtegida>
+    <RutaProtegida rolPermitido="empleado">
       <ContenedorPrincipal navbar={<BarraNavegacionEmpleado />}>
         <Outlet />
       </ContenedorPrincipal>

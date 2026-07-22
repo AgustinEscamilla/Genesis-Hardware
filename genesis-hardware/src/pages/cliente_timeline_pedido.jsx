@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { MapaClienteRastreo } from '../components/mapa_cliente_rastreo'
 
 // aqui maestro yo dejo las etiquetas visibles para cada estado del pedido
@@ -27,6 +28,11 @@ export function ClienteTimelinePedido({ pedido }) {
         ))}
       </div>
       {pedido.estado === 'en_reparto' && <MapaClienteRastreo pedido_id={pedido.id} />}
+      {pedido.estado === 'entregado' && (
+        <Link to={`/clientes/reclamos?pedido=${pedido.id}`} className="text-[10px] text-primario border border-primario rounded px-2 py-1 self-start hover:bg-primario hover:text-fondo transition-colors">
+          Levantar reclamo
+        </Link>
+      )}
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { VistaAjustesCliente } from './clientes/vista_ajustes_cliente'
+import { VistaReclamoPedido } from './clientes/vista_reclamo_pedido'
 import { VistaPrincipalCliente } from './vista_principal_cliente'
 import { VistaAutenticacion } from './vista_autenticacion'
 import { VistaInicio } from './publico/inicio/vista_inicio'
@@ -21,6 +22,7 @@ export function RutasApp() {
       {RutasAdministrador()}
       <Route path="/clientes" element={<RutaProtegida rolPermitido="cliente"><VistaPrincipalCliente /></RutaProtegida>} />
       <Route path="/clientes/ajustes" element={<RutaProtegida rolPermitido="cliente"><VistaAjustesCliente /></RutaProtegida>} />
+      <Route path="/clientes/reclamos" element={<RutaProtegida rolPermitido="cliente"><VistaReclamoPedido /></RutaProtegida>} />
       <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
       {RutasRepartidor()}
       <Route path="/onboarding/empleados" element={<VistaOnboardingEmpleado />} />

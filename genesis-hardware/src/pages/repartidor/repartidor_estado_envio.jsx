@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { FormularioComprobanteEntrega } from './formulario_comprobante_entrega'
+import { FormularioRechazoEntrega } from './formulario_rechazo_entrega'
 
 const etiquetas = { en_transito: 'En transito', entregado: 'Entregado' }
 
-// pos esto funciona para mostrar el estado del envio y pedir el comprobante final
+// pos esto funciona para mostrar el estado del envio y pedir comprobante o rechazo
 export function RepartidorEstadoEnvio({ pedido, estado_envio }) {
-    const yaEntregado = pedido.estado === 'entregado'
+    const [rechazando, setRechazando] = useState(false)
+    const yaCerrado = pedido.estado === 'entregado' || pedido.estado === 'rechazado'
 
     return (
         <div className="flex flex-col gap-3">
@@ -14,7 +17,15 @@ export function RepartidorEstadoEnvio({ pedido, estado_envio }) {
                     {etiquetas[estado_envio] || estado_envio}
                 </span>
             </div>
-            {estado_envio === 'entregado' && !yaEntregado && <FormularioComprobanteEntrega pedido={pedido} />}
+            {estado_envio === 'entregado' && !yaCerrado && !rechazando && (
+                <>
+                    <FormularioComprobanteEntrega pedido={pedido} />
+                    <button onClick={() => setRechazando(true)} className="text-[10px] text-mutado underline self-start">
+                        El cliente rechazo el pedido
+                    </button>
+                </>
+            )}
+            {estado_envio === 'entregado' && !yaCerrado && rechazando && <FormularioRechazoEntrega pedido={pedido} />}
         </div>
     )
 }

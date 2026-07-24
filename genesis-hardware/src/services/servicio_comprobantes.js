@@ -5,11 +5,11 @@ const coleccionComprobantes = () => collection(db, 'comprobantes_entrega')
 
 // aqui maestro yo guardo la evidencia fotografica que certifica la entrega
 export const crearComprobante = async ({ pedidoId, imagenUrl, nota }) => {
-  await addDoc(coleccionComprobantes(), { pedidoId, imagenUrl, nota, fecha: new Date().toISOString() })
+    await addDoc(coleccionComprobantes(), { pedidoId, imagenUrl, nota, fecha: new Date().toISOString() })
 }
 
 // pos esto funciona para escuchar el comprobante asociado a un pedido especifico
 export const escucharComprobantePedido = (pedidoId, alCambiar) => {
-  const q = query(coleccionComprobantes(), where('pedidoId', '==', pedidoId))
-  return onSnapshot(q, (snap) => alCambiar(snap.docs[0] ? { id: snap.docs[0].id, ...snap.docs[0].data() } : null))
+    const q = query(coleccionComprobantes(), where('pedidoId', '==', pedidoId))
+    return onSnapshot(q, (snap) => alCambiar(snap.docs[0] ? { id: snap.docs[0].id, ...snap.docs[0].data() } : null))
 }

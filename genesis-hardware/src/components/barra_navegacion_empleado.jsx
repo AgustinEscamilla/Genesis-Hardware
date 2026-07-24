@@ -16,6 +16,7 @@ export function BarraNavegacionEmpleado() {
       <NavLink to="busqueda-pedidos" className={estilo}>Busqueda pedidos</NavLink>
       <NavLink to="inventario" className={estilo}>Inventario</NavLink>
       <NavLink to="gestion-pedidos" className={estilo}>Gestion pedidos</NavLink>
+      <NavLink to="rechazos" className={estilo}>Rechazos</NavLink>
     </nav>
   )
 }

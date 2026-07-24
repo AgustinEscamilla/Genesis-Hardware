@@ -5,17 +5,17 @@ import { actualizarEstadoPedido, ESTADOS_PEDIDO } from '../services/servicio_flu
 
 // esto sirve para capturar la evidencia fotografica y cerrar la entrega del pedido
 export function useComprobanteEntrega(pedido) {
-  const [nota, setNota] = useState('')
-  const [confirmando, setConfirmando] = useState(false)
-  const { urlImagen, subiendo, mensaje, subir } = useSubidaImagen()
+    const [nota, setNota] = useState('')
+    const [confirmando, setConfirmando] = useState(false)
+    const { urlImagen, subiendo, mensaje, subir } = useSubidaImagen()
 
-  const confirmar = async () => {
-    if (!urlImagen || !pedido) return
-    setConfirmando(true)
-    await crearComprobante({ pedidoId: pedido.id, imagenUrl: urlImagen, nota })
-    await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.ENTREGADO)
-    setConfirmando(false)
-  }
+    const confirmar = async () => {
+        if (!urlImagen || !pedido) return
+        setConfirmando(true)
+        await crearComprobante({ pedidoId: pedido.id, imagenUrl: urlImagen, nota })
+        await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.ENTREGADO)
+        setConfirmando(false)
+    }
 
-  return { nota, setNota, urlImagen, subiendo, mensaje, subir, confirmar, confirmando }
+    return { nota, setNota, urlImagen, subiendo, mensaje, subir, confirmar, confirmando }
 }

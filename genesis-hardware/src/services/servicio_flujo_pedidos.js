@@ -9,7 +9,8 @@ export const ESTADOS_PEDIDO = {
   EN_EMPAQUE: 'en_empaque',
   LISTO_DESPACHO: 'listo_despacho',
   EN_REPARTO: 'en_reparto',
-  ENTREGADO: 'entregado'
+  ENTREGADO: 'entregado',
+  RECHAZADO: 'rechazado'
 }
 
 export const mensajesPorEstado = {
@@ -18,7 +19,8 @@ export const mensajesPorEstado = {
   en_empaque: 'tu pedido esta en proceso de empaque',
   listo_despacho: 'tu pedido esta listo para despacho',
   en_reparto: 'tu pedido esta en camino con el repartidor',
-  entregado: 'tu pedido fue entregado con exito'
+  entregado: 'tu pedido fue entregado con exito',
+  rechazado: 'tu pedido fue rechazado en la entrega y sera gestionado por un asesor'
 }
 
 // aqui maestro yo escucho pedidos por estado para render en tiempo real

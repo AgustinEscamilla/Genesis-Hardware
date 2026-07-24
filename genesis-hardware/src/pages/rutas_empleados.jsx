@@ -7,6 +7,7 @@ import { VistaInventarioEmpleado } from './empleados/vista_inventario_empleado'
 import { VistaGestionPedidosEmpleado } from './empleados/vista_gestion_pedidos_empleado'
 import { VistaEmpaqueEmpleado } from './empleados/vista_empaque_empleado'
 import { VistaLiberacionEmpleado } from './empleados/vista_liberacion_empleado'
+import { VistaPedidosRechazadosEmpleado } from './empleados/vista_pedidos_rechazados_empleado'
 
 // aqui maestro yo defino las rutas internas del modulo de empleados
 export function RutasEmpleados() {
@@ -19,6 +20,7 @@ export function RutasEmpleados() {
       <Route path="gestion-pedidos" element={<VistaGestionPedidosEmpleado />} />
       <Route path="empaque" element={<VistaEmpaqueEmpleado />} />
       <Route path="anden-salida" element={<VistaLiberacionEmpleado />} />
+      <Route path="rechazos" element={<VistaPedidosRechazadosEmpleado />} />
     </Route>
   )
 }

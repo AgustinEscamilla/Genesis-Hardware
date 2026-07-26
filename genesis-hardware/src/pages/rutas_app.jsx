@@ -25,8 +25,8 @@ export function RutasApp() {
       <Route path="/clientes/reclamos" element={<RutaProtegida rolPermitido="cliente"><VistaReclamoPedido /></RutaProtegida>} />
       <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
       {RutasRepartidor()}
-      <Route path="/onboarding/empleados" element={<VistaOnboardingEmpleado />} />
-      <Route path="/onboarding/repartidores" element={<VistaOnboardingRepartidor />} />
+      <Route path="/onboarding/empleados" element={<RutaProtegida rolPermitido="empleado"><VistaOnboardingEmpleado /></RutaProtegida>} />
+      <Route path="/onboarding/repartidores" element={<RutaProtegida rolPermitido="repartidor"><VistaOnboardingRepartidor /></RutaProtegida>} />
       {RutasEmpleados()}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -28,7 +28,7 @@ export function RutaProtegida({ children, rolPermitido }) {
 
   // aqui maestro yo bloqueo el acceso si el rol guardado en firestore no coincide
   if (rolPermitido && rol !== rolPermitido) {
-    return <Navigate to="/autenticacion" replace />
+    return <Navigate to="/" replace />
   }
 
   return children

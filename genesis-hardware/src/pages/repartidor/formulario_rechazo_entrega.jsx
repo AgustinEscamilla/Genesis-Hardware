@@ -2,7 +2,7 @@ import { useRechazoEntrega } from '../../hooks/use_rechazo_entrega'
 
 // aqui puse profe yo registro el motivo cuando el cliente rechaza la entrega
 export function FormularioRechazoEntrega({ pedido }) {
-    const { motivo, setMotivo, confirmar, confirmando } = useRechazoEntrega(pedido)
+    const { motivo, setMotivo, confirmar, confirmando, mensaje_error } = useRechazoEntrega(pedido)
 
     return (
         <div className="bg-panel border border-primario/40 rounded-lg p-4 flex flex-col gap-3">
@@ -11,6 +11,7 @@ export function FormularioRechazoEntrega({ pedido }) {
             <button onClick={confirmar} disabled={!motivo || confirmando} className="border border-primario bg-primario/10 text-primario text-xs font-semibold uppercase tracking-wide px-4 py-2 rounded hover:bg-primario hover:text-fondo disabled:opacity-50 transition-colors self-start">
                 {confirmando ? 'Registrando rechazo...' : 'Confirmar rechazo'}
             </button>
+            {mensaje_error && <p className="text-xs text-primario">{mensaje_error}</p>}
         </div>
     )
 }

@@ -5,13 +5,16 @@ import { actualizarEstadoPedido, ESTADOS_PEDIDO } from '../services/servicio_flu
 export function useRechazoEntrega(pedido) {
     const [motivo, setMotivo] = useState('')
     const [confirmando, setConfirmando] = useState(false)
+    const [mensaje_error, setMensajeError] = useState('')
 
     const confirmar = async () => {
         if (!motivo || !pedido) return
         setConfirmando(true)
-        await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.RECHAZADO, { motivoRechazo: motivo })
-        setConfirmando(false)
+        setMensajeError('')
+        try { await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.RECHAZADO, { motivoRechazo: motivo }) }
+        catch { setMensajeError('No se pudo registrar el rechazo') }
+        finally { setConfirmando(false) }
     }
 
-    return { motivo, setMotivo, confirmar, confirmando }
+    return { motivo, setMotivo, confirmar, confirmando, mensaje_error }
 }

@@ -9,15 +9,19 @@ export function useComprobanteEntrega(pedido) {
     const { usuarioActual } = useAutenticacion()
     const [nota, setNota] = useState('')
     const [confirmando, setConfirmando] = useState(false)
+    const [mensaje_error, setMensajeError] = useState('')
     const { urlImagen, subiendo, mensaje, subir } = useSubidaImagen()
 
     const confirmar = async () => {
         if (!urlImagen || !pedido) return
         setConfirmando(true)
-        await crearComprobante({ pedidoId: pedido.id, repartidorId: usuarioActual?.uid, imagenUrl: urlImagen, nota })
-        await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.ENTREGADO)
-        setConfirmando(false)
+        setMensajeError('')
+        try {
+            await crearComprobante({ pedidoId: pedido.id, repartidorId: usuarioActual?.uid, imagenUrl: urlImagen, nota })
+            await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.ENTREGADO)
+        } catch { setMensajeError('No se pudo confirmar la entrega') }
+        finally { setConfirmando(false) }
     }
 
-    return { nota, setNota, urlImagen, subiendo, mensaje, subir, confirmar, confirmando }
+    return { nota, setNota, urlImagen, subiendo, mensaje, mensaje_error, subir, confirmar, confirmando }
 }

@@ -1,26 +1,77 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function autenticado() {
-      return request.auth != null;
-    }
+    function autenticado() { return request.auth != null; }
+    function tienePerfil(rol) { return autenticado() && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid)) && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == rol; }
+    function correoTerminaEn(dominio) { return autenticado() && request.auth.token.email is string && request.auth.token.email.matches(dominio); }
+    function esAdministrador() { return tienePerfil('administrador') || correoTerminaEn('.*@admin\\.genesis\\.com$'); }
+    function esEmpleado() { return tienePerfil('empleado') || correoTerminaEn('.*@(empleado|genesis)\\.com$'); }
+    function esRepartidor() { return tienePerfil('repartidor') || correoTerminaEn('.*@repartidor\\.com$'); }
+    function esCliente() { return tienePerfil('cliente') || correoTerminaEn('.*@gmail\\.com$'); }
+    function esStaff() { return esAdministrador() || esEmpleado() || esRepartidor(); }
+    function esPropietario(id) { return autenticado() && request.auth.uid == id; }
 
-    function esAdmin() {
-      return autenticado()
-        && request.auth.token.email is string
-        && request.auth.token.email.matches('.*@admin\\.genesis\\.com$');
-    }
-
-    // Catalogo visible para frontend publico/cliente.
     match /catalogo/{productoId} {
       allow read: if true;
-      allow create, update, delete: if esAdmin();
+      allow write: if esAdministrador();
     }
-
-    // Regla temporal para no romper otros modulos existentes.
-    // Ajustar por coleccion cuando se endurezca seguridad.
-    match /{documento=**} {
-      allow read, write: if autenticado();
+    match /lineas_producto/{lineaId} {
+      allow read: if true;
+      allow write: if esAdministrador();
+    }
+    match /usuarios/{uid} {
+      allow read: if esAdministrador() || esEmpleado() || esPropietario(uid);
+      allow create: if esAdministrador() || (esPropietario(uid) && request.resource.data.uidAuth == uid && request.resource.data.rol == 'cliente');
+      allow update: if esAdministrador() || (esPropietario(uid) && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol && request.resource.data.correo == resource.data.correo);
+      allow delete: if esAdministrador();
+    }
+    match /empleados/{empleadoId} {
+      allow read: if esAdministrador() || (esEmpleado() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
+      allow create, delete: if esAdministrador();
+      allow update: if esAdministrador() || (esEmpleado() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
+    }
+    match /repartidores/{repartidorId} {
+      allow read: if esAdministrador() || (esRepartidor() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
+      allow create, delete: if esAdministrador();
+      allow update: if esAdministrador() || (esRepartidor() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
+    }
+    match /pedidos/{pedidoId} {
+      allow read: if esStaff() || (esCliente() && resource.data.clienteId == request.auth.uid);
+      allow create: if esAdministrador() || esEmpleado() || (esCliente() && request.resource.data.clienteId == request.auth.uid && request.resource.data.origen == 'cliente');
+      allow update: if esStaff();
+      allow delete: if esAdministrador();
+    }
+    match /inventario/{productoId} {
+      allow read: if autenticado();
+      allow create: if esAdministrador() || esEmpleado();
+      allow update: if esAdministrador() || esEmpleado() || (esCliente() && request.resource.data.volumen is number && request.resource.data.volumen >= 0 && request.resource.data.volumen <= resource.data.volumen && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['volumen', 'fechaIngreso']));
+      allow delete: if esAdministrador();
+    }
+    match /notificaciones/{notificacionId} {
+      allow read: if esStaff() || (esCliente() && resource.data.clienteId == request.auth.uid);
+      allow create: if esStaff() || (esCliente() && request.resource.data.clienteId == request.auth.uid && exists(/databases/$(database)/documents/pedidos/$(request.resource.data.pedidoId)) && get(/databases/$(database)/documents/pedidos/$(request.resource.data.pedidoId)).data.clienteId == request.auth.uid);
+      allow update: if esAdministrador() || (esCliente() && resource.data.clienteId == request.auth.uid);
+      allow delete: if esAdministrador();
+    }
+    match /reclamos/{reclamoId} {
+      allow read: if esStaff() || (esCliente() && resource.data.clienteId == request.auth.uid);
+      allow create: if esCliente() && request.resource.data.clienteId == request.auth.uid;
+      allow update: if esStaff() || (esCliente() && resource.data.clienteId == request.auth.uid);
+      allow delete: if esAdministrador();
+    }
+    match /comprobantes_entrega/{comprobanteId} {
+      allow read: if esStaff() || (esCliente() && exists(/databases/$(database)/documents/pedidos/$(resource.data.pedidoId)) && get(/databases/$(database)/documents/pedidos/$(resource.data.pedidoId)).data.clienteId == request.auth.uid);
+      allow create: if esAdministrador() || (esRepartidor() && request.resource.data.repartidorId == request.auth.uid);
+      allow update, delete: if esAdministrador();
+    }
+    match /reportes_fallas/{reporteId} {
+      allow read: if esAdministrador() || esEmpleado() || (esRepartidor() && resource.data.repartidorId == request.auth.uid);
+      allow create: if esRepartidor() && request.resource.data.repartidorId == request.auth.uid;
+      allow update, delete: if esAdministrador();
+    }
+    match /manifiestos/{manifiestoId} {
+      allow read, create, update: if esAdministrador() || esRepartidor();
+      allow delete: if esAdministrador();
     }
   }
 }

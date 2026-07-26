@@ -18,7 +18,7 @@ export function FormularioAcceso() {
     setMensajeError('')
     try {
       const usuario = await iniciarSesionConCorreo(correo, contrasena)
-      const validacion = await validarAccesoCorreoContrasena(correo)
+      const validacion = await validarAccesoCorreoContrasena(correo, usuario?.uid)
       if (!validacion.permitido) {
         await cerrarSesion()
         return setMensajeError(validacion.mensaje)

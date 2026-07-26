@@ -1,8 +1,8 @@
 import { collection, doc, getDoc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './conexion_firebase'
+import { rutas_por_rol } from './constantes_autorizacion'
 
 const referenciaUsuario = (uidAuth) => doc(db, 'usuarios', uidAuth)
-const rutasPorRol = { administrador: '/administrador', empleado: '/empleados', repartidor: '/repartidores', cliente: '/clientes' }
 const dominiosPorRol = { administrador: ['@admin.genesis.com'], empleado: ['@empleado.com', '@genesis.com'], repartidor: ['@repartidor.com'], cliente: ['@gmail.com'] }
 
 const correoTerminaCon = (correo, lista) => lista.some((dominio) => correo.endsWith(dominio))
@@ -38,9 +38,9 @@ export const escucharUsuarios = (alCambiar) => onSnapshot(collection(db, 'usuari
 // aqui maestro yo resuelvo la ruta del panel usando firestore y el respaldo local de desarrollo
 export const resolverRutaAccesoUsuario = async ({ uidAuth, correo }) => {
   const rol = inferirRolPorCorreo(correo)
-  if (esSesionLocal(uidAuth) && rol) return rutasPorRol[rol]
+  if (esSesionLocal(uidAuth) && rol) return rutas_por_rol[rol]
   const perfil = uidAuth ? await buscarPerfilUsuario(uidAuth) : null
-  if (perfil?.rol) return rutasPorRol[String(perfil.rol).toLowerCase()] || '/autenticacion'
-  if (rol) return rutasPorRol[rol]
+  if (perfil?.rol) return rutas_por_rol[String(perfil.rol).toLowerCase()] || '/autenticacion'
+  if (rol) return rutas_por_rol[rol]
   return '/autenticacion'
 }

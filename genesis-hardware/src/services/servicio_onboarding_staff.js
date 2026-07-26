@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, query, serverTimestamp, updateDoc, where } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 import { guardarPerfilUsuario } from './servicio_usuarios'
 
@@ -6,11 +6,13 @@ const coleccionPorRol = { empleado: 'empleados', repartidor: 'repartidores' }
 const correoNormal = (correo = '') => String(correo).trim().toLowerCase()
 
 const buscarStaff = async (rol, correo, uidAuth) => {
-  const snapshot = await getDocs(collection(db, coleccionPorRol[rol]))
-  return snapshot.docs.find((item) => {
-    const data = item.data() || {}
-    return correoNormal(data.correo) === correoNormal(correo) || (uidAuth && data.uidAuth === uidAuth)
-  })
+  const referencia = collection(db, coleccionPorRol[rol])
+  if (uidAuth) {
+    const por_uid = await getDocs(query(referencia, where('uidAuth', '==', uidAuth)))
+    if (por_uid.docs[0]) return por_uid.docs[0]
+  }
+  const por_correo = await getDocs(query(referencia, where('correo', '==', correoNormal(correo))))
+  return por_correo.docs[0]
 }
 
 export const requiereOnboardingStaff = async ({ rol, correo, uidAuth }) => {

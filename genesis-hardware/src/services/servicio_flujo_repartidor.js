@@ -1,12 +1,13 @@
 import { arrayUnion, collection, doc, writeBatch } from 'firebase/firestore'
 import { db } from './conexion_firebase'
-import { ESTADOS_PEDIDO, mensajesPorEstado } from './servicio_flujo_pedidos'
+import { ESTADOS_PEDIDO, mensajesPorEstado, es_transicion_pedido_valida } from './servicio_flujo_pedidos'
 import { agruparPedidosPorZona } from './servicio_manifiestos'
 import { crearNotificacion } from './servicio_notificaciones'
 
 // esto sirve para mover toda la ruta aceptada a en reparto en un solo lote atomico
 export const iniciarRutaRepartidor = async (paradas = [], repartidorId = null) => {
     const pedidos = paradas.map((p) => p.pedido)
+    if (pedidos.some((pedido) => !es_transicion_pedido_valida(pedido.estado, ESTADOS_PEDIDO.EN_REPARTO))) throw new Error('La ruta contiene un pedido fuera de secuencia')
     const porZona = agruparPedidosPorZona(pedidos)
     const lote = writeBatch(db)
     const fecha = new Date().toISOString()

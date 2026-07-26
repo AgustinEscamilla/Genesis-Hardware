@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../services/conexion_firebase'
+import { useAutenticacion } from './use_autenticacion'
 import { resolverRutaAcceso } from '../services/servicio_rutas_acceso'
 
 export function useRedireccionAuth() {
   const navegar = useNavigate()
-  const [cargando, setCargando] = useState(true)
+  const { usuarioActual, cargando: cargando_sesion } = useAutenticacion()
+  const [uid_procesado, setUidProcesado] = useState(null)
 
-  // aqui maestro el uid y mando cada rol a su panel
-  useEffect(() => onAuthStateChanged(auth, async (usuario) => {
-    if (!usuario) return setCargando(false)
-    navegar(await resolverRutaAcceso({ uidAuth: usuario.uid, correo: usuario.email || '' }), { replace: true })
-    setCargando(false)
-  }), [navegar])
+  useEffect(() => {
+    if (cargando_sesion) return undefined
+    if (!usuarioActual || uid_procesado === usuarioActual.uid) return undefined
+    let activo = true
+    resolverRutaAcceso({ uidAuth: usuarioActual.uid, correo: usuarioActual.email || usuarioActual.correo || '' })
+      .then((ruta) => {
+        if (!activo) return
+        setUidProcesado(usuarioActual.uid)
+        navegar(ruta, { replace: true })
+      })
+      .catch(() => activo && setUidProcesado(usuarioActual.uid))
+    return () => { activo = false }
+  }, [cargando_sesion, uid_procesado, usuarioActual, navegar])
 
-  return { cargando }
+  return { cargando: cargando_sesion || Boolean(usuarioActual && uid_procesado !== usuarioActual.uid) }
 }

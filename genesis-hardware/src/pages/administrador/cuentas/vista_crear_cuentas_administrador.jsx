@@ -1,7 +1,7 @@
 import { useFormularioAltaCuenta } from '../../../hooks/use_alta_cuenta'
 import { FormularioNuevaCuenta } from './formulario_alta_cuenta'
 
-// Le agregamos el 'export' directo a la constante para que coincida con las llaves de App.jsx
+// aqui maestro yo exporto la vista para conectarla con las rutas de la aplicacion
 export const VistaCrearCuentasAdministrador = () => {
   // aqui maestro yo paso la logica del hook al formulario hijo
   const { rol, datos, mensaje, cambiarRol, cambiarDato, enviar } = useFormularioAltaCuenta()

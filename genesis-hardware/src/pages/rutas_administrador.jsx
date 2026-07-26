@@ -1,26 +1,27 @@
 import { Navigate, Route } from 'react-router-dom'
-import { VistaPrincipalAdministrador } from './administrador/vista_principal'
-import { VistaCrearCuentasAdministrador } from './administrador/cuentas/vista_crear_cuentas_administrador'
-import { VistaTablasAdministrador } from './administrador/cuentas/vista_tablas_administrador'
-import { VistaCatalogoAdministrador } from './administrador/catalogo/vista_catalogo_administrador'
-import { VistaMercanciaAdministrador } from './administrador/vista_mercancia_administrador'
-import { VistaLineasAdministrador } from './administrador/lineas/vista_lineas_administrador'
-import { VistaDashboardAdministrador } from './administrador/dashboard/vista_dashboard_administrador'
+import { VistaDiferida } from '../components/vista_diferida'
+import { cargar_vista } from '../services/servicio_vistas_diferidas'
 
-// aqui maestro yo agrupo las rutas de administrador en un fragmento reutilizable
+const Plantilla = cargar_vista(() => import('./administrador/vista_principal'), 'VistaPrincipalAdministrador')
+const Tablas = cargar_vista(() => import('./administrador/cuentas/vista_tablas_administrador'), 'VistaTablasAdministrador')
+const CrearCuentas = cargar_vista(() => import('./administrador/cuentas/vista_crear_cuentas_administrador'), 'VistaCrearCuentasAdministrador')
+const Catalogo = cargar_vista(() => import('./administrador/catalogo/vista_catalogo_administrador'), 'VistaCatalogoAdministrador')
+const Mercancia = cargar_vista(() => import('./administrador/vista_mercancia_administrador'), 'VistaMercanciaAdministrador')
+const Lineas = cargar_vista(() => import('./administrador/lineas/vista_lineas_administrador'), 'VistaLineasAdministrador')
+const Dashboard = cargar_vista(() => import('./administrador/dashboard/vista_dashboard_administrador'), 'VistaDashboardAdministrador')
+const vista = (componente) => <VistaDiferida componente={componente} />
+
 export function RutasAdministrador() {
-  return (
-    <>
-      <Route path="/administrador" element={<VistaPrincipalAdministrador />}>
-        <Route index element={<Navigate to="tablas" replace />} />
-        <Route path="tablas" element={<VistaTablasAdministrador />} />
-        <Route path="crear-cuentas" element={<VistaCrearCuentasAdministrador />} />
-        <Route path="catalogo" element={<VistaCatalogoAdministrador />} />
-        <Route path="mercancia" element={<VistaMercanciaAdministrador />} />
-        <Route path="lineas" element={<VistaLineasAdministrador />} />
-        <Route path="dashboard" element={<VistaDashboardAdministrador />} />
-      </Route>
-      <Route path="/admin" element={<Navigate to="/administrador" replace />} />
-    </>
-  )
+  return <>
+    <Route path="/administrador" element={vista(Plantilla)}>
+      <Route index element={<Navigate to="tablas" replace />} />
+      <Route path="tablas" element={vista(Tablas)} />
+      <Route path="crear-cuentas" element={vista(CrearCuentas)} />
+      <Route path="catalogo" element={vista(Catalogo)} />
+      <Route path="mercancia" element={vista(Mercancia)} />
+      <Route path="lineas" element={vista(Lineas)} />
+      <Route path="dashboard" element={vista(Dashboard)} />
+    </Route>
+    <Route path="/admin" element={<Navigate to="/administrador" replace />} />
+  </>
 }

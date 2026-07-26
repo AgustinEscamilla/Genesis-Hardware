@@ -21,7 +21,7 @@ export function useCatalogoPublico() {
         if (!activo) return
         setProductos(datos)
       } catch (error) {
-        // Si Firestore falla (permisos/red), no bloqueamos la interfaz de cliente.
+        // esto sirve yo mantengo visible la interfaz si falla firestore o la red
         if (!activo) return
         console.error('No se pudo cargar el catalogo publico:', error)
         setProductos([])

@@ -18,7 +18,7 @@ export function SeccionModulos() {
         </div>
       </div>
       {cargando && <p className="text-xs text-mutado">Cargando lineas...</p>}
-      {/* yo utilice este componente para organizar las lineas de producto en tres columnas */}
+      {/* esto sirve yo organizo las lineas de producto en tres columnas */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {lineas.map(l => (
           <TarjetaModulo

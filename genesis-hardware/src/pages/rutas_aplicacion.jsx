@@ -21,7 +21,7 @@ const OnboardingRepartidorProtegido = con_ruta_protegida(VistaOnboardingRepartid
 
 const vista = (componente) => <VistaDiferida componente={componente} />
 
-export function RutasApp() {
+export function RutasAplicacion() {
   return <Routes>
     <Route path="/" element={vista(VistaInicio)} />
     <Route path="/autenticacion" element={vista(VistaAutenticacion)} />
@@ -40,4 +40,4 @@ export function RutasApp() {
   </Routes>
 }
 
-export default RutasApp
+export default RutasAplicacion

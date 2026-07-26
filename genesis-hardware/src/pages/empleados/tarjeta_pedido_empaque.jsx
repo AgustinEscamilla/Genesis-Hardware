@@ -1,8 +1,8 @@
 // aqui puse profe yo renderizo cada pedido con su contenido y su accion de empaque
 export function TarjetaPedidoEmpaque({ pedido, accion, textoAccion, inventarioPorId = {} }) {
     return (
-        <div className="border border-borde bg-panel p-3 flex flex-col gap-2 rounded-lg">
-            <p className="text-xs text-primario">Pedido {pedido.id.slice(0, 8)}</p>
+        <div className="flex flex-col gap-3 border border-borde bg-panel p-4 transition-colors hover:border-primario/60">
+            <div className="flex items-center justify-between"><p className="text-xs font-bold text-primario">Pedido {pedido.id.slice(0, 8)}</p><span className="text-[10px] uppercase tracking-widest text-mutado">Revision</span></div>
             <div className="flex flex-col gap-1">
                 {pedido.carrito?.map((i, idx) => (
                     <p key={idx} className="text-xs text-texto">

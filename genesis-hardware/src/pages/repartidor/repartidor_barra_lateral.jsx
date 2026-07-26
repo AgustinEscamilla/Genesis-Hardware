@@ -18,8 +18,8 @@ export function RepartidorBarraLateral() {
   return (
     <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-borde bg-panel p-3 md:w-56 md:border-b-0 md:border-r md:p-4">
       <div className="mb-3 rounded-lg border border-borde bg-fondo p-3 md:mb-4">
-        <p className="text-primario font-black tracking-widest">NODO 01</p>
-        <p className="text-[10px] text-mutado flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-terciario animate-pulse" />Terminal activa</p>
+        <p className="text-primario font-black tracking-widest">PANEL DE RUTA</p>
+        <p className="flex items-center gap-1 text-[10px] text-mutado"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-terciario" />Operacion activa</p>
       </div>
       {enlaces.map((enlace) => (
         <NavLink key={enlace.destino} to={enlace.destino} end={enlace.fin} className={estilo}>
@@ -27,8 +27,8 @@ export function RepartidorBarraLateral() {
         </NavLink>
       ))}
       <div className="mt-3 flex flex-wrap gap-3 border-t border-borde pt-3 text-[10px] text-mutado md:mt-auto md:flex-col">
-        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secundario" />Diagnostico</span>
-        <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secundario" />Registros</span>
+        <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-secundario" />Estado de sistema</span>
+        <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-secundario" />Historial</span>
       </div>
     </aside>
   )

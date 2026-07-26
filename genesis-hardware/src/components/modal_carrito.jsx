@@ -11,7 +11,7 @@ export function ModalCarrito({
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-            <div className="bg-panel border border-borde w-96 p-4 flex flex-col gap-3">
+        <div className="max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-xl border border-borde bg-panel p-4 shadow-2xl shadow-black/40">
                 <div className="flex justify-between items-center">
                     <p className="text-texto font-bold">Mi carrito</p>
                     <button onClick={al_cerrar} className="text-mutado hover:text-texto">Cerrar</button>

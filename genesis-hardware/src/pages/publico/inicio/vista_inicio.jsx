@@ -7,19 +7,22 @@ import { SeccionCatalogo } from './seccion_catalogo'
 
 export function VistaInicio() {
   return (
-    <div className="min-h-screen bg-fondo flex flex-col font-sans">
-      <header className="h-20 border-b border-borde flex items-center justify-between px-8 bg-panel">
-        <img
-          src={logo}
-          alt="Genesis Hardware"
-          className="h-12 w-auto object-contain bg-[#0f0f0f] p-2 rounded-sm"
-        />
-        <nav className="flex gap-6 text-sm text-mutado font-medium">
-          <a href="#catalogo" className="hover:text-texto transition-colors">Catálogo</a>
-          <Link to="/autenticacion" className="hover:text-texto transition-colors text-primario">
-            Inicio de Sesión
+    <div className="min-h-screen bg-fondo font-sans text-texto">
+      <header className="sticky top-0 z-50 border-b border-borde/80 bg-fondo/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+          <Link to="/" className="flex items-center gap-3" aria-label="Ir al inicio">
+            <img src={logo} alt="Genesis Hardware" className="h-10 w-auto object-contain" />
+            <div className="hidden sm:block">
+              <p className="text-xs font-black tracking-[0.25em] text-primario">GENESIS HARDWARE</p>
+              <p className="text-[10px] uppercase tracking-widest text-mutado">Componentes de alto rendimiento</p>
+            </div>
           </Link>
-        </nav>
+          <nav className="flex items-center gap-2 text-xs font-semibold sm:gap-5" aria-label="Navegacion principal">
+            <a href="#noticias" className="px-2 py-2 text-mutado transition-colors hover:text-texto">Noticias</a>
+            <a href="#catalogo" className="px-2 py-2 text-mutado transition-colors hover:text-texto">Catalogo</a>
+            <Link to="/autenticacion" className="border border-primario px-3 py-2 text-primario transition-colors hover:bg-primario hover:text-fondo">Iniciar sesion</Link>
+          </nav>
+        </div>
       </header>
 
       <main className="flex-1">
@@ -28,9 +31,11 @@ export function VistaInicio() {
         <SeccionCatalogo />
       </main>
 
-      <footer className="border-t border-borde p-8 flex justify-between items-center text-xs text-mutado bg-fondo">
-        <span className="font-bold tracking-wider">CORE-SYNC INDUSTRIAL</span>
-        <div className="flex gap-6"><span>ISO-9001 Certificado</span><span>Especificaciones</span><span>Privacidad</span></div>
+      <footer className="border-t border-borde bg-panel px-4 py-8 text-xs text-mutado md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-bold tracking-wider text-texto">GENESIS HARDWARE</span>
+          <div className="flex flex-wrap gap-4"><span>Distribucion nacional</span><span>Atencion comercial</span><span>Privacidad</span></div>
+        </div>
       </footer>
     </div>
   )

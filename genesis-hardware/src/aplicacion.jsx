@@ -1,16 +1,16 @@
-// aqui maestro yo documente este archivo para mantener trazabilidad
+// aqui maestro yo organizo el proveedor y las rutas de la aplicacion
 import { BrowserRouter } from 'react-router-dom'
 import { ProveedorAutenticacion } from './context/proveedor_autenticacion'
-import { RutasApp } from './pages/rutas_app'
+import { RutasAplicacion } from './pages/rutas_aplicacion'
 
-export function App() {
+export function Aplicacion() {
   return (
     <ProveedorAutenticacion>
       <BrowserRouter>
-        <RutasApp />
+        <RutasAplicacion />
       </BrowserRouter>
     </ProveedorAutenticacion>
   )
 }
 
-export default App
+export default Aplicacion

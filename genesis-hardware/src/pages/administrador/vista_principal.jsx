@@ -19,10 +19,11 @@ export function VistaPrincipalAdministrador() {
   return (
     <RutaProtegida rolPermitido="administrador">
       <div className="flex min-h-screen w-full flex-col gap-6 bg-fondo p-4 md:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-borde pb-5">
           <div>
-            <h2 className="text-3xl font-bold text-texto mb-1">Panel de Dirección</h2>
-            <p className="text-mutado text-sm tracking-wide">VISIÓN GENERAL DE LA FÁBRICA</p>
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Centro de control</p>
+            <h2 className="text-3xl font-black text-texto">Operacion Genesis</h2>
+            <p className="mt-1 text-sm text-mutado">Gestiona catalogo inventario cuentas y resultados desde un solo lugar</p>
           </div>
           <Boton variante="contorno" className="px-4 py-2 text-xs uppercase tracking-wide" onClick={manejarSalida}>
             Cerrar sesión

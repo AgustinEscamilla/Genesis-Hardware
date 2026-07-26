@@ -14,12 +14,12 @@ export function BarraNavegacionAdministrador() {
 
   return (
     <nav className="flex items-center gap-2 overflow-x-auto bg-panel py-1">
-      <NavLink to="tablas" className={estilo}>Tablas</NavLink>
-      <NavLink to="crear-cuentas" className={estilo}>Crear cuentas</NavLink>
+      <NavLink to="tablas" className={estilo}>Operacion</NavLink>
+      <NavLink to="crear-cuentas" className={estilo}>Cuentas</NavLink>
       <NavLink to="catalogo" className={estilo}>Catalogo</NavLink>
-      <NavLink to="mercancia" className={estilo}>Mercancia</NavLink>
+      <NavLink to="mercancia" className={estilo}>Inventario</NavLink>
       <NavLink to="lineas" className={estilo}>Lineas</NavLink>
-      <NavLink to="dashboard" className={estilo}>Dashboard</NavLink>
+      <NavLink to="dashboard" className={estilo}>Reportes</NavLink>
       <div className="ml-auto shrink-0">
         <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
       </div>

@@ -19,7 +19,7 @@ export function ContenedorPrincipal({ children, navbar }) {
             <BotonSalida />
           </div>
         </header>
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+        <main className="mx-auto flex w-full max-w-[1600px] flex-1 overflow-y-auto p-4 md:p-8">
           {children}
         </main>
       </div>

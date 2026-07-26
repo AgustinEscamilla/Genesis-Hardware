@@ -6,10 +6,10 @@ export function ClienteGrillaCatalogo({ productos, cargando, alAgregar, pagina, 
   if (cargando) return <p className="text-xs text-mutado">Cargando catalogo...</p>
 
   return (
-    <section className="flex-1 border border-borde bg-fondo p-5 flex flex-col gap-4">
-      <div>
-        <h1 className="text-5xl font-black text-texto">Catalogo</h1>
-        <p className="text-sm text-mutado">Mostrando stock disponible</p>
+    <section className="flex min-w-0 flex-1 flex-col gap-5 border border-borde bg-fondo p-4 md:p-6">
+      <div className="flex flex-col gap-2 border-b border-borde pb-4 sm:flex-row sm:items-end sm:justify-between">
+        <div><p className="text-[10px] font-bold uppercase tracking-widest text-primario">Catalogo cliente</p><h1 className="text-3xl font-black text-texto">Componentes disponibles</h1><p className="text-sm text-mutado">Agrega productos al carrito para comenzar tu pedido</p></div>
+        <span className="text-xs text-mutado">{productos.length} resultados</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {productos.map((p) => <ClienteTarjetaCatalogo key={p.id} producto={p} alAgregar={alAgregar} />)}

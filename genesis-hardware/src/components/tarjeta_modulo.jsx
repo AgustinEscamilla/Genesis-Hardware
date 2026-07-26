@@ -1,25 +1,17 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 export function TarjetaModulo({ titulo, descripcion, metrica, valor, etiqueta, imagen }) {
   return (
-    <div className="bg-panel border border-borde p-6 flex flex-col h-full group hover:border-primario/50 transition-colors cursor-pointer">
+    <article className="group flex h-full flex-col border border-borde bg-panel p-4 transition-all hover:-translate-y-1 hover:border-primario/60 hover:shadow-xl hover:shadow-black/20">
       <div>
-        <div className="flex justify-between items-center mb-6">
-          <span className="text-mutado text-xs bg-fondo px-2 py-1 border border-borde">{etiqueta}</span>
-        </div>
+        <div className="mb-4 flex items-center justify-between"><span className="border border-borde bg-fondo px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-mutado">{etiqueta}</span><span className="text-primario transition-transform group-hover:translate-x-1">↗</span></div>
         {imagen
-          ? <img src={imagen} alt={titulo} className="w-full h-48 object-contain bg-fondo border border-borde mb-6" />
-          : <div className="w-full h-48 bg-fondo border border-borde flex items-center justify-center text-primario mb-6"><span className="text-4xl">O</span></div>
+          ? <img src={imagen} alt={titulo} className="mb-5 h-44 w-full object-contain bg-fondo p-3" />
+          : <div className="mb-5 flex h-44 w-full items-center justify-center bg-fondo text-4xl font-black text-primario">GH</div>
         }
-
-        <h3 className="text-xl font-bold text-texto mb-2 group-hover:text-primario transition-colors">{titulo}</h3>
-
-        <p className="text-mutado text-sm leading-relaxed mb-6">{descripcion}</p>
+        <h3 className="text-xl font-black text-texto transition-colors group-hover:text-primario">{titulo}</h3>
+        <p className="mt-2 text-sm leading-6 text-mutado">{descripcion}</p>
       </div>
-
-      <div className="flex justify-between items-center pt-4 border-t border-borde mt-auto">
-        <span className="text-texto text-sm">{metrica}</span>
-        <span className="text-texto font-bold tracking-wide">{valor}</span>
-      </div>
-    </div>
+      <div className="mt-6 flex items-end justify-between border-t border-borde pt-4"><span className="text-xs text-mutado">{metrica}</span><span className="font-black tracking-wide text-texto">{valor}</span></div>
+    </article>
   )
 }

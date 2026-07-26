@@ -1,4 +1,3 @@
-import { TarjetaModulo } from '../../../components/tarjeta_modulo'
 import { useLineasPublico } from '../../../hooks/use_lineas_publico'
 
 // esto sirve para desplegar las tarjetas de lineas de producto desde firestore
@@ -6,32 +5,20 @@ export function SeccionModulos() {
   const { lineas, cargando } = useLineasPublico()
 
   return (
-    <div className="py-20 px-8 max-w-7xl mx-auto bg-fondo">
-      {/* aqui puse profe el encabezado con el titulo y el estado del stock */}
-      <div className="flex justify-between items-end mb-10 border-b border-borde pb-4">
-        <div>
-          <h2 className="text-2xl font-bold text-texto flex items-center gap-2">Tablero de informacion comercial</h2>
-          <p className="text-mutado text-sm mt-2">Conoce mas sobre la empresa nuestras lineas disponibles y la propuesta comercial actual</p>
-        </div>
-        <div className="text-xs text-mutado bg-panel px-3 py-2 border border-borde">
-          Stock: Actualizado
-        </div>
+    <section id="noticias" className="mx-auto max-w-7xl bg-fondo px-4 py-20 md:px-8">
+      <div className="mb-10 flex flex-col gap-4 border-b border-borde pb-5 md:flex-row md:items-end md:justify-between">
+        <div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Centro de novedades</p><h2 className="text-3xl font-black text-texto">Noticias y actualizaciones</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-mutado">Conoce los anuncios recientes de Genesis Hardware y los cambios importantes del catalogo</p></div>
       </div>
-      {cargando && <p className="text-xs text-mutado">Cargando lineas...</p>}
-      {/* esto sirve yo organizo las lineas de producto en tres columnas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {lineas.map(l => (
-          <TarjetaModulo
-            key={l.id}
-            titulo={l.titulo}
-            descripcion={l.descripcion}
-            metrica={l.metrica}
-            valor={l.valor}
-            etiqueta={l.etiqueta}
-            imagen={l.imagen}
-          />
-        ))}
+      {cargando && <p className="text-xs text-mutado">Cargando novedades...</p>}
+      <div className="overflow-x-auto border border-borde bg-panel">
+        <table className="min-w-[720px] w-full text-left text-xs">
+          <thead className="border-b border-borde bg-fondo text-[10px] uppercase tracking-widest text-mutado"><tr><th className="px-4 py-3 font-semibold">Fecha</th><th className="px-4 py-3 font-semibold">Noticia</th><th className="px-4 py-3 font-semibold">Detalle</th><th className="px-4 py-3 font-semibold">Estado</th></tr></thead>
+          <tbody>
+            {lineas.map((linea) => <tr key={linea.id} className="border-b border-borde/70 last:border-0"><td className="whitespace-nowrap px-4 py-4 text-mutado">Reciente</td><td className="px-4 py-4"><p className="font-bold text-texto">{linea.titulo}</p><p className="mt-1 text-[10px] text-primario">{linea.etiqueta || 'Actualizacion'}</p></td><td className="max-w-md px-4 py-4 leading-5 text-mutado">{linea.descripcion}</td><td className="px-4 py-4"><span className="border border-terciario/30 bg-terciario/10 px-2 py-1 text-[10px] font-bold text-terciario">{linea.valor || 'Publicado'}</span></td></tr>)}
+            {!cargando && !lineas.length && <tr><td colSpan="4" className="px-4 py-10 text-center text-xs text-mutado">Todavia no hay noticias publicadas</td></tr>}
+          </tbody>
+        </table>
       </div>
-    </div>
+    </section>
   )
 }

@@ -1,24 +1,18 @@
+import { Link } from 'react-router-dom'
+
 // aqui maestro yo muestro el dashboard inicial del repartidor con los valores de la empresa
 export function VistaPrincipalRepartidor() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-panel border border-borde p-6 rounded-lg">
-        <h2 className="text-2xl font-bold mb-1">Dashboard de reparto</h2>
-        <p className="text-xs text-mutado">Aqui encuentras los principios operativos para cada ruta de entrega</p>
+      <div className="border border-borde bg-panel p-6">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Operacion en calle</p>
+        <h2 className="text-3xl font-black">Panel de reparto</h2>
+        <p className="mt-2 max-w-2xl text-sm text-mutado">Consulta tus pedidos genera una ruta y registra cada entrega desde este espacio</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="border border-borde border-l-4 border-l-primario bg-panel p-4 rounded-lg">
-          <p className="text-xs uppercase tracking-widest text-primario mb-1">Seguridad</p>
-          <p className="text-sm text-texto">El reparto comienza con un vehiculo seguro y revisado</p>
-        </div>
-        <div className="border border-borde border-l-4 border-l-terciario bg-panel p-4 rounded-lg">
-          <p className="text-xs uppercase tracking-widest text-terciario mb-1">Puntualidad</p>
-          <p className="text-sm text-texto">Siempre cumplir con la ruta planificada y mantener el control</p>
-        </div>
-        <div className="border border-borde border-l-4 border-l-secundario bg-panel p-4 rounded-lg">
-          <p className="text-xs uppercase tracking-widest text-secundario mb-1">Calidad</p>
-          <p className="text-sm text-texto">Entregar cada pedido completo y con informacion de cliente clara</p>
-        </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <Link to="asignados" className="border border-borde border-l-4 border-l-primario bg-panel p-4 transition-colors hover:border-primario"><p className="text-xs font-bold uppercase tracking-widest text-primario">01 Preparar</p><p className="mt-2 text-sm font-bold">Pedidos asignados</p><p className="mt-1 text-xs text-mutado">Revisa las zonas listas para salir</p></Link>
+        <Link to="rutas" className="border border-borde border-l-4 border-l-terciario bg-panel p-4 transition-colors hover:border-terciario"><p className="text-xs font-bold uppercase tracking-widest text-terciario">02 Conducir</p><p className="mt-2 text-sm font-bold">Ruta de entrega</p><p className="mt-1 text-xs text-mutado">Organiza y comienza tu recorrido</p></Link>
+        <Link to="reporte-fallas" className="border border-borde border-l-4 border-l-secundario bg-panel p-4 transition-colors hover:border-secundario"><p className="text-xs font-bold uppercase tracking-widest text-secundario">03 Reportar</p><p className="mt-2 text-sm font-bold">Incidencias</p><p className="mt-1 text-xs text-mutado">Registra cualquier problema del vehiculo</p></Link>
       </div>
     </div>
   )

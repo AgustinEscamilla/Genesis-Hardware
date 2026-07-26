@@ -9,7 +9,7 @@ export function SeccionCatalogoCliente({ al_agregar }) {
     const paginacion = use_paginacion_catalogo(categoria)
 
     return (
-        <div className="flex-1 p-4 flex gap-4">
+        <div className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-4 p-4 lg:flex-row md:p-6">
             <ClienteFiltrosCatalogo categoria={categoria} categorias={categorias} alCambiarCategoria={set_categoria} />
             <ClienteGrillaCatalogo
                 productos={paginacion.productos}

@@ -3,8 +3,9 @@ export function AlertaStockAdmin({ alertas }) {
   if (!alertas.length) return null
 
   return (
-    <div className="border border-primario bg-primario/10 p-3 flex flex-col gap-1">
-      <p className="text-xs uppercase tracking-widest text-primario">Alerta preventiva de stock</p>
+    <div className="flex flex-col gap-2 border border-primario/40 bg-primario/10 p-4">
+      <p className="text-xs font-bold uppercase tracking-widest text-primario">Atencion requerida</p>
+      <p className="text-xs text-mutado">Hay componentes por debajo del minimo configurado</p>
       {alertas.map(a => (
         <p key={a.id} className="text-xs text-texto">
           {a.nombreProducto} en minimo {a.volumen} de {a.stockMinimo}

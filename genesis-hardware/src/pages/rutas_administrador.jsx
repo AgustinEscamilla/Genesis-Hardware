@@ -5,6 +5,7 @@ import { VistaTablasAdministrador } from './administrador/cuentas/vista_tablas_a
 import { VistaCatalogoAdministrador } from './administrador/catalogo/vista_catalogo_administrador'
 import { VistaMercanciaAdministrador } from './administrador/vista_mercancia_administrador'
 import { VistaLineasAdministrador } from './administrador/lineas/vista_lineas_administrador'
+import { VistaDashboardAdministrador } from './administrador/dashboard/vista_dashboard_administrador'
 
 // aqui maestro yo agrupo las rutas de administrador en un fragmento reutilizable
 export function RutasAdministrador() {
@@ -17,6 +18,7 @@ export function RutasAdministrador() {
         <Route path="catalogo" element={<VistaCatalogoAdministrador />} />
         <Route path="mercancia" element={<VistaMercanciaAdministrador />} />
         <Route path="lineas" element={<VistaLineasAdministrador />} />
+        <Route path="dashboard" element={<VistaDashboardAdministrador />} />
       </Route>
       <Route path="/admin" element={<Navigate to="/administrador" replace />} />
     </>

@@ -1,0 +1,15 @@
+import { useMemo } from 'react'
+import { usePedidosEstado } from './use_pedidos_estado'
+import { ESTADOS_PEDIDO } from '../services/servicio_flujo_pedidos'
+import { calcularRentabilidadPorZona, calcularEficaciaRepartidores } from '../services/servicio_metricas'
+
+// esto sirve para exponer las metricas del dashboard analitico al administrador
+export function useMetricasAdministrador() {
+    const { pedidos: entregados } = usePedidosEstado(ESTADOS_PEDIDO.ENTREGADO)
+    const { pedidos: rechazados } = usePedidosEstado(ESTADOS_PEDIDO.RECHAZADO)
+
+    const rentabilidadPorZona = useMemo(() => calcularRentabilidadPorZona(entregados), [entregados])
+    const eficaciaRepartidores = useMemo(() => calcularEficaciaRepartidores(entregados, rechazados), [entregados, rechazados])
+
+    return { rentabilidadPorZona, eficaciaRepartidores }
+}

@@ -19,6 +19,7 @@ export function BarraNavegacionAdministrador() {
       <NavLink to="catalogo" className={estilo}>Catalogo</NavLink>
       <NavLink to="mercancia" className={estilo}>Mercancia</NavLink>
       <NavLink to="lineas" className={estilo}>Lineas</NavLink>
+      <NavLink to="dashboard" className={estilo}>Dashboard</NavLink>
       <div className="ml-auto">
         <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
       </div>

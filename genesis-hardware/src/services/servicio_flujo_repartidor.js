@@ -5,7 +5,7 @@ import { agruparPedidosPorZona } from './servicio_manifiestos'
 import { crearNotificacion } from './servicio_notificaciones'
 
 // esto sirve para mover toda la ruta aceptada a en reparto en un solo lote atomico
-export const iniciarRutaRepartidor = async (paradas = []) => {
+export const iniciarRutaRepartidor = async (paradas = [], repartidorId = null) => {
     const pedidos = paradas.map((p) => p.pedido)
     const porZona = agruparPedidosPorZona(pedidos)
     const lote = writeBatch(db)
@@ -15,7 +15,7 @@ export const iniciarRutaRepartidor = async (paradas = []) => {
     for (const zona of Object.keys(porZona)) {
         const pedidosDeZona = porZona[zona]
         const manifiestoRef = doc(collection(db, 'manifiestos'))
-        lote.set(manifiestoRef, { zona, pedidosIds: pedidosDeZona.map((p) => p.id), estado: ESTADOS_PEDIDO.EN_REPARTO, creadoEn: fecha })
+        lote.set(manifiestoRef, { zona, pedidosIds: pedidosDeZona.map((p) => p.id), estado: ESTADOS_PEDIDO.EN_REPARTO, creadoEn: fecha, repartidorId })
         manifiestosIds.push(manifiestoRef.id)
         pedidosDeZona.forEach((pedido) => {
             const pedidoRef = doc(db, 'pedidos', pedido.id)
@@ -23,7 +23,8 @@ export const iniciarRutaRepartidor = async (paradas = []) => {
                 estado: ESTADOS_PEDIDO.EN_REPARTO,
                 fechaEstado: fecha,
                 historialEstados: arrayUnion({ estado: ESTADOS_PEDIDO.EN_REPARTO, fecha }),
-                manifiestoId: manifiestoRef.id
+                manifiestoId: manifiestoRef.id,
+                repartidorId
             })
         })
     }

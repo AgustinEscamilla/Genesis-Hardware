@@ -11,7 +11,7 @@ export function use_paginacion_catalogo(categoria) {
 
     useEffect(() => {
         reiniciar()
-    }, [categoria])
+    }, [categoria, reiniciar])
 
     useEffect(() => {
         let activo = true

@@ -1,5 +1,4 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
-import logo from './logo_genesis.png'
 import { BotonSalida } from './boton_salida'
 
 export function ContenedorPrincipal({ children, navbar }) {

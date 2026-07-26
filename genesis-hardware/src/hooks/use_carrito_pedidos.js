@@ -10,6 +10,7 @@ export function useCarritoPedidos(origen = 'cliente') {
   const [guardando, setGuardando] = useState(false)
   const [mensaje, setMensaje] = useState('')
   const [ticket, setTicket] = useState(null)
+  const [paso, setPaso] = useState('carrito')
 
   const agregar = (p) => setCarrito(prev => {
     const existe = prev.find(i => i.id === p.id)
@@ -21,14 +22,18 @@ export function useCarritoPedidos(origen = 'cliente') {
     .map(i => i.id === id ? { ...i, cantidad: Math.max(1, i.cantidad + delta) } : i))
 
   const quitar = (id) => setCarrito(prev => prev.filter(i => i.id !== id))
+  const total = carrito.reduce((acc, i) => acc + Number(i.precio || 0) * Number(i.cantidad || 0), 0)
+  const irAPagar = () => carrito.length && setPaso('pago')
+  const volverAlCarrito = () => setPaso('carrito')
 
-  const confirmar = async () => {
+  const confirmar = async (datosPago = {}) => {
     if (!carrito.length) return
     setGuardando(true)
     try {
-      const resultado = await confirmarPedido({ carrito, origen, zonaLogistica, clienteId: usuarioActual?.uid || null })
+      const resultado = await confirmarPedido({ carrito, origen, zonaLogistica, clienteId: usuarioActual?.uid || null, ...datosPago })
       setTicket({ folio: resultado.id, fecha: resultado.fecha, total: resultado.total, items: carrito })
       setCarrito([])
+      setPaso('carrito')
       setMensaje('Pedido confirmado')
     } catch (e) { setMensaje(String(e?.message || 'No se pudo confirmar')) }
     setGuardando(false)
@@ -36,5 +41,9 @@ export function useCarritoPedidos(origen = 'cliente') {
 
   const cerrarTicket = () => { setTicket(null); setMensaje('') }
 
-  return { carrito, agregar, ajustar, quitar, confirmar, guardando, mensaje, zonaLogistica, setZonaLogistica, ticket, cerrarTicket }
+  return {
+    carrito, agregar, ajustar, quitar, confirmar, guardando, mensaje,
+    zonaLogistica, setZonaLogistica, ticket, cerrarTicket,
+    paso, irAPagar, volverAlCarrito, total
+  }
 }

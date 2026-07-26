@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { usePaquetesAnden } from '../../hooks/use_paquetes_anden'
 import { useOptimizacionRutas } from '../../hooks/use_optimizacion_rutas'
+import { useAutenticacion } from '../../hooks/use_autenticacion'
 import { iniciarRutaRepartidor } from '../../services/servicio_flujo_repartidor'
 import { ListaParadasRuta } from './lista_paradas_ruta'
 import { MapaEntregasRepartidor } from '../../components/mapa_entregas_repartidor'
@@ -9,10 +10,11 @@ import { MapaEntregasRepartidor } from '../../components/mapa_entregas_repartido
 export function VistaRutasRepartidor() {
     const { pedidosLiberados } = usePaquetesAnden()
     const { paradas } = useOptimizacionRutas(pedidosLiberados)
+    const { usuarioActual } = useAutenticacion()
     const navegar = useNavigate()
 
     const comenzarRuta = async () => {
-        await iniciarRutaRepartidor(paradas)
+        await iniciarRutaRepartidor(paradas, usuarioActual?.uid || null)
         navegar('/repartidores/mapa', { state: { pedido: paradas[0]?.pedido } })
     }
 

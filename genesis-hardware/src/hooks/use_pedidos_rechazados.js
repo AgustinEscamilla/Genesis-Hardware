@@ -3,9 +3,9 @@ import { actualizarEstadoPedido, ESTADOS_PEDIDO } from '../services/servicio_flu
 
 // esto sirve para que el empleado vea los pedidos rechazados y decida reprocesarlos
 export function usePedidosRechazados() {
-  const { pedidos } = usePedidosEstado(ESTADOS_PEDIDO.RECHAZADO)
+    const { pedidos } = usePedidosEstado(ESTADOS_PEDIDO.RECHAZADO)
 
-  const reprocesar = (pedido) => actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.PENDIENTE_RECOLECCION)
+    const reprocesar = (pedido) => actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.PENDIENTE_RECOLECCION)
 
-  return { pedidos, reprocesar }
+    return { pedidos, reprocesar }
 }

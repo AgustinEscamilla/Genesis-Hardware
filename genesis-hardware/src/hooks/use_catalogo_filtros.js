@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { sembrarCatalogoEjemplo } from '../services/semilla_catalogo'
+import { sembrar_catalogo_ejemplo } from '../services/semilla_catalogo'
 
 // aqui maestro yo manejo la busqueda y los filtros del catalogo de administrador
 export function useCatalogoFiltros(productos, recargar) {
@@ -16,7 +16,7 @@ export function useCatalogoFiltros(productos, recargar) {
   }, [busqueda, categoria, productos])
 
   const sembrarDatos = async () => {
-    await sembrarCatalogoEjemplo()
+    await sembrar_catalogo_ejemplo()
     recargar()
   }
 

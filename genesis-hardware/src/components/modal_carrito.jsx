@@ -1,8 +1,12 @@
 import { ListaItemsCarrito } from './lista_items_carrito'
 import { TicketCompra } from './ticket_compra'
+import { PanelPagoMercadoPago } from './pago/panel_pago_mercadopago'
 
 // maestro funciona asi yo muestro el modal completo del carrito con su checkout
-export function ModalCarrito({ abierto, carrito, al_ajustar, al_quitar, al_confirmar, guardando, mensaje, al_cerrar, ticket, al_cerrar_ticket }) {
+export function ModalCarrito({
+    abierto, carrito, al_ajustar, al_quitar, al_ir_a_pagar, al_confirmar, guardando,
+    mensaje, al_cerrar, ticket, al_cerrar_ticket, paso, total, al_volver_carrito
+}) {
     if (!abierto) return null
 
     return (
@@ -14,12 +18,14 @@ export function ModalCarrito({ abierto, carrito, al_ajustar, al_quitar, al_confi
                 </div>
                 {ticket ? (
                     <TicketCompra ticket={ticket} al_cerrar={al_cerrar_ticket} />
+                ) : paso === 'pago' ? (
+                    <PanelPagoMercadoPago total={total} alExito={al_confirmar} alVolver={al_volver_carrito} />
                 ) : (
                     <>
                         <ListaItemsCarrito carrito={carrito} al_ajustar={al_ajustar} al_quitar={al_quitar} />
                         {mensaje && <p className="text-xs text-primario">{mensaje}</p>}
                         <button
-                            onClick={al_confirmar}
+                            onClick={al_ir_a_pagar}
                             disabled={!carrito.length || guardando}
                             className="border border-primario text-primario py-2 text-xs hover:bg-primario hover:text-fondo disabled:opacity-30"
                         >

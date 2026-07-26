@@ -13,6 +13,7 @@
     "firebase:indexes:deploy": "npx firebase-tools deploy --only firestore:indexes --project genesis-hardware"
   },
   "dependencies": {
+    "@mercadopago/sdk-react": "^1.0.7",
     "firebase": "^12.15.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",

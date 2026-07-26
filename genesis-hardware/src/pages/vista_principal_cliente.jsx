@@ -7,7 +7,7 @@ import { use_modal_carrito } from '../hooks/use_modal_carrito'
 import { ClienteBarraCatalogo } from './cliente_barra_catalogo'
 import { SeccionCatalogoCliente } from './seccion_catalogo_cliente'
 import { ClientePanelSeguimiento } from './cliente_panel_seguimiento'
-import { ModalCarrito } from '../components/modal_carrito'
+import { ClienteModalCarrito } from './cliente_modal_carrito'
 
 export function VistaPrincipalCliente() {
   const { usuarioActual } = useAutenticacion()
@@ -32,22 +32,7 @@ export function VistaPrincipalCliente() {
       </div>
       <SeccionCatalogoCliente al_agregar={carrito.agregar} />
       <ClientePanelSeguimiento pedidos={pedidos} />
-      <ModalCarrito
-        abierto={modal_carrito.abierto}
-        carrito={carrito.carrito}
-        al_ajustar={carrito.ajustar}
-        al_quitar={carrito.quitar}
-        al_ir_a_pagar={carrito.irAPagar}
-        al_confirmar={carrito.confirmar}
-        guardando={carrito.guardando}
-        mensaje={carrito.mensaje}
-        al_cerrar={modal_carrito.cerrar}
-        ticket={carrito.ticket}
-        al_cerrar_ticket={carrito.cerrarTicket}
-        paso={carrito.paso}
-        total={carrito.total}
-        al_volver_carrito={carrito.volverAlCarrito}
-      />
+      <ClienteModalCarrito modal_carrito={modal_carrito} carrito={carrito} />
     </div>
   )
 }

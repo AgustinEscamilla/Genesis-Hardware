@@ -17,7 +17,7 @@ export function BotonSalida() {
   return (
     <button
       onClick={manejarCierre}
-      className="px-3 py-1.5 text-sm font-medium bg-panel border border-borde text-texto hover:border-red-500 hover:text-red-500 transition-colors"
+      className="border border-borde bg-panel px-3 py-1.5 text-sm font-medium text-texto transition-colors hover:border-red-500 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-primario"
     >
       Salir del Sistema
     </button>

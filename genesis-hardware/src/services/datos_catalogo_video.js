@@ -26,31 +26,4 @@ export const productos_video = [
     precio: 15999,
     imagen: 'https://via.placeholder.com/400x300?text=RTX+4070'
   },
-  {
-    nombre: 'AMD Radeon RX 7900 XTX',
-    categoria: 'Tarjetas de video',
-    descripcionTecnica: 'GPU RDNA 3 24GB GDDR6 6144 stream processors 384-bit TGP 500W Ray Tracing mejorado',
-    descripcionPrecios: 'Competencia directa con RTX 4090 Excelente en gaming y renderizado profesional',
-    stockVisible: 10,
-    precio: 21999,
-    imagen: 'https://via.placeholder.com/400x300?text=RX+7900'
-  },
-  {
-    nombre: 'AMD Radeon RX 7900 XT',
-    categoria: 'Tarjetas de video',
-    descripcionTecnica: 'GPU RDNA 3 20GB GDDR6 5120 stream processors 320-bit TGP 420W eficiencia mejorada',
-    descripcionPrecios: 'Gaming 4K a buen precio Gran valor para gamers que buscan alternativa RTX 4080',
-    stockVisible: 15,
-    precio: 17999,
-    imagen: 'https://via.placeholder.com/400x300?text=RX+7900+XT'
-  },
-  {
-    nombre: 'NVIDIA RTX 4060 Ti',
-    categoria: 'Tarjetas de video',
-    descripcionTecnica: 'GPU Ada 8GB GDDR6 4352 CUDA cores 128-bit TGP 130W bajo consumo PCIe 4.0',
-    descripcionPrecios: 'Presupuesto gaming 1080p Excelente para gaming casual y eSports con bajo calor',
-    stockVisible: 25,
-    precio: 8999,
-    imagen: 'https://via.placeholder.com/400x300?text=RTX+4060'
-  },
 ]

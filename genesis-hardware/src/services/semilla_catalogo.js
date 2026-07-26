@@ -3,13 +3,17 @@ import { db } from './conexion_firebase'
 import { productos_discos } from './datos_catalogo_discos'
 import { productos_memoria } from './datos_catalogo_memoria'
 import { productos_procesadores } from './datos_catalogo_procesadores'
+import { productos_procesadores_extra } from './datos_catalogo_procesadores_extra'
 import { productos_ssd } from './datos_catalogo_ssd'
 import { productos_video } from './datos_catalogo_video'
+import { productos_video_extra } from './datos_catalogo_video_extra'
 
 const coleccion_catalogo = () => collection(db, 'catalogo')
 const productos_semilla = [
   ...productos_video,
+  ...productos_video_extra,
   ...productos_procesadores,
+  ...productos_procesadores_extra,
   ...productos_memoria,
   ...productos_discos,
   ...productos_ssd,

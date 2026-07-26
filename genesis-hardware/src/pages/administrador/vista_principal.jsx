@@ -18,8 +18,8 @@ export function VistaPrincipalAdministrador() {
 
   return (
     <RutaProtegida rolPermitido="administrador">
-      <div className="flex flex-col gap-6 w-full h-full p-8 bg-fondo min-h-screen">
-        <div className="flex justify-between items-start">
+      <div className="flex min-h-screen w-full flex-col gap-6 bg-fondo p-4 md:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h2 className="text-3xl font-bold text-texto mb-1">Panel de Dirección</h2>
             <p className="text-mutado text-sm tracking-wide">VISIÓN GENERAL DE LA FÁBRICA</p>

@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom'
 
-const estiloBase = 'px-3 py-2 text-xs uppercase tracking-wide border'
+const estiloBase = 'whitespace-nowrap px-3 py-2 text-xs uppercase tracking-wide border transition-colors'
 
 // aqui maestro yo construyo la barra de secciones para el empleado
 export function BarraNavegacionEmpleado() {
   const estilo = ({ isActive }) =>
-    `${estiloBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-panel'}`
+    `${estiloBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-fondo'}`
 
   return (
-    <nav className="bg-panel border border-borde p-3 flex flex-wrap gap-2">
+    <nav className="flex gap-2 overflow-x-auto bg-panel py-1">
       <NavLink to="." end className={estilo}>Dashboard</NavLink>
       <NavLink to="recepcion" className={estilo}>Recepcion</NavLink>
       <NavLink to="empaque" className={estilo}>Empaque</NavLink>

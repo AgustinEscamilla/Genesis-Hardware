@@ -2,33 +2,30 @@
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../services/conexion_firebase'
-import { obtenerUsuarioLocal } from '../services/servicio_autenticacion'
+import { evento_sesion_local, obtener_usuario_local, usar_sesion_local } from '../services/servicio_sesion_local'
 import { useRolSesion } from '../hooks/use_rol_sesion'
 import { ContextoAutenticacion } from './contexto_autenticacion'
 
-const usarSesionLocal = import.meta.env.DEV || import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
-const eventoSesionLocal = 'sesion-genesis-hardware-cambio'
-
 // esto sirve para escuchar la sesion una sola vez y compartirla en toda la app
 export function ProveedorAutenticacion({ children }) {
-  const usuarioLocalInicial = obtenerUsuarioLocal()
+  const usuarioLocalInicial = obtener_usuario_local()
   const [usuarioActual, setUsuarioActual] = useState(() => usuarioLocalInicial)
-  const [cargando, setCargando] = useState(() => !usuarioLocalInicial && !usarSesionLocal)
+  const [cargando, setCargando] = useState(() => !usuarioLocalInicial && !usar_sesion_local)
   const rol = useRolSesion(usuarioActual)
 
   useEffect(() => {
-    if (usarSesionLocal) {
+    if (usar_sesion_local) {
       const sincronizarSesionLocal = () => {
-        setUsuarioActual(obtenerUsuarioLocal())
+        setUsuarioActual(obtener_usuario_local())
         setCargando(false)
       }
 
       sincronizarSesionLocal()
-      window.addEventListener(eventoSesionLocal, sincronizarSesionLocal)
+      window.addEventListener(evento_sesion_local, sincronizarSesionLocal)
       window.addEventListener('storage', sincronizarSesionLocal)
 
       return () => {
-        window.removeEventListener(eventoSesionLocal, sincronizarSesionLocal)
+        window.removeEventListener(evento_sesion_local, sincronizarSesionLocal)
         window.removeEventListener('storage', sincronizarSesionLocal)
       }
     }

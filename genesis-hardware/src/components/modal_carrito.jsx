@@ -5,7 +5,7 @@ import { PanelPagoMercadoPago } from './pago/panel_pago_mercadopago'
 // maestro funciona asi yo muestro el modal completo del carrito con su checkout
 export function ModalCarrito({
     abierto, carrito, al_ajustar, al_quitar, al_ir_a_pagar, al_confirmar, guardando,
-    mensaje, al_cerrar, ticket, al_cerrar_ticket, paso, total, al_volver_carrito
+    mensaje, al_cerrar, ticket, al_cerrar_ticket, paso, total, zona_logistica, al_volver_carrito
 }) {
     if (!abierto) return null
 
@@ -19,7 +19,7 @@ export function ModalCarrito({
                 {ticket ? (
                     <TicketCompra ticket={ticket} al_cerrar={al_cerrar_ticket} />
                 ) : paso === 'pago' ? (
-                    <PanelPagoMercadoPago total={total} alExito={al_confirmar} alVolver={al_volver_carrito} />
+                    <PanelPagoMercadoPago total={total} carrito={carrito} zona_logistica={zona_logistica} alExito={al_confirmar} alVolver={al_volver_carrito} />
                 ) : (
                     <>
                         <ListaItemsCarrito carrito={carrito} al_ajustar={al_ajustar} al_quitar={al_quitar} />

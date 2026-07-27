@@ -16,6 +16,7 @@ export function ClienteModalCarrito({ modal_carrito, carrito }) {
       al_cerrar_ticket={carrito.cerrarTicket}
       paso={carrito.paso}
       total={carrito.total}
+      zona_logistica={carrito.zonaLogistica}
       al_volver_carrito={carrito.volverAlCarrito}
     />
   )

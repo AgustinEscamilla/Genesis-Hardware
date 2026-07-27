@@ -6,18 +6,20 @@ const coleccion = () => collection(db, 'inventario')
 const referencia = (productoId) => doc(db, 'inventario', productoId)
 
 // pos esto funciona para sumar stock ligado estrictamente al id del producto del catalogo
-export const registrarMercancia = async ({ productoId, nombreProducto, volumen, tipoUnidad }) => {
+export const registrarMercancia = async ({ productoId, nombre_producto, categoria, descripcion_tecnica, volumen, tipoUnidad }) => {
   const cantidad = Number(volumen || 0)
-  if (!productoId || cantidad <= 0) throw new Error('Cantidad de inventario invalida')
+  if ((!productoId && !nombre_producto) || cantidad <= 0) throw new Error('Datos de inventario invalidos')
   await runTransaction(db, async (transaccion) => {
-    const inventarioRef = referencia(productoId)
-    const catalogoRef = doc(db, 'catalogo', productoId)
+    const catalogoRef = productoId ? doc(db, 'catalogo', productoId) : doc(collection(db, 'catalogo'))
+    const inventarioRef = referencia(catalogoRef.id)
     const inventario = await transaccion.get(inventarioRef)
     const catalogo = await transaccion.get(catalogoRef)
     const actual = Number(inventario.data()?.volumen || 0)
-    if (!catalogo.exists()) throw new Error('Producto de catalogo no encontrado')
-    transaccion.set(inventarioRef, { productoId, nombreProducto, tipoUnidad, stockMinimo: 5, volumen: actual + cantidad, fechaIngreso: new Date().toISOString() }, { merge: true })
-    transaccion.update(catalogoRef, { stockVisible: actual + cantidad })
+    if (productoId && !catalogo.exists()) throw new Error('Producto de catalogo no encontrado')
+    const nombre_real = nombre_producto || catalogo.data()?.nombre || ''
+    if (!productoId) transaccion.set(catalogoRef, { nombre: nombre_real, categoria: categoria || 'Procesadores', descripcionTecnica: descripcion_tecnica || '', descripcionPrecios: 'Producto ingresado en recepcion', stockVisible: cantidad, precio: 0, imagen: '' })
+    transaccion.set(inventarioRef, { productoId: catalogoRef.id, nombreProducto: nombre_real, tipoUnidad, stockMinimo: 5, volumen: actual + cantidad, fechaIngreso: new Date().toISOString() }, { merge: true })
+    if (productoId) transaccion.update(catalogoRef, { stockVisible: actual + cantidad })
   })
 }
 

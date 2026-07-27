@@ -13,7 +13,7 @@ export function VistaPrincipalEmpleado() {
   }
 
   return (
-    <div className="flex min-h-full flex-col gap-6 bg-fondo text-texto">
+    <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-6 bg-fondo text-texto">
       {(error_inventario || error_pedidos) && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error_inventario || error_pedidos}</div>}
       <div className="border border-borde bg-panel p-6 shadow-sm">
         <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Operacion de bodega</p>

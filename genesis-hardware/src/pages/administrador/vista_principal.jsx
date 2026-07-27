@@ -18,8 +18,9 @@ export function VistaPrincipalAdministrador() {
 
   return (
     <RutaProtegida rolPermitido="administrador">
-      <div className="flex min-h-screen w-full flex-col gap-6 bg-fondo p-4 md:p-8">
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-borde pb-5">
+      <div className="min-h-screen w-full bg-fondo p-4 md:p-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-borde pb-5">
           <div>
             <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Centro de control</p>
             <h2 className="text-3xl font-black text-texto">Operacion Genesis</h2>
@@ -28,10 +29,11 @@ export function VistaPrincipalAdministrador() {
           <Boton variante="contorno" className="px-4 py-2 text-xs uppercase tracking-wide" onClick={manejarSalida}>
             Cerrar sesión
           </Boton>
+          </div>
+          <AlertaStockAdmin alertas={alertas} />
+          <BarraNavegacionAdministrador />
+          <Outlet />
         </div>
-        <AlertaStockAdmin alertas={alertas} />
-        <BarraNavegacionAdministrador />
-        <Outlet />
       </div>
     </RutaProtegida>
   )

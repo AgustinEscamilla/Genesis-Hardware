@@ -17,7 +17,9 @@ export function PlantillaRepartidor() {
             <button onClick={salir} className="border border-borde text-xs px-4 py-2 rounded hover:bg-primario hover:border-primario hover:text-fondo transition-colors">Salir</button>
           </div>
           <div className="flex-1 p-4 md:p-6">
-            <Outlet />
+            <div className="mx-auto w-full max-w-6xl">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

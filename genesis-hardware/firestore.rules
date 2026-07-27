@@ -15,7 +15,8 @@ service cloud.firestore {
 
     match /catalogo/{productoId} {
       allow read: if true;
-      allow create, delete: if esAdministrador();
+      allow create: if esAdministrador() || esEmpleado();
+      allow delete: if esAdministrador();
       allow update: if esAdministrador() || ((esEmpleado() || esCliente()) && stockSincronizado(productoId));
     }
     match /noticias/{noticiaId} {
@@ -43,6 +44,10 @@ service cloud.firestore {
       allow create: if esAdministrador() || esEmpleado() || (esCliente() && request.resource.data.clienteId == request.auth.uid && request.resource.data.origen == 'cliente');
       allow update: if esStaff() && transicionPedidoValida();
       allow delete: if esAdministrador();
+    }
+    match /pagos_pendientes/{pagoId} {
+      allow read: if esCliente() && resource.data.usuario_id == request.auth.uid;
+      allow write: if false;
     }
     match /inventario/{productoId} {
       allow read: if autenticado();

@@ -26,12 +26,14 @@ export function VistaPrincipalCliente() {
         notificaciones={notificaciones}
         alMarcarLeida={marcarLeida}
       />
-      <div className="bg-panel border border-borde p-6 m-4 rounded-lg">
-        <h1 className="text-2xl font-bold text-texto">Bienvenido a Genesis Hardware</h1>
-        <p className="text-xs text-mutado mt-2">Explora nuestro catalogo y confirma tu pedido seguro.</p>
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col">
+        <div className="m-4 rounded-lg border border-borde bg-panel p-6">
+          <h1 className="text-2xl font-bold text-texto">Bienvenido a Genesis Hardware</h1>
+          <p className="mt-2 text-xs text-mutado">Explora nuestro catalogo y confirma tu pedido seguro.</p>
+        </div>
+        <SeccionCatalogoCliente al_agregar={carrito.agregar} />
+        <ClientePanelSeguimiento pedidos={pedidos} />
       </div>
-      <SeccionCatalogoCliente al_agregar={carrito.agregar} />
-      <ClientePanelSeguimiento pedidos={pedidos} />
       <ClienteModalCarrito modal_carrito={modal_carrito} carrito={carrito} />
     </div>
   )

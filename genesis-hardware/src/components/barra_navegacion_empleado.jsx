@@ -8,7 +8,7 @@ export function BarraNavegacionEmpleado() {
     `${estiloBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-fondo'}`
 
   return (
-    <nav className="flex gap-2 overflow-x-auto bg-panel py-1">
+    <nav className="flex justify-center gap-2 overflow-x-auto bg-panel py-1">
       <NavLink to="." end className={estilo}>Menu principal</NavLink>
       <NavLink to="recepcion" className={estilo}>Recepcion</NavLink>
       <NavLink to="empaque" className={estilo}>Empaque</NavLink>

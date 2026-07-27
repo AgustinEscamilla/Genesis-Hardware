@@ -13,14 +13,16 @@ export function BarraNavegacionAdministrador() {
     `${estilosBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-fondo'}`
 
   return (
-    <nav className="flex items-center gap-2 overflow-x-auto bg-panel py-1">
-      <NavLink to="tablas" className={estilo}>Operacion</NavLink>
-      <NavLink to="crear-cuentas" className={estilo}>Cuentas</NavLink>
-      <NavLink to="catalogo" className={estilo}>Catalogo</NavLink>
-      <NavLink to="mercancia" className={estilo}>Inventario</NavLink>
-      <NavLink to="noticias" className={estilo}>Noticias</NavLink>
-      <NavLink to="dashboard" className={estilo}>Reportes</NavLink>
-      <div className="ml-auto shrink-0">
+    <nav className="flex items-center justify-center gap-2 overflow-x-auto bg-panel py-1">
+      <div className="flex min-w-max flex-wrap justify-center gap-2">
+        <NavLink to="tablas" className={estilo}>Operacion</NavLink>
+        <NavLink to="crear-cuentas" className={estilo}>Cuentas</NavLink>
+        <NavLink to="catalogo" className={estilo}>Catalogo</NavLink>
+        <NavLink to="mercancia" className={estilo}>Inventario</NavLink>
+        <NavLink to="noticias" className={estilo}>Noticias</NavLink>
+        <NavLink to="dashboard" className={estilo}>Reportes</NavLink>
+      </div>
+      <div className="shrink-0">
         <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
       </div>
     </nav>

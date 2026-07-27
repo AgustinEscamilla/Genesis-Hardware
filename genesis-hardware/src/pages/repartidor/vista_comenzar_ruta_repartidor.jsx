@@ -5,7 +5,7 @@ import { RepartidorListaManifiestos } from './repartidor_lista_manifiestos'
 
 // esto sirve para organizar la mejor ruta de entrega segun los manifiestos activos
 export function VistaComenzarRutaRepartidor() {
-  const { manifiestos, pedidosEnReparto, entregar } = useManifiestos()
+  const { manifiestos, pedidosEnReparto, entregar, cargando, error } = useManifiestos()
 
   const paradas = useMemo(() => {
     return manifiestos
@@ -16,8 +16,11 @@ export function VistaComenzarRutaRepartidor() {
       })
   }, [manifiestos, pedidosEnReparto])
 
+  if (cargando) return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando ruta de entrega</div>
+
   return (
     <div className="flex flex-col gap-4">
+      {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
       <div className="bg-panel border border-borde p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-3">Ruta de entrega sugerida</h2>
         <div className="flex flex-col gap-3">

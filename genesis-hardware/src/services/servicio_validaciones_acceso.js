@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from './conexion_firebase'
-import { inferirRolPorCorreo } from './servicio_usuarios'
+import { buscarPerfilUsuario, inferirRolPorCorreo } from './servicio_usuarios'
 
 const existeCuenta = async (nombreColeccion, uidAuth) => {
   if (!uidAuth) return false
@@ -11,7 +11,8 @@ const existeCuenta = async (nombreColeccion, uidAuth) => {
 
 export const validarAccesoCorreoContrasena = async (correo, uidAuth) => {
   // aqui maestro yo permito solo staff por correo y contrasena
-  const rolDetectado = inferirRolPorCorreo(correo)
+  const perfil = uidAuth ? await buscarPerfilUsuario(uidAuth) : null
+  const rolDetectado = perfil?.rol || inferirRolPorCorreo(correo)
   if (!rolDetectado) return { permitido: false, mensaje: 'Cuenta invalida' }
   if (rolDetectado === 'cliente') return { permitido: false, mensaje: 'Clientes deben usar acceso con Google' }
   if (rolDetectado === 'administrador') return { permitido: true, mensaje: '' }

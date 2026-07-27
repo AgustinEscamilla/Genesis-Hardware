@@ -6,6 +6,7 @@ export function TarjetaParadaRuta({ parada }) {
             <div className="flex-1 min-w-0">
                 <p className="text-xs text-texto uppercase font-semibold">Zona {parada.zona}</p>
                 <p className="text-[10px] text-mutado truncate">Pedido {parada.pedido.id.slice(0, 8)}</p>
+                <p className="text-[10px] text-mutado truncate">{parada.direccion || 'Direccion no registrada'}</p>
             </div>
             <p className="text-xs text-terciario font-semibold">${parada.pedido.total}</p>
         </div>

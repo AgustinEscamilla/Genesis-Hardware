@@ -1,0 +1,44 @@
+import { useEffect, useRef, useState } from 'react'
+import { obtener_ruta_google } from '../services/servicio_google_maps'
+
+const limpiar_elementos = (elementos) => elementos.forEach((elemento) => {
+  if ('setMap' in elemento) elemento.setMap(null)
+  if ('map' in elemento) elemento.map = null
+})
+
+export function useRutaGoogleMaps(paradas) {
+  const mapa_ref = useRef(null)
+  const elementos_ref = useRef([])
+  const [cargando, set_cargando] = useState(false)
+  const [error, set_error] = useState('')
+  const [resumen, set_resumen] = useState(null)
+
+  useEffect(() => {
+    if (!paradas.length || paradas.some((parada) => !parada.direccion)) return undefined
+    let activo = true
+    Promise.resolve().then(() => {
+      if (!activo) return null
+      set_cargando(true)
+      set_error('')
+      return obtener_ruta_google(paradas)
+    }).then((datos) => {
+      if (!datos) return
+      const { mapa_google, ruta_google } = datos
+      if (!activo || !mapa_ref.current) return
+      limpiar_elementos(elementos_ref.current)
+      const mapa = new mapa_google(mapa_ref.current, { center: { lat: 19.4326, lng: -99.1332 }, zoom: 11, mapId: 'DEMO_MAP_ID', mapTypeControl: false })
+      const polilineas = ruta_google.createPolylines({ polylineOptions: { strokeColor: '#ff4d4f', strokeWeight: 5 } })
+      polilineas.forEach((polilinea) => polilinea.setMap(mapa))
+      return ruta_google.createWaypointAdvancedMarkers({ map: mapa }).then((marcadores) => {
+        if (!activo) return limpiar_elementos(marcadores)
+        elementos_ref.current = [...polilineas, ...marcadores]
+        if (ruta_google.viewport) mapa.fitBounds(ruta_google.viewport)
+        set_resumen({ distancia: `${((ruta_google.distanceMeters || 0) / 1000).toFixed(1)} km`, duracion: `${Math.ceil((ruta_google.durationMillis || 0) / 60000)} min` })
+      })
+    }).catch((e) => activo && set_error(String(e?.message || 'No se pudo calcular la ruta')))
+      .finally(() => activo && set_cargando(false))
+    return () => { activo = false; limpiar_elementos(elementos_ref.current) }
+  }, [paradas])
+
+  return { mapa_ref, cargando, error, resumen }
+}

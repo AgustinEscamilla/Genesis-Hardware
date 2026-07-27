@@ -5,11 +5,16 @@ import { calcularRentabilidadPorZona, calcularEficaciaRepartidores } from '../se
 
 // esto sirve para exponer las metricas del dashboard analitico al administrador
 export function useMetricasAdministrador() {
-    const { pedidos: entregados } = usePedidosEstado(ESTADOS_PEDIDO.ENTREGADO)
-    const { pedidos: rechazados } = usePedidosEstado(ESTADOS_PEDIDO.RECHAZADO)
+    const { pedidos: entregados, cargando: cargando_entregados, error: error_entregados } = usePedidosEstado(ESTADOS_PEDIDO.ENTREGADO)
+    const { pedidos: rechazados, cargando: cargando_rechazados, error: error_rechazados } = usePedidosEstado(ESTADOS_PEDIDO.RECHAZADO)
 
     const rentabilidadPorZona = useMemo(() => calcularRentabilidadPorZona(entregados), [entregados])
     const eficaciaRepartidores = useMemo(() => calcularEficaciaRepartidores(entregados, rechazados), [entregados, rechazados])
 
-    return { rentabilidadPorZona, eficaciaRepartidores }
+    return {
+        rentabilidadPorZona,
+        eficaciaRepartidores,
+        cargando: cargando_entregados || cargando_rechazados,
+        error: error_entregados || error_rechazados,
+    }
 }

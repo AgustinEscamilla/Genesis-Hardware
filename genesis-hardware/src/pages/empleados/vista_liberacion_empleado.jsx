@@ -5,12 +5,17 @@ import { TarjetaPedidoEmpaque } from './tarjeta_pedido_empaque'
 
 // esto sirve para que el empleado apruebe el paquete antes de pasarlo al repartidor
 export function VistaLiberacionEmpleado() {
-    const { pedidos } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
+    const { pedidos, cargando, error } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
+
+    if (cargando) {
+        return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando anden de salida</div>
+    }
     const pendientes = pedidos.filter((p) => !p.liberadoParaRepartidor)
     const liberados = pedidos.filter((p) => p.liberadoParaRepartidor)
 
     return (
         <div className="min-h-screen bg-fondo p-6 text-texto flex flex-col gap-6">
+            {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
             <div>
                 <h2 className="text-xl font-bold mb-1">Anden de salida</h2>
                 <p className="text-xs text-mutado">Libera los paquetes listos para que el repartidor arme su manifiesto</p>

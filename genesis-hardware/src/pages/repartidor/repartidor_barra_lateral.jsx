@@ -6,7 +6,7 @@ const estilo = ({ isActive }) =>
   }`
 
 const enlaces = [
-  { destino: '.', fin: true, texto: 'Dashboard', icono: '◆' },
+  { destino: '.', fin: true, texto: 'Menú principal', icono: '◆' },
   { destino: 'asignados', texto: 'Pedidos asignados', icono: '◇' },
   { destino: 'rutas', texto: 'Rutas de entrega', icono: '⬢' },
   { destino: 'comenzar-ruta', texto: 'Comenzar ruta', icono: '▶' },

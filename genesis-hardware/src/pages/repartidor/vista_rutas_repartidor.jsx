@@ -8,10 +8,14 @@ import { MapaEntregasRepartidor } from '../../components/mapa_entregas_repartido
 
 // esto sirve para que el repartidor vea su ruta optimizada en el mapa y la comience
 export function VistaRutasRepartidor() {
-    const { pedidosLiberados } = usePaquetesAnden()
+    const { pedidosLiberados, cargando, error } = usePaquetesAnden()
     const { paradas } = useOptimizacionRutas(pedidosLiberados)
     const { usuarioActual } = useAutenticacion()
     const navegar = useNavigate()
+
+    if (cargando) {
+        return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando ruta de reparto</div>
+    }
 
     const comenzarRuta = async () => {
         await iniciarRutaRepartidor(paradas, usuarioActual?.uid || null)
@@ -20,6 +24,7 @@ export function VistaRutasRepartidor() {
 
     return (
         <div className="flex flex-col gap-4">
+            {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
             <div className="bg-panel border border-borde p-6 rounded-lg flex flex-col gap-4">
                 <div>
                     <h2 className="text-xl font-bold mb-1">Ruta optimizada de entrega</h2>

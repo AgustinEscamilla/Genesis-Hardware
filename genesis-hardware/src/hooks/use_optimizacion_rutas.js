@@ -19,9 +19,12 @@ export function useOptimizacionRutas(pedidosLiberados = []) {
         return ordenZonas.flatMap((zona) => (porZona[zona] || []).map((pedido) => {
             contador += 1
             const destino = generar_ruta_simulada(pedido.id).at(-1)
-            return { parada: contador, zona, pedido, lat: destino.lat, lng: destino.lng }
+            const direccion = String(pedido.direccionEntrega || '').trim()
+            return { parada: contador, zona, pedido, direccion, lat: destino.lat, lng: destino.lng }
         }))
     }, [pedidosLiberados])
 
-    return { paradas }
+    const sin_direccion = useMemo(() => paradas.filter((parada) => !parada.direccion), [paradas])
+
+    return { paradas, sin_direccion }
 }

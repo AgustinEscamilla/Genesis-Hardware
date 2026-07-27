@@ -10,13 +10,15 @@ service cloud.firestore {
     function esCliente() { return tienePerfil('cliente') || correoTerminaEn('.*@gmail\\.com$'); }
     function esStaff() { return esAdministrador() || esEmpleado() || esRepartidor(); }
     function esPropietario(id) { return autenticado() && request.auth.uid == id; }
+    function stockSincronizado(productoId) { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stockVisible']) && request.resource.data.stockVisible is number && request.resource.data.stockVisible >= 0 && getAfter(/databases/$(database)/documents/inventario/$(productoId)).data.volumen == request.resource.data.stockVisible; }
     function transicionPedidoValida() { return request.resource.data.estado == resource.data.estado || (resource.data.estado == 'recibido' && request.resource.data.estado == 'en_empaque') || (resource.data.estado == 'en_empaque' && request.resource.data.estado == 'listo_despacho') || (resource.data.estado == 'listo_despacho' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'pendiente_recoleccion' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'en_reparto' && (request.resource.data.estado == 'entregado' || request.resource.data.estado == 'rechazado')) || (resource.data.estado == 'rechazado' && request.resource.data.estado == 'pendiente_recoleccion'); }
 
     match /catalogo/{productoId} {
       allow read: if true;
-      allow write: if esAdministrador();
+      allow create, delete: if esAdministrador();
+      allow update: if esAdministrador() || ((esEmpleado() || esCliente()) && stockSincronizado(productoId));
     }
-    match /lineas_producto/{lineaId} {
+    match /noticias/{noticiaId} {
       allow read: if true;
       allow write: if esAdministrador();
     }

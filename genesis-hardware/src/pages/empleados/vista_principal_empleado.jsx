@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom'
 import { useInventarioLista } from '../../hooks/use_inventario_lista'
 import { usePedidosEstado } from '../../hooks/use_pedidos_estado'
+import { ESTADOS_PEDIDO } from '../../services/servicio_flujo_pedidos'
 
 // aqui maestro yo muestro el dashboard inicial del empleado con resumen rapido
 export function VistaPrincipalEmpleado() {
-  const { inventario } = useInventarioLista()
-  const { pedidos } = usePedidosEstado('en_empaque')
+  const { inventario, cargando: cargando_inventario, error: error_inventario } = useInventarioLista()
+  const { pedidos, cargando: cargando_pedidos, error: error_pedidos } = usePedidosEstado(ESTADOS_PEDIDO.EN_EMPAQUE)
+
+  if (cargando_inventario || cargando_pedidos) {
+    return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando panel de empleado</div>
+  }
 
   return (
     <div className="flex min-h-full flex-col gap-6 bg-fondo text-texto">
+      {(error_inventario || error_pedidos) && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error_inventario || error_pedidos}</div>}
       <div className="border border-borde bg-panel p-6 shadow-sm">
         <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Operacion de bodega</p>
         <h2 className="text-3xl font-black text-texto">Turno de hoy</h2>

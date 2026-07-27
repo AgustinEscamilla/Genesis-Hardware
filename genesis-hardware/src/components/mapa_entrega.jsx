@@ -4,11 +4,12 @@ const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const limitar = (valor) => Math.max(5, Math.min(95, valor))
 
 // esto sirve para mostrar el mapa real o el mapa simulado segun la configuracion
-export function MapaEntrega({ ubicacion, destino }) {
+export function MapaEntrega({ ubicacion, destino, direccion }) {
     if (!ubicacion || !destino) return <p className="text-xs text-mutado">Calculando ubicacion</p>
 
     if (clave_maps) {
-        const src = `https://www.google.com/maps/embed/v1/place?key=${clave_maps}&q=${destino.lat},${destino.lng}`
+        const consulta = encodeURIComponent(direccion || `${destino.lat},${destino.lng}`)
+        const src = `https://www.google.com/maps/embed/v1/place?key=${clave_maps}&q=${consulta}`
         return <iframe title="mapa entrega" className="w-full h-64 border border-borde rounded-lg" src={src} />
     }
 

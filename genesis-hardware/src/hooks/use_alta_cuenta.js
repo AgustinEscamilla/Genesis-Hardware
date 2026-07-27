@@ -20,15 +20,13 @@ export const useFormularioAltaCuenta = () => {
         if (!datosFormulario.nombre || !datosFormulario.correo) return setMensajeEstado('Completa nombre y correo')
         if (datosFormulario.pass !== datosFormulario.pass2) return setMensajeEstado('Las contrasenas no coinciden')
 
-        await crearCuentaUsuario({
-            tipo: rol,
-            nombre: datosFormulario.nombre,
-            correo: `${datosFormulario.correo}@${rol}.com`,
-            contrasena: datosFormulario.pass
-        })
-
-        setDatosFormulario({ nombre: '', correo: '', pass: '', pass2: '' })
-        setMensajeEstado('Cuenta creada correctamente en Firebase')
+        try {
+            await crearCuentaUsuario({ tipo: rol, nombre: datosFormulario.nombre, correo: `${datosFormulario.correo}@${rol}.com`, contrasena: datosFormulario.pass })
+            setDatosFormulario({ nombre: '', correo: '', pass: '', pass2: '' })
+            setMensajeEstado('Cuenta creada correctamente en Firebase')
+        } catch (error) {
+            setMensajeEstado(error?.message || 'No se pudo crear la cuenta')
+        }
     }
 
     return { rol, datos: datosFormulario, mensaje: mensajeEstado, cambiarRol, cambiarDato, enviar }

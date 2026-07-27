@@ -9,7 +9,7 @@ export function BarraNavegacionEmpleado() {
 
   return (
     <nav className="flex gap-2 overflow-x-auto bg-panel py-1">
-      <NavLink to="." end className={estilo}>Inicio</NavLink>
+      <NavLink to="." end className={estilo}>Menu principal</NavLink>
       <NavLink to="recepcion" className={estilo}>Recepcion</NavLink>
       <NavLink to="empaque" className={estilo}>Empaque</NavLink>
       <NavLink to="anden-salida" className={estilo}>Anden</NavLink>

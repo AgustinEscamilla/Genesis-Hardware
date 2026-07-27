@@ -1,6 +1,6 @@
 const clave_sesion_local = 'sesion_genesis_hardware'
 export const evento_sesion_local = 'sesion-genesis-hardware-cambio'
-export const usar_sesion_local = import.meta.env.DEV || import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
+export const usar_sesion_local = import.meta.env.VITE_USAR_AUTH_LOCAL === 'true'
 
 export const normalizar_correo = (correo = '') => String(correo).trim().toLowerCase()
 

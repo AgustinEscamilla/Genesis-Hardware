@@ -7,9 +7,9 @@ import { useCatalogoFiltros } from '../../../hooks/use_catalogo_filtros'
 
 // aqui maestro yo uno el formulario con la lista y la subida de imagen usando dos hooks
 export function VistaCatalogoAdministrador() {
-  const { productos, cargando, guardando, mensaje, seleccionado, setSeleccionado, guardar, eliminar, recargar } = useCatalogo()
+  const { productos, cargando, guardando, mensaje, seleccionado, setSeleccionado, guardar, eliminar } = useCatalogo()
   const { urlImagen, subiendo, mensaje: mensajeSubida, subir, limpiar } = useSubidaImagen()
-  const { busqueda, categoria, setBusqueda, setCategoria, productosFiltrados, sembrarDatos } = useCatalogoFiltros(productos, recargar)
+  const { busqueda, categoria, setBusqueda, setCategoria, productosFiltrados } = useCatalogoFiltros(productos)
 
   const seleccionar = (prod) => { limpiar(); setSeleccionado(prod) }
   const manejarGuardado = async (datos) => {
@@ -25,7 +25,6 @@ export function VistaCatalogoAdministrador() {
         categoria={categoria}
         setBusqueda={setBusqueda}
         setCategoria={setCategoria}
-        onSembrar={sembrarDatos}
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <FormularioEdicionCatalogo

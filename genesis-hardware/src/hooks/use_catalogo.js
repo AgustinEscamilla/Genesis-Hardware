@@ -12,10 +12,9 @@ export function useCatalogo() {
 
   useEffect(() => {
     // pos esto funciona para cargar datos cuando recarga cambia usando then para no bloquear
-    obtenerCatalogo().then(datos => {
-      setProductos(datos)
-      setCargando(false)
-    })
+    let activo = true
+    obtenerCatalogo().then(datos => activo && setProductos(datos)).catch(() => activo && setMensaje('No se pudo cargar el catalogo')).finally(() => activo && setCargando(false))
+    return () => { activo = false }
   }, [recarga])
 
   const guardar = async (datos) => {

@@ -17,7 +17,7 @@ export function VistaMapaEntregaRepartidor() {
             </div>
             {pedido ? (
                 <>
-                    <MapaEntrega ubicacion={ubicacion} destino={destino} />
+                    <MapaEntrega ubicacion={ubicacion} destino={destino} direccion={pedido.direccionEntrega} />
                     <RepartidorEstadoEnvio pedido={pedido} estado_envio={estado_envio} />
                 </>
             ) : (

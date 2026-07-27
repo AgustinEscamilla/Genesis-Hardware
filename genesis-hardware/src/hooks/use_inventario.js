@@ -10,13 +10,13 @@ export function useInventario() {
   const [guardando, setGuardando] = useState(false)
   const [mensaje, setMensaje] = useState('')
 
-  useEffect(() => { obtenerCatalogo().then(setCatalogo) }, [])
+  useEffect(() => { obtenerCatalogo().then(setCatalogo).catch(() => setMensaje('No se pudo cargar el catalogo')) }, [])
 
   const cambiar = (campo, valor) => setForma(prev => ({ ...prev, [campo]: valor }))
 
   const enviar = async () => {
     // esto sirve para validar el producto elegido y el volumen antes de guardar en firestore
-    if (!forma.productoId || !forma.volumen) return
+    if (!forma.productoId || Number(forma.volumen) <= 0) return setMensaje('Selecciona un producto y una cantidad valida')
     const producto = catalogo.find((p) => p.id === forma.productoId)
     setGuardando(true)
     setMensaje('')

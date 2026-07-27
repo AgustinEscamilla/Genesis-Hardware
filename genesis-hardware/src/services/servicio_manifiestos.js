@@ -13,7 +13,7 @@ export const agruparPedidosPorZona = (pedidos = []) => pedidos.reduce((acc, p) =
 }, {})
 
 // pos esto funciona para escuchar en vivo todos los manifiestos generados
-export const escucharManifiestos = (alCambiar) => onSnapshot(colManifiestos(), (snap) => alCambiar(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
+export const escucharManifiestos = (al_cambiar, al_error) => onSnapshot(colManifiestos(), (snap) => al_cambiar(snap.docs.map(d => ({ id: d.id, ...d.data() }))), al_error)
 
 // esto sirve para crear el manifiesto y pasar sus pedidos a estado en reparto
 export const generarManifiesto = async (zona, pedidos = []) => {

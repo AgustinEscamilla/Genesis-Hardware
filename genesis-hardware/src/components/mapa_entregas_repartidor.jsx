@@ -1,39 +1,29 @@
 import { MapaPinParada } from './mapa_pin_parada'
 import { almacen } from '../services/servicio_estafeta_mock'
+import { useRutaGoogleMaps } from '../hooks/use_ruta_google_maps'
 
 const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const limitar = (valor) => Math.max(5, Math.min(95, valor))
-
-// esto sirve para armar la url de direcciones reales cuando si hay clave configurada
-const armarUrlDirecciones = (paradas) => {
-    const puntos = [almacen, ...paradas.map((p) => ({ lat: p.lat, lng: p.lng }))]
-    const origen = `${puntos[0].lat},${puntos[0].lng}`
-    const destino = `${puntos.at(-1).lat},${puntos.at(-1).lng}`
-    const intermedias = puntos.slice(1, -1).map((p) => `${p.lat},${p.lng}`).join('|')
-    const base = `https://www.google.com/maps/embed/v1/directions?key=${clave_maps}&origin=${origen}&destination=${destino}`
-    return intermedias ? `${base}&waypoints=${intermedias}` : base
-}
-
-// pos esto funciona para simular el mapa con pines numerados cuando no hay clave real
-const posicionSimulada = (punto) => ({
-    x: limitar(50 + (punto.lng - almacen.lng) * 500),
-    y: limitar(50 + (punto.lat - almacen.lat) * 500)
+const posicion_simulada = (punto) => ({
+  x: limitar(50 + (punto.lng - almacen.lng) * 500),
+  y: limitar(50 + (punto.lat - almacen.lat) * 500)
 })
 
-// esto sirve para dibujar la ruta completa del repartidor con sus paradas en orden
+function MapaRutaSimulada({ paradas }) {
+  return <div className="relative h-72 w-full overflow-hidden rounded-lg border border-borde bg-fondo bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
+    {paradas.map((parada) => <MapaPinParada key={parada.pedido.id} porcentaje_x={posicion_simulada(parada).x} porcentaje_y={posicion_simulada(parada).y} numero={parada.parada} />)}
+  </div>
+}
+
 export function MapaEntregasRepartidor({ paradas }) {
-    if (!paradas.length) return <p className="text-xs text-mutado">No hay paradas para dibujar en el mapa todavia</p>
+  const tiene_direcciones = paradas.length > 0 && paradas.every((parada) => parada.direccion)
+  const { mapa_ref, cargando, error, resumen } = useRutaGoogleMaps(paradas)
 
-    if (clave_maps) {
-        return <iframe title="mapa de rutas" className="w-full h-72 border border-borde rounded-lg" src={armarUrlDirecciones(paradas)} />
-    }
-
-    return (
-        <div className="relative w-full h-72 border border-borde rounded-lg bg-fondo overflow-hidden bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
-            {paradas.map((parada) => {
-                const posicion = posicionSimulada(parada)
-                return <MapaPinParada key={parada.pedido.id} porcentaje_x={posicion.x} porcentaje_y={posicion.y} numero={parada.parada} />
-            })}
-        </div>
-    )
+  if (!paradas.length) return <p className="text-xs text-mutado">No hay paradas para dibujar en el mapa todavia</p>
+  if (clave_maps && tiene_direcciones) {
+    if (cargando) return <p className="text-xs text-mutado">Calculando la mejor ruta con Google Maps</p>
+    if (error) return <div className="border border-primario bg-fondo p-4 text-xs text-primario">{error}</div>
+    return <div className="space-y-2"><div ref={mapa_ref} className="h-72 w-full rounded-lg border border-borde" />{resumen && <p className="text-xs text-mutado">Ruta optimizada {resumen.distancia} aproximadamente {resumen.duracion}</p>}</div>
+  }
+  return <div className="space-y-2">{!clave_maps && <p className="text-xs text-primario">Configura VITE_GOOGLE_MAPS_API_KEY para activar Google Maps</p>}{!tiene_direcciones && <p className="text-xs text-primario">Hay pedidos sin direccion de entrega guardada</p>}<MapaRutaSimulada paradas={paradas} /></div>
 }

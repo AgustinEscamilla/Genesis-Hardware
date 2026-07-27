@@ -7,7 +7,7 @@ const Tablas = cargar_vista(() => import('./administrador/cuentas/vista_tablas_a
 const CrearCuentas = cargar_vista(() => import('./administrador/cuentas/vista_crear_cuentas_administrador'), 'VistaCrearCuentasAdministrador')
 const Catalogo = cargar_vista(() => import('./administrador/catalogo/vista_catalogo_administrador'), 'VistaCatalogoAdministrador')
 const Mercancia = cargar_vista(() => import('./administrador/vista_mercancia_administrador'), 'VistaMercanciaAdministrador')
-const Lineas = cargar_vista(() => import('./administrador/lineas/vista_lineas_administrador'), 'VistaLineasAdministrador')
+const Noticias = cargar_vista(() => import('./administrador/noticias/vista_noticias_administrador'), 'VistaNoticiasAdministrador')
 const Dashboard = cargar_vista(() => import('./administrador/dashboard/vista_dashboard_administrador'), 'VistaDashboardAdministrador')
 const vista = (componente) => <VistaDiferida componente={componente} />
 
@@ -19,9 +19,10 @@ export function RutasAdministrador() {
       <Route path="crear-cuentas" element={vista(CrearCuentas)} />
       <Route path="catalogo" element={vista(Catalogo)} />
       <Route path="mercancia" element={vista(Mercancia)} />
-      <Route path="lineas" element={vista(Lineas)} />
+      <Route path="noticias" element={vista(Noticias)} />
       <Route path="dashboard" element={vista(Dashboard)} />
     </Route>
     <Route path="/admin" element={<Navigate to="/administrador" replace />} />
+    <Route path="/administrador/lineas" element={<Navigate to="/administrador/noticias" replace />} />
   </>
 }

@@ -1,8 +1,16 @@
 {
-    "functions": {
-        "source": "functions",
-        "runtime": "nodejs20"
-    },
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "principal",
+            "runtime": "nodejs20"
+        },
+        {
+            "source": "functions_distribuidor",
+            "codebase": "distribuidor",
+            "runtime": "nodejs22"
+        }
+    ],
     "firestore": {
         "rules": "firestore.rules",
         "indexes": "firestore.indexes.json"

@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from './conexion_firebase'
 
@@ -10,6 +10,10 @@ export const obtenerCatalogo = async () => {
   const instantanea = await getDocs(coleccion())
   return instantanea.docs.map(d => ({ id: d.id, ...d.data() }))
 }
+
+export const escucharCatalogo = (al_cambiar, al_error) => onSnapshot(coleccion(), (instantanea) => {
+  al_cambiar(instantanea.docs.map(d => ({ id: d.id, ...d.data() })))
+}, al_error)
 
 export const actualizarProducto = async (id, datos) => {
   // aqui puse profe la actualizacion de imagen y descripcion de precios del producto

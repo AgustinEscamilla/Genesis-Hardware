@@ -11,6 +11,7 @@ const Gestion = cargar_vista(() => import('./empleados/vista_gestion_pedidos_emp
 const Empaque = cargar_vista(() => import('./empleados/vista_empaque_empleado'), 'VistaEmpaqueEmpleado')
 const Anden = cargar_vista(() => import('./empleados/vista_liberacion_empleado'), 'VistaLiberacionEmpleado')
 const Rechazos = cargar_vista(() => import('./empleados/vista_pedidos_rechazados_empleado'), 'VistaPedidosRechazadosEmpleado')
+const RecepcionDistribuidor = cargar_vista(() => import('./empleados/vista_recepcion_distribuidor_empleado'), 'VistaRecepcionDistribuidorEmpleado')
 const vista = (componente) => <VistaDiferida componente={componente} />
 
 export function RutasEmpleados() {
@@ -23,5 +24,6 @@ export function RutasEmpleados() {
     <Route path="empaque" element={vista(Empaque)} />
     <Route path="anden-salida" element={vista(Anden)} />
     <Route path="rechazos" element={vista(Rechazos)} />
+    <Route path="recepcion-distribuidor" element={vista(RecepcionDistribuidor)} />
   </Route>
 }

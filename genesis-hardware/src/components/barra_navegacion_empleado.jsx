@@ -15,6 +15,7 @@ export function BarraNavegacionEmpleado() {
       <NavLink to="anden-salida" className={estilo}>Anden</NavLink>
       <NavLink to="busqueda-pedidos" className={estilo}>Pedidos</NavLink>
       <NavLink to="inventario" className={estilo}>Inventario</NavLink>
+      <NavLink to="recepcion-distribuidor" className={estilo}>Proveedor</NavLink>
       <NavLink to="gestion-pedidos" className={estilo}>Gestion</NavLink>
       <NavLink to="rechazos" className={estilo}>Rechazos</NavLink>
     </nav>

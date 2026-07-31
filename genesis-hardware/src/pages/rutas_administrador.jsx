@@ -9,6 +9,7 @@ const Catalogo = cargar_vista(() => import('./administrador/catalogo/vista_catal
 const Mercancia = cargar_vista(() => import('./administrador/vista_mercancia_administrador'), 'VistaMercanciaAdministrador')
 const Noticias = cargar_vista(() => import('./administrador/noticias/vista_noticias_administrador'), 'VistaNoticiasAdministrador')
 const Dashboard = cargar_vista(() => import('./administrador/dashboard/vista_dashboard_administrador'), 'VistaDashboardAdministrador')
+const Abastecimiento = cargar_vista(() => import('./administrador/vista_abastecimiento_administrador'), 'VistaAbastecimientoAdministrador')
 const vista = (componente) => <VistaDiferida componente={componente} />
 
 export function RutasAdministrador() {
@@ -21,6 +22,7 @@ export function RutasAdministrador() {
       <Route path="mercancia" element={vista(Mercancia)} />
       <Route path="noticias" element={vista(Noticias)} />
       <Route path="dashboard" element={vista(Dashboard)} />
+      <Route path="abastecimiento" element={vista(Abastecimiento)} />
     </Route>
     <Route path="/admin" element={<Navigate to="/administrador" replace />} />
     <Route path="/administrador/lineas" element={<Navigate to="/administrador/noticias" replace />} />

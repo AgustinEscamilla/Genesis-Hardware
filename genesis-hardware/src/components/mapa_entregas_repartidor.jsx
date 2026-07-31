@@ -1,6 +1,5 @@
 import { MapaPinParada } from './mapa_pin_parada'
 import { almacen } from '../services/servicio_estafeta_mock'
-import { useRutaGoogleMaps } from '../hooks/use_ruta_google_maps'
 
 const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const limitar = (valor) => Math.max(5, Math.min(95, valor))
@@ -15,10 +14,8 @@ function MapaRutaSimulada({ paradas }) {
   </div>
 }
 
-export function MapaEntregasRepartidor({ paradas }) {
-  const tiene_direcciones = paradas.length > 0 && paradas.every((parada) => parada.direccion)
-  const { mapa_ref, cargando, error, resumen } = useRutaGoogleMaps(paradas)
-
+// aqui maestro yo solo pinto el mapa con el estado que ya calculo useRutaGoogleMaps en el padre
+export function MapaEntregasRepartidor({ paradas, tiene_direcciones, mapa_ref, cargando, error, resumen }) {
   if (!paradas.length) return <p className="text-xs text-mutado">No hay paradas para dibujar en el mapa todavia</p>
   if (clave_maps && tiene_direcciones) {
     if (cargando) return <p className="text-xs text-mutado">Calculando la mejor ruta con Google Maps</p>

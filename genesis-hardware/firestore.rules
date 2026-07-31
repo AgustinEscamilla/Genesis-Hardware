@@ -45,6 +45,10 @@ service cloud.firestore {
       allow update: if esStaff() && transicionPedidoValida();
       allow delete: if esAdministrador();
     }
+    match /pedidos_distribuidor/{pedidoId} {
+      allow read: if esAdministrador() || esEmpleado();
+      allow write: if false;
+    }
     match /pagos_pendientes/{pagoId} {
       allow read: if esCliente() && resource.data.usuario_id == request.auth.uid;
       allow write: if false;

@@ -6,12 +6,19 @@ const limpiar_elementos = (elementos) => elementos.forEach((elemento) => {
   if ('map' in elemento) elemento.map = null
 })
 
+// esto sirve para que la lista de paradas quede en el mismo orden que google ya optimizo
+const reordenar_paradas = (paradas, orden) => {
+  if (!orden || orden.length !== paradas.length) return paradas
+  return orden.map((indiceOriginal, posicion) => ({ ...paradas[indiceOriginal], parada: posicion + 1 }))
+}
+
 export function useRutaGoogleMaps(paradas) {
   const mapa_ref = useRef(null)
   const elementos_ref = useRef([])
   const [cargando, set_cargando] = useState(false)
   const [error, set_error] = useState('')
   const [resumen, set_resumen] = useState(null)
+  const [orden_optimizado, set_orden_optimizado] = useState(null)
 
   useEffect(() => {
     if (!paradas.length || paradas.some((parada) => !parada.direccion)) return undefined
@@ -20,6 +27,7 @@ export function useRutaGoogleMaps(paradas) {
       if (!activo) return null
       set_cargando(true)
       set_error('')
+      set_orden_optimizado(null)
       return obtener_ruta_google(paradas)
     }).then((datos) => {
       if (!datos) return
@@ -34,11 +42,12 @@ export function useRutaGoogleMaps(paradas) {
         elementos_ref.current = [...polilineas, ...marcadores]
         if (ruta_google.viewport) mapa.fitBounds(ruta_google.viewport)
         set_resumen({ distancia: `${((ruta_google.distanceMeters || 0) / 1000).toFixed(1)} km`, duracion: `${Math.ceil((ruta_google.durationMillis || 0) / 60000)} min` })
+        set_orden_optimizado(ruta_google.optimizedIntermediateWaypointIndices || null)
       })
     }).catch((e) => activo && set_error(String(e?.message || 'No se pudo calcular la ruta')))
       .finally(() => activo && set_cargando(false))
     return () => { activo = false; limpiar_elementos(elementos_ref.current) }
   }, [paradas])
 
-  return { mapa_ref, cargando, error, resumen }
+  return { mapa_ref, cargando, error, resumen, paradas_ordenadas: reordenar_paradas(paradas, orden_optimizado) }
 }

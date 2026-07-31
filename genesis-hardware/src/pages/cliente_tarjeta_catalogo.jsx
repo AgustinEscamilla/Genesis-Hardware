@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PanelDescripcionProducto } from '../components/panel_descripcion_producto'
+import { formatear_precio } from '../services/formato_moneda'
 
 // esto sirve yo muestro la tarjeta visual de cada producto para cliente
 export function ClienteTarjetaCatalogo({ producto, alAgregar }) {
@@ -19,7 +20,7 @@ export function ClienteTarjetaCatalogo({ producto, alAgregar }) {
       </button>
       <PanelDescripcionProducto producto={producto} visible={descripcion_visible} />
       <div className="mt-auto flex justify-between items-center pt-2 border-t border-borde">
-        <p className="text-xl text-[#fca5a5]">$ {producto.precio || '0.00'}</p>
+        <p className="text-xl text-[#fca5a5]">{formatear_precio(producto.precio)}</p>
         <button onClick={() => alAgregar(producto)} className="border border-[#d8b4fe] text-[#d8b4fe] px-4 py-1 text-xs hover:bg-[#d8b4fe] hover:text-fondo">AGREGAR</button>
       </div>
     </div>

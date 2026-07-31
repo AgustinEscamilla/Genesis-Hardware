@@ -5,10 +5,10 @@ import { BotonSalida } from './boton_salida'
 export function ContenedorPrincipal({ children, navbar }) {
   return (
     <div className="min-h-screen bg-fondo text-texto flex flex-col font-sans">
-      <header className="flex flex-wrap items-center gap-4 border-b border-borde bg-panel px-4 py-3 md:px-6">
-        <img src={logo} alt="Genesis Hardware" className="h-10 w-auto object-contain bg-fondo p-1" />
+      <header className="sticky top-0 z-40 flex flex-wrap items-center gap-4 border-b border-borde bg-panel px-4 py-3 backdrop-blur-xl md:px-6">
+        <img src={logo} alt="Genesis Hardware" className="h-10 w-auto object-contain rounded-md bg-fondo p-1" />
         <div className="shrink-0">
-          <p className="text-xs font-black tracking-[0.25em] text-primario">GENESIS HARDWARE</p>
+          <p className="text-xs font-black tracking-[0.25em] texto-degradado">GENESIS HARDWARE</p>
           <p className="text-[10px] uppercase tracking-widest text-mutado">Centro de operaciones</p>
         </div>
         <div className="flex min-w-0 flex-1 justify-center">{navbar}</div>

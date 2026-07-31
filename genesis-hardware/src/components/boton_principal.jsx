@@ -5,7 +5,7 @@ export function BotonPrincipal({ texto, alHacerClic, tipo = "button" }) {
     <button
       type={tipo}
       onClick={alHacerClic}
-      className="w-full bg-primario text-fondo font-bold py-2 px-4 hover:opacity-80 transition-opacity"
+      className="w-full rounded-lg bg-degradado-primario px-4 py-2.5 font-bold text-fondo shadow-brillo-primario transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
     >
       {texto}
     </button>

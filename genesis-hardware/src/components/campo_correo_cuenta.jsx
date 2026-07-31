@@ -10,9 +10,9 @@ export function CampoCorreoCuenta({ valor, alCambiar, rolSeleccionado }) {
                     value={valor}
                     onChange={alCambiar}
                     placeholder="ej agustinescamilla"
-                    className="bg-black border border-gray-800 rounded-l px-3 py-2 text-white focus:outline-none focus:border-red-500 w-full"
+                    className="bg-fondo/60 border border-borde rounded-l-lg px-3 py-2 text-texto transition-all duration-200 focus:outline-none focus:border-primario focus:ring-2 focus:ring-primario/30 w-full"
                 />
-                <div className="bg-[#2a2a2a] border border-l-0 border-gray-800 rounded-r px-3 py-2 flex items-center text-gray-400 font-bold select-none">
+                <div className="bg-panel border border-l-0 border-borde rounded-r-lg px-3 py-2 flex items-center text-mutado font-bold select-none">
                     @{rolSeleccionado}.com
                 </div>
             </div>

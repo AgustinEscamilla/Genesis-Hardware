@@ -5,7 +5,7 @@ export function TablaGenerica({ encabezados, children, mensajeVacio = 'Datos fal
   const tieneFilas = Children.count(children) > 0
 
   return (
-    <div className="overflow-x-auto w-full">
+    <div className="w-full overflow-x-auto rounded-xl border border-borde bg-panel">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="border-b border-borde text-mutado text-sm">

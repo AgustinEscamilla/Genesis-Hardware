@@ -1,3 +1,86 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* aqui maestro yo modernizo el look global con glassmorphism y gradientes sin tocar la paleta de colores */
+::selection {
+    background-color: rgba(255, 76, 76, 0.35);
+    color: #f4f4f5;
+}
+
+html {
+    scrollbar-color: #2d2d2d #0a0a0a;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2d2d2d;
+    border-radius: 999px;
+    border: 2px solid #0a0a0a;
+}
+
+@layer utilities {
+
+    /* pantalla de fondo con degradados suaves de la marca, siempre fija para dar sensacion de profundidad */
+    .bg-fondo {
+        background-color: #0a0a0a;
+        background-image:
+            radial-gradient(circle at 12% 8%, rgba(255, 76, 76, 0.14), transparent 42%),
+            radial-gradient(circle at 88% 4%, rgba(139, 92, 246, 0.16), transparent 45%),
+            radial-gradient(circle at 45% 100%, rgba(6, 182, 212, 0.12), transparent 55%);
+        background-attachment: fixed;
+    }
+
+    /* efecto vidrio esmerilado para todas las tarjetas y paneles que ya usan bg-panel */
+    .bg-panel {
+        background-color: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .bg-panel.border,
+    .bg-panel.border-borde {
+        box-shadow: 0 8px 32px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .texto-degradado {
+        background-image: linear-gradient(135deg, #ff4c4c 0%, #8b5cf6 60%, #06b6d4 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* aqui puse profe un borde con degradado que solo aparece en hover, sin tapar el fondo de la tarjeta */
+    .borde-degradado-hover {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .borde-degradado-hover::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        padding: 1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #ff4c4c, #8b5cf6, #06b6d4);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 300ms ease;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .borde-degradado-hover:hover::before {
+        opacity: 1;
+    }
+}

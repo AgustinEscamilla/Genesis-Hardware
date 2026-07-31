@@ -10,7 +10,7 @@ export function BarraNavegacionAdministrador() {
 
   // esto sirve para cambiar de rutas y marcar visualmente la opcion activa
   const estilo = ({ isActive }) =>
-    `${estilosBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-fondo'}`
+    `${estilosBase} rounded-lg ${isActive ? 'bg-degradado-primario text-fondo border-transparent shadow-brillo-primario' : 'bg-transparent text-texto border-borde hover:-translate-y-0.5 hover:border-primario/60'}`
 
   return (
     <nav className="flex items-center justify-center gap-2 overflow-x-auto bg-panel py-1">

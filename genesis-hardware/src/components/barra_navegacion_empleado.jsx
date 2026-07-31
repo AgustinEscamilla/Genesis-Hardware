@@ -5,7 +5,7 @@ const estiloBase = 'whitespace-nowrap px-3 py-2 text-xs uppercase tracking-wide 
 // aqui maestro yo construyo la barra de secciones para el empleado
 export function BarraNavegacionEmpleado() {
   const estilo = ({ isActive }) =>
-    `${estiloBase} ${isActive ? 'bg-primario text-fondo border-primario' : 'bg-transparent text-texto border-borde hover:bg-fondo'}`
+    `${estiloBase} rounded-lg ${isActive ? 'bg-degradado-primario text-fondo border-transparent shadow-brillo-primario' : 'bg-transparent text-texto border-borde hover:-translate-y-0.5 hover:border-primario/60'}`
 
   return (
     <nav className="flex justify-center gap-2 overflow-x-auto bg-panel py-1">

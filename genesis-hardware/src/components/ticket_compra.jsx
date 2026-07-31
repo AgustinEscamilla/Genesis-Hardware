@@ -1,4 +1,6 @@
 // esto sirve para mostrar el recibo real despues de confirmar el pago
+import { formatear_precio } from '../services/formato_moneda'
+
 export function TicketCompra({ ticket, al_cerrar }) {
     const pago_pendiente = ticket.estadoPago !== 'approved'
     return (
@@ -12,13 +14,13 @@ export function TicketCompra({ ticket, al_cerrar }) {
                 {ticket.items.map((item) => (
                     <div key={item.id} className="flex justify-between">
                         <span>{item.nombre} x{item.cantidad}</span>
-                        <span>$ {(item.precio * item.cantidad).toFixed(2)}</span>
+                        <span>{formatear_precio(item.precio * item.cantidad)}</span>
                     </div>
                 ))}
             </div>
             <div className="border-t border-borde pt-2 flex justify-between font-bold text-primario">
                 <span>Total</span>
-                <span>$ {ticket.total.toFixed(2)}</span>
+                <span>{formatear_precio(ticket.total)}</span>
             </div>
             <button onClick={al_cerrar} className="mt-2 border border-borde py-2 hover:border-primario">Cerrar</button>
         </div>

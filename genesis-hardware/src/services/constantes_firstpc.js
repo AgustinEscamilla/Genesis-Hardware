@@ -1,4 +1,4 @@
-export const categorias_firstpc = ['Procesadores', 'Tarjetas de video', 'Tarjetas madre', 'Gabinetes', 'Enfriamiento', 'Memorias RAM', 'Almacenamiento', 'Fuentes de poder', 'Monitores', 'Computadoras', 'Teclados', 'Mouses', 'Audífonos gaming']
+export const categorias_firstpc = ['Procesadores', 'Tarjetas de video', 'Tarjetas madre', 'Enfriamiento', 'Memorias RAM', 'Almacenamiento', 'Fuentes de poder']
 
 export const marcas_firstpc = ['ASUS', 'AMD', 'Intel', 'Corsair', 'MSI', 'Gigabyte', 'NVIDIA', 'Western Digital']
 

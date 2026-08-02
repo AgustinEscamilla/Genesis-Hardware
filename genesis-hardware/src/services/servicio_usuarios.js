@@ -40,7 +40,7 @@ export const resolverRutaAccesoUsuario = async ({ uidAuth, correo }) => {
   const rol = inferirRolPorCorreo(correo)
   if (esSesionLocal(uidAuth) && rol) return rutas_por_rol[rol]
   const perfil = uidAuth ? await buscarPerfilUsuario(uidAuth) : null
-  if (perfil?.rol) return rutas_por_rol[String(perfil.rol).toLowerCase()] || '/autenticacion'
+  if (perfil?.rol) return rutas_por_rol[String(perfil.rol).toLowerCase()] || '/'
   if (rol) return rutas_por_rol[rol]
-  return '/autenticacion'
+  return '/'
 }

@@ -27,7 +27,7 @@ export function ModalCarrito({
                         <button
                             onClick={al_ir_a_pagar}
                             disabled={!carrito.length || guardando}
-                            className="border border-primario text-primario py-2 text-xs hover:bg-primario hover:text-fondo disabled:opacity-30"
+                            className="mt-4 w-full rounded-lg border border-primario py-3 text-xs font-bold text-primario hover:bg-primario hover:text-fondo disabled:opacity-30"
                         >
                             {guardando ? 'Procesando...' : 'Comenzar proceso de pago'}
                         </button>

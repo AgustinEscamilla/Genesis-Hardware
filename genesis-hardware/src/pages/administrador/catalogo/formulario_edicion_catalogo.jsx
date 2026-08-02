@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useEspecificacionesTecnicasForma } from '../../../hooks/use_especificaciones_tecnicas_forma'
+import { EditorEspecificacionesTecnicas } from './editor_especificaciones_tecnicas'
 
 const categorias = ['Procesadores', 'Memoria RAM', 'Tarjetas de video', 'Discos duros', 'SSD', 'Ventiladores']
 
@@ -16,11 +18,24 @@ export function FormularioEdicionCatalogo({ seleccionado, alGuardar, urlImagen, 
       }
       : { nombre: '', descripcionPrecios: '', descripcionTecnica: '', categoria: categorias[0], stockVisible: 0, precio: 0 }
   )
+  const especificacionesForma = useEspecificacionesTecnicasForma(seleccionado?.especificaciones_tecnicas)
 
   const cambiar = campo => e => setForma(prev => ({ ...prev, [campo]: e.target.value }))
 
   return (
-    <form onSubmit={e => { e.preventDefault(); alGuardar({ ...forma, imagen: urlImagen, stockVisible: Number(forma.stockVisible || 0), precio: Number(forma.precio || 0) }) }} className="flex flex-col gap-3">
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        alGuardar({
+          ...forma,
+          imagen: urlImagen,
+          stockVisible: Number(forma.stockVisible || 0),
+          precio: Number(forma.precio || 0),
+          especificaciones_tecnicas: especificacionesForma.especificaciones
+        })
+      }}
+      className="flex flex-col gap-3"
+    >
       <p className="text-xs uppercase tracking-widest text-primario">{seleccionado ? 'Editar producto' : 'Agregar producto'}</p>
       <input value={forma.nombre} onChange={cambiar('nombre')} placeholder="Nombre del producto" required className="bg-fondo border border-borde text-texto px-3 py-2 text-xs" />
       <select value={forma.categoria} onChange={cambiar('categoria')} className="bg-fondo border border-borde text-texto px-3 py-2 text-xs">
@@ -37,6 +52,7 @@ export function FormularioEdicionCatalogo({ seleccionado, alGuardar, urlImagen, 
       {mensajeSubida && <p className="text-xs text-primario">{mensajeSubida}</p>}
       {urlImagen && <img src={urlImagen} alt="vista previa" className="h-24 object-contain border border-borde" />}
       <textarea value={forma.descripcionPrecios} onChange={cambiar('descripcionPrecios')} placeholder="Descripcion de precios" rows={3} className="bg-fondo border border-borde text-texto px-3 py-2 text-xs resize-none" />
+      <EditorEspecificacionesTecnicas {...especificacionesForma} />
       {mensaje && <p className="text-xs text-primario">{mensaje}</p>}
       <button type="submit" disabled={subiendo || guardando} className="border border-primario text-primario text-xs px-4 py-2 hover:bg-primario hover:text-fondo disabled:opacity-50 transition-colors">
         {guardando ? 'Guardando producto...' : seleccionado ? 'Actualizar producto' : 'Agregar producto'}

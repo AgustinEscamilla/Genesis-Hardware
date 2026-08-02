@@ -17,7 +17,9 @@ export const iniciarSesionConCorreo = async (correo, contrasena) => {
 
 export const iniciarSesionConGoogle = async () => {
   if (usar_sesion_local) return guardar_sesion_local('cliente-local@genesis.com')
-  return signInWithPopup(auth, new GoogleAuthProvider())
+  const proveedorGoogle = new GoogleAuthProvider()
+  proveedorGoogle.setCustomParameters({ prompt: 'select_account' })
+  return signInWithPopup(auth, proveedorGoogle)
 }
 
 export const cerrarSesion = async () => {

@@ -11,7 +11,7 @@ export const resolverRutaAcceso = async ({ uidAuth, correo }) => {
   if (esSesionLocal(uidAuth) && rutas_por_rol[rolInferido]) return rutas_por_rol[rolInferido]
   const perfil = uidAuth ? await buscarPerfilUsuario(uidAuth) : null
   const rol = String(perfil?.rol || rolInferido || '').toLowerCase()
-  if (!rutas_por_rol[rol]) return '/autenticacion'
+  if (!rutas_por_rol[rol]) return '/'
   if (rol === roles.empleado || rol === roles.repartidor) {
     const necesita = await requiereOnboardingStaff({ rol, correo: perfil?.correo || correo, uidAuth })
     if (necesita) return ruta_onboarding(rol, perfil?.correo || correo)

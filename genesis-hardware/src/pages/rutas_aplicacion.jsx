@@ -8,7 +8,7 @@ import { RutasRepartidor } from './rutas_repartidor'
 
 const VistaInicio = cargar_vista(() => import('./publico/inicio/vista_inicio'), 'VistaInicio')
 const VistaCatalogoFirstpc = cargar_vista(() => import('./publico/vista_catalogo_firstpc'), 'VistaCatalogoFirstpc')
-const VistaAutenticacion = cargar_vista(() => import('./vista_autenticacion'), 'VistaAutenticacion')
+const VistaDetalleProductoFirstpc = cargar_vista(() => import('./publico/vista_detalle_producto_firstpc'), 'VistaDetalleProductoFirstpc')
 const VistaCliente = cargar_vista(() => import('./vista_principal_cliente'), 'VistaPrincipalCliente')
 const VistaAjustes = cargar_vista(() => import('./clientes/vista_ajustes_cliente'), 'VistaAjustesCliente')
 const VistaReclamo = cargar_vista(() => import('./clientes/vista_reclamo_pedido'), 'VistaReclamoPedido')
@@ -26,9 +26,10 @@ export function RutasAplicacion() {
   return <Routes>
     <Route path="/" element={vista(VistaInicio)} />
     <Route path="/componentes" element={vista(VistaCatalogoFirstpc)} />
-    <Route path="/autenticacion" element={vista(VistaAutenticacion)} />
-    <Route path="/login" element={<Navigate to="/autenticacion" replace />} />
-    <Route path="/empleados/acceso" element={<Navigate to="/autenticacion" replace />} />
+    <Route path="/componentes/:id" element={vista(VistaDetalleProductoFirstpc)} />
+    <Route path="/autenticacion" element={<Navigate to="/" replace />} />
+    <Route path="/login" element={<Navigate to="/" replace />} />
+    <Route path="/empleados/acceso" element={<Navigate to="/" replace />} />
     {RutasAdministrador()}
     <Route path="/clientes" element={vista(ClienteProtegido)} />
     <Route path="/clientes/ajustes" element={vista(AjustesProtegidos)} />

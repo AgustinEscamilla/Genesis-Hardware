@@ -14,7 +14,7 @@ export function RutaProtegida({ children, rolPermitido }) {
   }
 
   if (!usuarioActual) {
-    return <Navigate to="/autenticacion" replace />
+    return <Navigate to="/" replace />
   }
 
   // esto sirve para esperar el rol real antes de decidir si bloqueo el paso

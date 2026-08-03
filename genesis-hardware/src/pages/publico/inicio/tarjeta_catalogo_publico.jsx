@@ -2,9 +2,10 @@
 import { formatear_precio } from '../../../services/formato_moneda'
 
 export function TarjetaCatalogoPublico({ producto }) {
+  const imagen_valida = producto.imagen && !producto.imagen.includes('via.placeholder.com')
   return (
     <article className="group flex flex-col overflow-hidden border border-borde bg-panel transition-all hover:-translate-y-1 hover:border-primario/60 hover:shadow-xl hover:shadow-black/20">
-      {producto.imagen
+      {imagen_valida
         ? <img src={producto.imagen} alt={producto.nombre} className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
         : <div className="flex h-44 w-full items-center justify-center bg-fondo text-xs text-mutado">Sin imagen</div>
       }

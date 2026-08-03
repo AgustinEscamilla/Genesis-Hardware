@@ -4,13 +4,14 @@ import { db } from './conexion_firebase'
 import { ESTADOS_PEDIDO, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
 import { buscarPerfilUsuario } from './servicio_usuarios'
-export const ZONAS_LOGISTICAS = ['norte', 'sur', 'centro', 'oriente', 'poniente']
+export const ZONAS_LOGISTICAS = ['campeche']
 
 // pos esto funciona para crear el pedido cobrar el total y avisar al cliente dueno
-export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaLogistica = 'sin_zona', clienteId = null, metodoPago = null, pagoReferencia = null }) => {
+export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaLogistica = 'campeche', clienteId = null, metodoPago = null, pagoReferencia = null }) => {
   const estadoInicial = origen === 'cliente' ? ESTADOS_PEDIDO.PENDIENTE_RECOLECCION : ESTADOS_PEDIDO.EN_EMPAQUE
   const perfil_cliente = clienteId ? await buscarPerfilUsuario(clienteId).catch(() => null) : null
-  const direccion_entrega = String(perfil_cliente?.direccionVivienda || '').trim()
+  const direccion_base = String(perfil_cliente?.direccionVivienda || '').trim()
+  const direccion_entrega = direccion_base.toLowerCase().includes('campeche') ? direccion_base : `${direccion_base}, Campeche, Mexico`
   const codigo_postal_entrega = String(perfil_cliente?.codigoPostal || '').trim()
   const fecha = new Date().toISOString()
   const total = carrito.reduce((acc, item) => acc + Number(item.precio || 0) * Number(item.cantidad || 0), 0)

@@ -24,6 +24,10 @@ export function useAjustesCliente() {
       setMensaje('El codigo postal debe tener 5 digitos')
       return
     }
+    if (String(forma.direccionVivienda || '').trim().length < 15) {
+      setMensaje('Escribe una direccion completa con calle numero y colonia')
+      return
+    }
     try {
       await actualizarPerfilUsuario(usuarioActual.uid, forma)
       setMensaje('Perfil actualizado correctamente')

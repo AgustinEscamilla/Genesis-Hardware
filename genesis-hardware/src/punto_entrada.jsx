@@ -3,9 +3,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './estilos_globales.css'
 import Aplicacion from './aplicacion.jsx'
-import { inicializarMercadoPago } from './services/servicio_pago_mercadopago'
-
-inicializarMercadoPago()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

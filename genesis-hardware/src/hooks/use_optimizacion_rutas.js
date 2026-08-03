@@ -4,7 +4,7 @@ import { generar_ruta_simulada } from '../services/servicio_estafeta_mock'
 
 // aqui maestro yo agrupo los pedidos liberados por zona antes de ordenar la ruta
 const agruparPorZona = (pedidos) => pedidos.reduce((acc, pedido) => {
-    const zona = pedido.zonaLogistica || 'sin_zona'
+        const zona = pedido.zonaLogistica || 'campeche'
     acc[zona] = acc[zona] || []
     acc[zona].push(pedido)
     return acc
@@ -14,13 +14,11 @@ const agruparPorZona = (pedidos) => pedidos.reduce((acc, pedido) => {
 export function useOptimizacionRutas(pedidosLiberados = []) {
     const paradas = useMemo(() => {
         const porZona = agruparPorZona(pedidosLiberados)
-        const ordenZonas = [...ZONAS_LOGISTICAS, 'sin_zona']
-        let contador = 0
-        return ordenZonas.flatMap((zona) => (porZona[zona] || []).map((pedido) => {
-            contador += 1
+        const ordenZonas = ZONAS_LOGISTICAS
+        return ordenZonas.flatMap((zona) => (porZona[zona] || []).map((pedido, indice) => {
             const destino = generar_ruta_simulada(pedido.id).at(-1)
             const direccion = String(pedido.direccionEntrega || '').trim()
-            return { parada: contador, zona, pedido, direccion, lat: destino.lat, lng: destino.lng }
+            return { parada: indice + 1, zona, pedido, direccion, lat: destino.lat, lng: destino.lng }
         }))
     }, [pedidosLiberados])
 

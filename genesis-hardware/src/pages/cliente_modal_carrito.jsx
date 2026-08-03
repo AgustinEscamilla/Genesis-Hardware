@@ -8,7 +8,6 @@ export function ClienteModalCarrito({ modal_carrito, carrito }) {
       al_ajustar={carrito.ajustar}
       al_quitar={carrito.quitar}
       al_ir_a_pagar={carrito.irAPagar}
-      al_confirmar={carrito.confirmar}
       guardando={carrito.guardando}
       mensaje={carrito.mensaje}
       al_cerrar={modal_carrito.cerrar}

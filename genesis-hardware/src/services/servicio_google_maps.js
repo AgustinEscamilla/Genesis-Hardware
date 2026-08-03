@@ -1,6 +1,6 @@
-import { almacen } from './servicio_estafeta_mock'
-
 const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+const origen_campeche = { lat: 19.8301, lng: -90.5349 }
+const gps_en_campeche = (ubicacion) => ubicacion && ubicacion.lat >= 17.8 && ubicacion.lat <= 20.9 && ubicacion.lng >= -92.5 && ubicacion.lng <= -89
 let promesa_maps
 
 const cargar_maps = () => {
@@ -18,14 +18,16 @@ const cargar_maps = () => {
   return promesa_maps
 }
 
-export const obtener_ruta_google = async (paradas) => {
+const convertir_origen = (ubicacion) => gps_en_campeche(ubicacion) ? { latLng: { latitude: ubicacion.lat, longitude: ubicacion.lng } } : `${origen_campeche.lat},${origen_campeche.lng}`
+
+export const obtener_ruta_google = async (paradas, ubicacion) => {
   if (!paradas.length) throw new Error('No hay paradas para calcular')
   if (paradas.length > 25) throw new Error('Google Maps permite hasta 25 paradas por ruta')
   const maps = await cargar_maps()
   const [{ Map: MapaGoogle }, { Route: RutaGoogle }] = await Promise.all([
     maps.importLibrary('maps'), maps.importLibrary('routes'), maps.importLibrary('marker')
   ])
-  const origen = import.meta.env.VITE_ALMACEN_DIRECCION || `${almacen.lat},${almacen.lng}`
+  const origen = convertir_origen(ubicacion)
   const resultado = await RutaGoogle.computeRoutes({
     origin: origen, destination: origen,
     intermediates: paradas.map((parada) => ({ location: parada.direccion })),

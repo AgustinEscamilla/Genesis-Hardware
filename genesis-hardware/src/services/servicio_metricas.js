@@ -1,7 +1,7 @@
 // aqui maestro yo calculo la rentabilidad por zona a partir de pedidos entregados
 export const calcularRentabilidadPorZona = (pedidosEntregados = []) => {
     const porZona = pedidosEntregados.reduce((acc, p) => {
-        const zona = p.zonaLogistica || 'sin_zona'
+        const zona = p.zonaLogistica || 'campeche'
         acc[zona] = acc[zona] || { zona, totalVentas: 0, cantidadPedidos: 0 }
         acc[zona].totalVentas += Number(p.total || 0)
         acc[zona].cantidadPedidos += 1

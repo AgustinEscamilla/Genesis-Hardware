@@ -22,7 +22,7 @@ export function VistaComenzarRutaRepartidor() {
     <div className="flex flex-col gap-4">
       {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
       <div className="bg-panel border border-borde p-6 rounded-lg">
-        <h2 className="text-xl font-bold mb-3">Ruta de entrega sugerida</h2>
+        <h2 className="text-xl font-bold mb-3">Manifiestos activos</h2>
         <div className="flex flex-col gap-3">
           {paradas.map((parada) => (
             <div key={parada.orden} className="flex items-center gap-3 border border-borde rounded-lg p-4 bg-fondo hover:border-terciario transition-colors">

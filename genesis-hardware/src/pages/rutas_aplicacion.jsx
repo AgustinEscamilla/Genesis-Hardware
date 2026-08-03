@@ -12,11 +12,13 @@ const VistaDetalleProductoFirstpc = cargar_vista(() => import('./publico/vista_d
 const VistaCliente = cargar_vista(() => import('./vista_principal_cliente'), 'VistaPrincipalCliente')
 const VistaAjustes = cargar_vista(() => import('./clientes/vista_ajustes_cliente'), 'VistaAjustesCliente')
 const VistaReclamo = cargar_vista(() => import('./clientes/vista_reclamo_pedido'), 'VistaReclamoPedido')
+const VistaRetornoPago = cargar_vista(() => import('./clientes/vista_retorno_pago'), 'VistaRetornoPago')
 const VistaOnboardingEmpleado = cargar_vista(() => import('./vista_onboarding_empleado'), 'VistaOnboardingEmpleado')
 const VistaOnboardingRepartidor = cargar_vista(() => import('./vista_onboarding_repartidor'), 'VistaOnboardingRepartidor')
 const ClienteProtegido = con_ruta_protegida(VistaCliente, 'cliente')
 const AjustesProtegidos = con_ruta_protegida(VistaAjustes, 'cliente')
 const ReclamoProtegido = con_ruta_protegida(VistaReclamo, 'cliente')
+const RetornoPagoProtegido = con_ruta_protegida(VistaRetornoPago, 'cliente')
 const OnboardingEmpleadoProtegido = con_ruta_protegida(VistaOnboardingEmpleado, 'empleado')
 const OnboardingRepartidorProtegido = con_ruta_protegida(VistaOnboardingRepartidor, 'repartidor')
 
@@ -34,6 +36,7 @@ export function RutasAplicacion() {
     <Route path="/clientes" element={vista(ClienteProtegido)} />
     <Route path="/clientes/ajustes" element={vista(AjustesProtegidos)} />
     <Route path="/clientes/reclamos" element={vista(ReclamoProtegido)} />
+    <Route path="/clientes/pago/retorno" element={vista(RetornoPagoProtegido)} />
     <Route path="/cliente" element={<Navigate to="/clientes" replace />} />
     {RutasRepartidor()}
     <Route path="/onboarding/empleados" element={vista(OnboardingEmpleadoProtegido)} />

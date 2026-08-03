@@ -5,7 +5,7 @@ import { confirmarPedido } from '../services/servicio_pedidos'
 
 export function useCarritoPedidos(origen = 'cliente') {
   const { usuarioActual } = useAutenticacion(); const carrito_global = useCarritoGlobal(); const { carrito, agregar, ajustar, quitar, limpiar } = carrito_global
-  const [zonaLogistica, setZonaLogistica] = useState('norte'); const [guardando, setGuardando] = useState(false); const [mensaje, setMensaje] = useState(''); const [ticket, setTicket] = useState(null); const [paso, setPaso] = useState('carrito')
+  const [zonaLogistica, setZonaLogistica] = useState('campeche'); const [guardando, setGuardando] = useState(false); const [mensaje, setMensaje] = useState(''); const [ticket, setTicket] = useState(null); const [paso, setPaso] = useState('carrito')
   const total = carrito.reduce((acumulado, item) => acumulado + Number(item.precio || 0) * Number(item.cantidad || 0), 0)
   const irAPagar = () => carrito.length && setPaso('pago'); const volverAlCarrito = () => setPaso('carrito')
   const confirmar = async (datosPago = {}) => {

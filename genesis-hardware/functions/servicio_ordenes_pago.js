@@ -1,13 +1,14 @@
 import { db } from './base_firebase.js'
 import { registrar_auditoria } from './servicio_auditoria.js'
 
-export const crear_pedido_pagado = async ({ usuario_id, carrito, total, zona_logistica, pago_id, metodo_pago }) => {
+export const crear_pedido_pagado = async ({ usuario_id, carrito, total, referencia, pago_id, metodo_pago }) => {
+  const zona_local = 'campeche'
   const perfil = await db.collection('usuarios').doc(usuario_id).get()
   const perfil_datos = perfil.data() || {}
   const direccion = String(perfil_datos.direccionVivienda || '').trim()
   const codigo_postal = String(perfil_datos.codigoPostal || '').trim()
   const fecha = new Date().toISOString()
-  const pendiente_ref = db.collection('pagos_pendientes').doc(String(pago_id))
+  const pendiente_ref = db.collection('pagos_pendientes').doc(String(referencia))
   const resultado = await db.runTransaction(async transaccion => {
     const pendiente = await transaccion.get(pendiente_ref)
     if (pendiente.data()?.pedido_id) return { id: pendiente.data().pedido_id, nuevo: false }
@@ -23,7 +24,7 @@ export const crear_pedido_pagado = async ({ usuario_id, carrito, total, zona_log
     }
     reservas.forEach(r => { if (r.tiene_inventario) transaccion.update(r.inventario_ref, { volumen: r.actual - r.cantidad }); transaccion.update(r.catalogo_ref, { stockVisible: r.actual - r.cantidad }) })
     const pedido_ref = db.collection('pedidos').doc()
-    const pedido_datos = { carrito, origen: 'cliente', zonaLogistica: zona_logistica, clienteId: usuario_id, total, direccionEntrega: direccion, codigoPostalEntrega: codigo_postal, estado: 'pendiente_recoleccion', fecha, pagado: true, metodoPago: metodo_pago, pagoReferencia: pago_id, historialEstados: [{ estado: 'pendiente_recoleccion', fecha }] }
+  const pedido_datos = { carrito, origen: 'cliente', zonaLogistica: zona_local, clienteId: usuario_id, total, direccionEntrega: direccion, codigoPostalEntrega: codigo_postal, estado: 'pendiente_recoleccion', fecha, pagado: true, metodoPago: metodo_pago, pagoReferencia: pago_id, historialEstados: [{ estado: 'pendiente_recoleccion', fecha }] }
     transaccion.set(pedido_ref, pedido_datos)
     reservas.forEach(r => registrar_auditoria({ usuario: usuario_id, rol: perfil_datos.rol || 'cliente', accion: 'actualizar_inventario', coleccion: r.tiene_inventario ? 'inventario' : 'catalogo', documento_id: r.catalogo_ref.id, valores_viejos: { stock: r.actual }, valores_nuevos: { stock: r.actual - r.cantidad } }, transaccion))
     registrar_auditoria({ usuario: usuario_id, rol: perfil_datos.rol || 'cliente', accion: 'crear_pedido', coleccion: 'pedidos', documento_id: pedido_ref.id, valores_nuevos: pedido_datos }, transaccion)

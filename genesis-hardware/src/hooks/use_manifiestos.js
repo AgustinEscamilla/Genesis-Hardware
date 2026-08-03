@@ -6,7 +6,6 @@ import { agruparPedidosPorZona, escucharManifiestos, generarManifiesto, marcarMa
 // esto sirve para exponer zonas pendientes y manifiestos activos al repartidor
 export function useManifiestos() {
   const { pedidos: listos_despacho, cargando: cargando_listos, error: error_listos } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
-  const { pedidos: pendientes_recoleccion, cargando: cargando_pendientes, error: error_pendientes } = usePedidosEstado(ESTADOS_PEDIDO.PENDIENTE_RECOLECCION)
   const { pedidos: pedidos_en_reparto, cargando: cargando_reparto, error: error_reparto } = usePedidosEstado(ESTADOS_PEDIDO.EN_REPARTO)
   const [manifiestos, setManifiestos] = useState([])
   const [cargando_manifiestos, set_cargando_manifiestos] = useState(true)
@@ -26,10 +25,7 @@ export function useManifiestos() {
   }, [])
 
   // aqui maestro yo dejo pasar solo los pedidos que el empleado libero en el anden
-  const pedidosParaAgrupar = useMemo(
-    () => [...listos_despacho.filter((p) => p.liberadoParaRepartidor), ...pendientes_recoleccion],
-    [listos_despacho, pendientes_recoleccion]
-  )
+  const pedidosParaAgrupar = useMemo(() => listos_despacho.filter((p) => p.liberadoParaRepartidor), [listos_despacho])
   const zonasPendientes = useMemo(() => agruparPedidosPorZona(pedidosParaAgrupar), [pedidosParaAgrupar])
 
   const pedidosDelManifiesto = (manifiesto) => pedidos_en_reparto.filter((p) => p.manifiestoId === manifiesto.id)
@@ -38,8 +34,8 @@ export function useManifiestos() {
     zonasPendientes,
     manifiestos,
     pedidosEnReparto: pedidos_en_reparto,
-    cargando: cargando_listos || cargando_pendientes || cargando_reparto || cargando_manifiestos,
-    error: error_listos || error_pendientes || error_reparto || error_manifiestos,
+    cargando: cargando_listos || cargando_reparto || cargando_manifiestos,
+    error: error_listos || error_reparto || error_manifiestos,
     generar: (zona, pedidos) => generarManifiesto(zona, pedidos),
     entregar: (manifiesto) => marcarManifiestoEntregado(manifiesto, pedidosDelManifiesto(manifiesto))
   }

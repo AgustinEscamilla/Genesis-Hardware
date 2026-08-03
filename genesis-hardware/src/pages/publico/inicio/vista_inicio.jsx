@@ -38,7 +38,7 @@ export function VistaInicio() {
       <footer className="border-t border-borde bg-panel px-4 py-8 text-xs text-mutado md:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <span className="font-bold tracking-wider text-texto">GENESIS HARDWARE</span>
-          <div className="flex flex-wrap gap-4"><span>Distribucion nacional</span><span>Atencion comercial</span><span>Privacidad</span></div>
+          <div className="flex flex-wrap gap-4"><span>Distribucion local en Campeche</span><span>Atencion comercial</span><span>Privacidad</span></div>
         </div>
       </footer>
 

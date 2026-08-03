@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { usePaquetesAnden } from '../../hooks/use_paquetes_anden'
 import { useOptimizacionRutas } from '../../hooks/use_optimizacion_rutas'
 import { useRutaGoogleMaps } from '../../hooks/use_ruta_google_maps'
+import { useUbicacionRepartidor } from '../../hooks/use_ubicacion_repartidor'
 import { useAutenticacion } from '../../hooks/use_autenticacion'
 import { iniciarRutaRepartidor } from '../../services/servicio_flujo_repartidor'
 import { ListaParadasRuta } from './lista_paradas_ruta'
@@ -12,9 +13,10 @@ export function VistaRutasRepartidor() {
     const { pedidosLiberados, cargando, error } = usePaquetesAnden()
     const { paradas } = useOptimizacionRutas(pedidosLiberados)
     const { usuarioActual } = useAutenticacion()
+    const { ubicacion, error: error_gps } = useUbicacionRepartidor()
     const navegar = useNavigate()
     const tiene_direcciones = paradas.length > 0 && paradas.every((parada) => parada.direccion)
-    const { mapa_ref, cargando: cargandoMapa, error: errorMapa, resumen, paradas_ordenadas } = useRutaGoogleMaps(paradas)
+    const { mapa_ref, cargando: cargandoMapa, error: errorMapa, resumen, paradas_ordenadas } = useRutaGoogleMaps(paradas, ubicacion)
 
     if (cargando) {
         return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando ruta de reparto</div>
@@ -28,6 +30,9 @@ export function VistaRutasRepartidor() {
     return (
         <div className="flex flex-col gap-4">
             {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
+            {error_gps && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error_gps}</div>}
+            <p className="text-xs text-mutado">Ruta limitada al estado de Campeche con origen en la ciudad de Campeche</p>
+            {!ubicacion && !error_gps && <p className="text-xs text-mutado">Obteniendo tu ubicación para ordenar la ruta</p>}
             <div className="bg-panel border border-borde p-6 rounded-lg flex flex-col gap-4">
                 <div>
                     <h2 className="text-xl font-bold mb-1">Ruta optimizada de entrega</h2>

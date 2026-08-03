@@ -8,7 +8,9 @@ export function MapaEntrega({ ubicacion, destino, direccion }) {
     if (!ubicacion || !destino) return <p className="text-xs text-mutado">Calculando ubicacion</p>
 
     if (clave_maps) {
-        const consulta = encodeURIComponent(direccion || `${destino.lat},${destino.lng}`)
+        const texto_direccion = typeof direccion === 'string' ? direccion.trim() : ''
+        const coordenadas = `${destino?.lat ?? 19.8301},${destino?.lng ?? -90.5349}`
+        const consulta = encodeURIComponent(texto_direccion || coordenadas)
         const src = `https://www.google.com/maps/embed/v1/place?key=${clave_maps}&q=${consulta}`
         return <iframe title="mapa entrega" className="w-full h-64 border border-borde rounded-lg" src={src} />
     }

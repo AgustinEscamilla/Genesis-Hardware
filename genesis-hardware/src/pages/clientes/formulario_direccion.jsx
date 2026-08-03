@@ -11,6 +11,9 @@ export function FormularioDireccion({ direccion, codigoPostal, alCambiarDireccio
           valor={direccion}
           alCambiar={alCambiarDireccion}
           autoCompletar="street-address"
+          requerido
+          placeholder="Calle número colonia municipio"
+          ayuda="Escribe calle número colonia municipio y referencias dentro de Campeche"
         />
       </div>
       <CampoAjustesCliente

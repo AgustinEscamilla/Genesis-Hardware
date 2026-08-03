@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { escucharOperacionesDistribuidor } from '../services/servicio_operaciones_distribuidor'
+import { formatear_direccion } from '../services/formato_direccion'
 
 const estados_abiertos = ['recibido', 'pendiente', 'solicitado']
 const estados_transito = ['enviado', 'en_transito']
@@ -10,9 +11,17 @@ const transformar = (operacion) => ({
   tipo: 'Dropshipping',
   pedido: operacion.id.slice(0, 10),
   productos: (operacion.items || []).reduce((total, item) => total + Number(item.cantidad || 0), 0),
+  items: operacion.items || [],
   estado: operacion.estado || 'recibido',
-  actualizado: new Date(operacion.fecha || Date.now()).toLocaleString('es-MX'),
+  direccion: formatear_direccion(operacion.direccion_entrega || operacion.direccionEntrega) || 'Sin direccion registrada',
+  actualizado: formatear_fecha(operacion),
 })
+
+const formatear_fecha = (operacion) => {
+  const valor = operacion.fecha || operacion.creadoEn || operacion.actualizadoEn || operacion.createdAt
+  const fecha = valor?.toDate ? valor.toDate() : new Date(valor || Date.now())
+  return fecha.toLocaleString('es-MX')
+}
 
 export function useOperacionesDistribuidor() {
   const [operaciones, setOperaciones] = useState([])

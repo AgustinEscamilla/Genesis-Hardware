@@ -1,5 +1,7 @@
+import { formatear_direccion } from '../../services/formato_direccion'
+
 // aqui puse profe yo renderizo cada pedido con su contenido y su accion de empaque
-export function TarjetaPedidoEmpaque({ pedido, accion, textoAccion, inventarioPorId = {} }) {
+export function TarjetaPedidoEmpaque({ pedido, accion, textoAccion, inventarioPorId = {}, bloqueado = false }) {
     return (
         <div className="flex flex-col gap-3 border border-borde bg-panel p-4 transition-colors hover:border-primario/60">
             <div className="flex items-center justify-between"><p className="text-xs font-bold text-primario">Pedido {pedido.id.slice(0, 8)}</p><span className="text-[10px] uppercase tracking-widest text-mutado">Revision</span></div>
@@ -11,8 +13,9 @@ export function TarjetaPedidoEmpaque({ pedido, accion, textoAccion, inventarioPo
                     </p>
                 ))}
             </div>
+            <div className="border-t border-borde pt-2 text-xs"><span className="font-semibold text-terciario">Direccion de entrega</span><p className="mt-1 text-mutado">{formatear_direccion(pedido.direccionEntrega) || 'Direccion no registrada'}</p></div>
             {accion
-                ? <button onClick={() => accion(pedido)} className="text-xs border border-primario text-primario px-3 py-1 rounded hover:bg-primario hover:text-fondo transition-colors">
+                ? <button disabled={bloqueado} onClick={() => accion(pedido)} className="text-xs border border-primario text-primario px-3 py-1 rounded hover:bg-primario hover:text-fondo disabled:cursor-not-allowed disabled:opacity-40 transition-colors">
                     {textoAccion}
                 </button>
                 : <p className="text-xs text-mutado">{textoAccion}</p>}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { formatear_direccion } from '../services/formato_direccion'
 
 // esto sirve para reutilizar la misma tarjeta de pedido entre empleado y repartidor
 export function TarjetaPedido({ pedido, acciones = [] }) {
@@ -12,7 +13,7 @@ export function TarjetaPedido({ pedido, acciones = [] }) {
   return (
     <div className="flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-900 p-4">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold text-slate-100">Pedido {pedido.id.slice(0, 8)}</p>
+        <p className="text-xs font-bold text-slate-100">{pedido.esAbastecimiento ? 'Abastecimiento' : 'Pedido'} {pedido.id.slice(0, 8)}</p>
         <span className="rounded-full border border-slate-700 px-2 py-0.5 text-[10px] uppercase tracking-widest text-slate-400">{pedido.estado}</span>
       </div>
       <div className="flex flex-col gap-1">
@@ -22,7 +23,7 @@ export function TarjetaPedido({ pedido, acciones = [] }) {
       </div>
       <div className="flex flex-col gap-0.5 border-t border-slate-800 pt-2 text-[11px] text-slate-400">
         <p>Zona {pedido.zonaLogistica || 'sin zona'}</p>
-        <p>Direccion {pedido.direccionEntrega || 'sin direccion registrada'}</p>
+        <p>Direccion {formatear_direccion(pedido.direccionEntrega) || 'sin direccion registrada'}</p>
         <p>Codigo postal {pedido.codigoPostalEntrega || 'sin codigo postal'}</p>
       </div>
       <div className="flex flex-wrap gap-2 pt-1">

@@ -11,7 +11,8 @@ service cloud.firestore {
     function esStaff() { return esAdministrador() || esEmpleado() || esRepartidor(); }
     function esPropietario(id) { return autenticado() && request.auth.uid == id; }
     function stockSincronizado(productoId) { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stockVisible']) && request.resource.data.stockVisible is number && request.resource.data.stockVisible >= 0 && getAfter(/databases/$(database)/documents/inventario/$(productoId)).data.volumen == request.resource.data.stockVisible; }
-    function transicionPedidoValida() { return request.resource.data.estado == resource.data.estado || (resource.data.estado == 'recibido' && request.resource.data.estado == 'en_empaque') || (resource.data.estado == 'en_empaque' && request.resource.data.estado == 'listo_despacho') || (resource.data.estado == 'listo_despacho' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'pendiente_recoleccion' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'en_reparto' && (request.resource.data.estado == 'entregado' || request.resource.data.estado == 'rechazado')) || (resource.data.estado == 'rechazado' && request.resource.data.estado == 'pendiente_recoleccion'); }
+    function transicionPedidoValida() { return request.resource.data.estado == resource.data.estado || (resource.data.estado == 'recibido' && request.resource.data.estado == 'en_empaque') || (resource.data.estado == 'pendiente_recoleccion' && request.resource.data.estado == 'en_empaque') || (resource.data.estado == 'en_empaque' && request.resource.data.estado == 'listo_despacho') || (resource.data.estado == 'listo_despacho' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'pendiente_recoleccion' && request.resource.data.estado == 'en_reparto') || (resource.data.estado == 'en_reparto' && (request.resource.data.estado == 'entregado' || request.resource.data.estado == 'rechazado')) || (resource.data.estado == 'rechazado' && request.resource.data.estado == 'pendiente_recoleccion'); }
+    function transicionAbastecimientoValida() { return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['estado', 'actualizadoEn']) && ((resource.data.estado == 'recibido' && request.resource.data.estado == 'en_empaque') || (resource.data.estado == 'en_empaque' && request.resource.data.estado == 'listo_despacho')); }
 
     match /catalogo/{productoId} {
       allow read: if true;
@@ -35,7 +36,7 @@ service cloud.firestore {
       allow update: if esAdministrador() || (esEmpleado() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
     }
     match /repartidores/{repartidorId} {
-      allow read: if esAdministrador() || (esRepartidor() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
+      allow read: if esAdministrador() || esEmpleado() || (esRepartidor() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
       allow create, delete: if esAdministrador();
       allow update: if esAdministrador() || (esRepartidor() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
     }
@@ -47,7 +48,7 @@ service cloud.firestore {
     }
     match /pedidos_distribuidor/{pedidoId} {
       allow read: if esAdministrador() || esEmpleado();
-      allow write: if false;
+      allow update: if (esAdministrador() || esEmpleado()) && transicionAbastecimientoValida();
     }
     match /pagos_pendientes/{pagoId} {
       allow read: if esCliente() && resource.data.usuario_id == request.auth.uid;
@@ -79,6 +80,11 @@ service cloud.firestore {
     match /reportes_fallas/{reporteId} {
       allow read: if esAdministrador() || esEmpleado() || (esRepartidor() && resource.data.repartidorId == request.auth.uid);
       allow create: if esRepartidor() && request.resource.data.repartidorId == request.auth.uid;
+      allow update, delete: if esAdministrador();
+    }
+    match /reportes_inventario/{reporteId} {
+      allow read: if esAdministrador() || esEmpleado();
+      allow create: if esEmpleado() && request.resource.data.empleadoId == request.auth.uid;
       allow update, delete: if esAdministrador();
     }
     match /manifiestos/{manifiestoId} {

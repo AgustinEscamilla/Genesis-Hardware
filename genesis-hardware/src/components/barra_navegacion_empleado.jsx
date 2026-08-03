@@ -12,13 +12,11 @@ export function BarraNavegacionEmpleado() {
       <NavLink to="." end className={estilo}>Menu principal</NavLink>
       <NavLink to="recepcion" className={estilo}>Recepcion</NavLink>
       <NavLink to="empaque" className={estilo}>Empaque</NavLink>
-      <NavLink to="pagos-recientes" className={estilo}>Pagos</NavLink>
       <NavLink to="anden-salida" className={estilo}>Anden</NavLink>
-      <NavLink to="busqueda-pedidos" className={estilo}>Pedidos</NavLink>
       <NavLink to="inventario" className={estilo}>Inventario</NavLink>
       <NavLink to="recepcion-distribuidor" className={estilo}>Proveedor</NavLink>
       <NavLink to="gestion-pedidos" className={estilo}>Gestion</NavLink>
-      <NavLink to="rechazos" className={estilo}>Rechazos</NavLink>
+      <NavLink to="reporte" className={estilo}>Reporte</NavLink>
     </nav>
   )
 }

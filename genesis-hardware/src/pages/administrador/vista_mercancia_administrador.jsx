@@ -1,5 +1,6 @@
 import { FormularioIngresoMercancia } from './formulario_ingreso_mercancia'
 import { useInventario } from '../../hooks/use_inventario'
+import { SeccionInventario } from './seccion_inventario'
 
 // aqui maestro yo uno el hook de inventario con el formulario y paso los datos como props
 export function VistaMercanciaAdministrador() {
@@ -16,6 +17,7 @@ export function VistaMercanciaAdministrador() {
         guardando={guardando}
         mensaje={mensaje}
       />
+      <SeccionInventario />
     </div>
   )
 }

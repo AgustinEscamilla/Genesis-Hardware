@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { actualizarNoticia, agregarNoticia, eliminarNoticia, obtenerNoticias } from '../services/servicio_noticias'
+import { actualizarNoticia, agregarNoticia, eliminarNoticia, obtenerNoticias, sembrarNoticiasIniciales } from '../services/servicio_noticias'
 
 // aqui maestro yo manejo el estado de las noticias y todas sus operaciones
 export function useNoticias() {
@@ -12,7 +12,10 @@ export function useNoticias() {
 
   useEffect(() => {
     let activo = true
-    obtenerNoticias().then(datos => activo && setNoticias(datos)).catch(() => activo && setMensaje('No se pudieron cargar las noticias')).finally(() => activo && setCargando(false))
+    obtenerNoticias().then(async datos => {
+      const resultado = datos.length ? datos : await sembrarNoticiasIniciales()
+      if (activo) setNoticias(resultado)
+    }).catch(() => activo && setMensaje('No se pudieron cargar las noticias')).finally(() => activo && setCargando(false))
     return () => { activo = false }
   }, [recarga])
 

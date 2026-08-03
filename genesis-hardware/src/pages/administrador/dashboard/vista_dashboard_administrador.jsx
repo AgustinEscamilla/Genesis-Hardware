@@ -10,19 +10,22 @@ export function VistaDashboardAdministrador() {
     if (cargando) return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando reportes</div>
 
     return (
-        <div className="flex flex-col gap-6">
-            <Link to="/administrador/tablas" className="self-start border border-borde px-4 py-2 text-xs uppercase tracking-wide text-texto transition-colors hover:border-primario hover:text-primario">Regresar al menu principal</Link>
-            {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
-            <div>
-                <h2 className="text-xl font-bold mb-1">Rentabilidad por zona</h2>
-                <p className="text-xs text-mutado mb-3">Ventas totales de pedidos ya entregados</p>
+        <div className="flex flex-col gap-6 text-texto">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <div><p className="text-[10px] font-bold uppercase tracking-[0.25em] text-primario">Centro de control</p><h1 className="mt-2 text-3xl font-black text-texto">Reportes operativos</h1><p className="mt-1 text-sm text-mutado">Consulta ventas y desempeño de entregas en Campeche</p></div>
+                <Link to="/administrador/tablas" className="border border-borde bg-panel px-4 py-2 text-xs font-bold uppercase tracking-wide text-texto transition-colors hover:border-primario hover:text-primario">Regresar al menu</Link>
+            </div>
+            {error && <div className="rounded-lg border border-primario/50 bg-primario/10 p-4 text-sm text-primario">{error}</div>}
+            <section className="rounded-lg border border-borde bg-panel p-5">
+                <h2 className="text-xl font-bold text-texto">Rentabilidad por zona</h2>
+                <p className="mb-4 mt-1 text-sm text-mutado">Ventas totales de pedidos entregados</p>
                 <ListaMetricasZona metricas={rentabilidadPorZona} />
-            </div>
-            <div className="bg-panel border border-borde rounded-lg p-4">
-                <h2 className="text-xl font-bold mb-1">Eficacia de repartidores</h2>
-                <p className="text-xs text-mutado mb-3">Entregas exitosas contra rechazos por repartidor</p>
+            </section>
+            <section className="rounded-lg border border-borde bg-panel p-5">
+                <h2 className="text-xl font-bold text-texto">Eficacia de repartidores</h2>
+                <p className="mb-4 mt-1 text-sm text-mutado">Entregas exitosas contra rechazos por repartidor</p>
                 <TablaEficaciaRepartidores repartidores={eficaciaRepartidores} />
-            </div>
+            </section>
         </div>
     )
 }

@@ -22,9 +22,18 @@ export const escucharNotificacionesCliente = (clienteId, alCambiar) => {
 export const escucharNotificacionesAdmin = (alCambiar) => {
   const q = query(colNotificaciones(), orderBy('fecha', 'desc'))
   return onSnapshot(q, (snap) => {
-    const datos = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+    const datos = snap.docs.map((d) => adaptarNotificacionAdmin({ id: d.id, ...d.data() }))
     alCambiar(datos)
   })
+}
+
+const adaptarNotificacionAdmin = (notificacion) => {
+  const folio = String(notificacion.pedidoId || '').slice(0, 8) || 'sin folio'
+  const mensaje = String(notificacion.mensaje || '').toLowerCase()
+  if (mensaje.includes('pendiente de recoleccion')) return { ...notificacion, mensaje: `Nuevo pedido ${folio} pendiente de recoleccion` }
+  if (mensaje.includes('fue entregado')) return { ...notificacion, mensaje: `Pedido ${folio} entregado correctamente` }
+  if (mensaje.includes('fue rechazado')) return { ...notificacion, mensaje: `Pedido ${folio} rechazado requiere revision` }
+  return { ...notificacion, mensaje: `Actualizacion del pedido ${folio}` }
 }
 
 // esto sirve para marcar una notificacion como leida desde la campana

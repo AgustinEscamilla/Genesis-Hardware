@@ -6,10 +6,13 @@ import { Boton } from '../../components/boton'
 import { AlertaStockAdmin } from './alerta_existencias_administrador'
 import { useAlertasStock } from '../../hooks/use_alertas_existencias'
 import { RutaProtegida } from '../../components/ruta_protegida'
+import { CampanaNotificaciones } from '../../components/campana_notificaciones'
+import { useNotificacionesAdmin } from '../../hooks/use_notificaciones_admin'
 
 export function VistaPrincipalAdministrador() {
   const navegar = useNavigate()
   const { alertas } = useAlertasStock()
+  const { notificaciones, marcarLeida } = useNotificacionesAdmin()
 
   const manejarSalida = async () => {
     await cerrarSesion()
@@ -20,7 +23,7 @@ export function VistaPrincipalAdministrador() {
     <RutaProtegida rolPermitido="administrador">
       <div className="min-h-screen w-full bg-fondo p-4 md:p-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
-          <div className="flex flex-wrap items-end justify-between gap-4 overflow-hidden rounded-xl border border-borde border-t-2 border-t-vino bg-panel p-5 shadow-vidrio">
+          <div className="flex flex-wrap items-end justify-between gap-4 overflow-visible rounded-xl border border-borde border-t-2 border-t-vino bg-panel p-5 shadow-vidrio">
             <div>
               <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-vino">Centro de control</p>
               <h2 className="text-3xl font-black texto-degradado">Operacion Genesis</h2>
@@ -28,13 +31,14 @@ export function VistaPrincipalAdministrador() {
             </div>
             <div className="flex items-center gap-2">
               <AlertaStockAdmin alertas={alertas} />
+              <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
               <Boton variante="contorno" className="px-4 py-2 text-xs uppercase tracking-wide" onClick={manejarSalida}>
                 Cerrar sesión
               </Boton>
             </div>
           </div>
           <BarraNavegacionAdministrador />
-          <Outlet />
+          <main className="min-w-0 space-y-6"><Outlet /></main>
         </div>
       </div>
     </RutaProtegida>

@@ -3,6 +3,7 @@ import { db } from './conexion_firebase'
 import { actualizarEstadoPedido, ESTADOS_PEDIDO, es_transicion_pedido_valida, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
 import { ciudad_logistica } from './constantes_logistica'
+import { formatear_direccion } from './formato_direccion'
 
 const colManifiestos = () => collection(db, 'manifiestos')
 
@@ -19,6 +20,7 @@ export const escucharManifiestos = (al_cambiar, al_error) => onSnapshot(colManif
 
 export const iniciarRutaRepartidor = async (paradas = [], repartidorId = null) => {
   const pedidos = paradas.map((p) => p.pedido || p)
+  if (pedidos.some((p) => !formatear_direccion(p.direccionEntrega))) throw new Error('La ruta contiene un pedido sin direccion de entrega')
   if (pedidos.some((p) => !es_transicion_pedido_valida(p.estado, ESTADOS_PEDIDO.EN_REPARTO))) throw new Error('La ruta contiene un pedido fuera de secuencia')
   const lote = writeBatch(db)
   const fecha = new Date().toISOString()

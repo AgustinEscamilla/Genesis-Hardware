@@ -17,8 +17,9 @@ export const registrarMercancia = async ({ productoId, nombre_producto, categori
     const actual = Number(inventario.data()?.volumen || 0)
     if (productoId && !catalogo.exists()) throw new Error('Producto de catalogo no encontrado')
     const nombre_real = nombre_producto || catalogo.data()?.nombre || ''
+    const categoria_real = categoria || catalogo.data()?.categoria || 'Componente de hardware'
     if (!productoId) transaccion.set(catalogoRef, { nombre: nombre_real, categoria: categoria || 'Procesadores', descripcionTecnica: descripcion_tecnica || '', descripcionPrecios: 'Producto ingresado en recepcion', stockVisible: cantidad, precio: 0, imagen: '' })
-    transaccion.set(inventarioRef, { productoId: catalogoRef.id, nombreProducto: nombre_real, tipoUnidad, stockMinimo: 5, volumen: actual + cantidad, fechaIngreso: new Date().toISOString() }, { merge: true })
+    transaccion.set(inventarioRef, { productoId: catalogoRef.id, nombreProducto: nombre_real, categoria: categoria_real, tipoUnidad, stockMinimo: 5, volumen: actual + cantidad, fechaIngreso: new Date().toISOString() }, { merge: true })
     if (productoId) transaccion.update(catalogoRef, { stockVisible: actual + cantidad })
   })
 }

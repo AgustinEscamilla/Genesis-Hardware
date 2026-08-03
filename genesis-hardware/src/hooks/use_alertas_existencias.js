@@ -7,8 +7,9 @@ export function useAlertasStock() {
 
   useEffect(() => {
     const stop = escucharInventario((items) => {
-      setAlertas(items.filter(i => Number(i.volumen || 0) <= Number(i.stockMinimo || 0)))
-    })
+      const alertas_actualizadas = items.filter((item) => Number(item.volumen || 0) <= Number(item.stockMinimo || 0))
+      setAlertas(alertas_actualizadas)
+    }, () => setAlertas([]))
     return () => stop()
   }, [])
 

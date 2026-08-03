@@ -7,7 +7,7 @@ import { RepartidorEstadoEnvio } from './repartidor_estado_envio'
 export function VistaMapaEntregaRepartidor() {
     const { state } = useLocation()
     const pedido = state?.pedido
-    const { ubicacion, destino, estado_envio } = use_rastreo_mock(pedido?.id)
+    const { ubicacion, origen_inicial, destino, estado_envio } = use_rastreo_mock(pedido?.id, pedido?.estado)
 
     return (
         <div className="flex flex-col gap-4">
@@ -17,7 +17,13 @@ export function VistaMapaEntregaRepartidor() {
             </div>
             {pedido ? (
                 <>
-                    <MapaEntrega ubicacion={ubicacion} destino={destino} direccion={pedido.direccionEntrega} />
+                    {estado_envio === 'entregado' ? (
+                        <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/30 p-5 text-sm text-emerald-300">
+                            Entrega completada el mapa se cerro para continuar con otro pedido
+                        </div>
+                    ) : (
+                        <MapaEntrega ubicacion={ubicacion} origen={origen_inicial} destino={destino} />
+                    )}
                     <RepartidorEstadoEnvio pedido={pedido} estado_envio={estado_envio} />
                 </>
             ) : (

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FormularioComprobanteEntrega } from './formulario_comprobante_entrega'
 import { FormularioRechazoEntrega } from './formulario_rechazo_entrega'
 
@@ -7,6 +8,7 @@ const etiquetas = { en_transito: 'En transito', entregado: 'Entregado' }
 // pos esto funciona para mostrar el estado del envio y pedir comprobante o rechazo
 export function RepartidorEstadoEnvio({ pedido, estado_envio }) {
     const [rechazando, setRechazando] = useState(false)
+    const navegar = useNavigate()
     const yaCerrado = pedido.estado === 'entregado' || pedido.estado === 'rechazado'
 
     return (
@@ -19,7 +21,7 @@ export function RepartidorEstadoEnvio({ pedido, estado_envio }) {
             </div>
             {estado_envio === 'entregado' && !yaCerrado && !rechazando && (
                 <>
-                    <FormularioComprobanteEntrega pedido={pedido} />
+                    <FormularioComprobanteEntrega pedido={pedido} al_confirmar={() => navegar('/repartidores/en-ruta')} />
                     <button onClick={() => setRechazando(true)} className="text-[10px] text-mutado underline self-start">
                         El cliente rechazo el pedido
                     </button>

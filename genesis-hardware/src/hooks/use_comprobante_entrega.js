@@ -5,7 +5,7 @@ import { crearComprobante } from '../services/servicio_comprobantes'
 import { actualizarEstadoPedido, ESTADOS_PEDIDO } from '../services/servicio_flujo_pedidos'
 
 // esto sirve para capturar la evidencia fotografica y cerrar la entrega del pedido
-export function useComprobanteEntrega(pedido) {
+export function useComprobanteEntrega(pedido, al_confirmar) {
     const { usuarioActual } = useAutenticacion()
     const [nota, setNota] = useState('')
     const [confirmando, setConfirmando] = useState(false)
@@ -19,6 +19,7 @@ export function useComprobanteEntrega(pedido) {
         try {
             await crearComprobante({ pedidoId: pedido.id, repartidorId: usuarioActual?.uid, imagenUrl: urlImagen, nota })
             await actualizarEstadoPedido(pedido, ESTADOS_PEDIDO.ENTREGADO)
+            al_confirmar?.()
         } catch { setMensajeError('No se pudo confirmar la entrega') }
         finally { setConfirmando(false) }
     }

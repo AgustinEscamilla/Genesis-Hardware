@@ -5,7 +5,6 @@ import { cargar_vista } from '../services/servicio_vistas_diferidas'
 const Plantilla = cargar_vista(() => import('./repartidor/plantilla_repartidor'), 'PlantillaRepartidor')
 const Dashboard = cargar_vista(() => import('./repartidor/vista_principal_repartidor'), 'VistaPrincipalRepartidor')
 const Asignados = cargar_vista(() => import('./repartidor/vista_pedidos_asignados_repartidor'), 'VistaPedidosAsignadosRepartidor')
-const Rutas = cargar_vista(() => import('./repartidor/vista_rutas_repartidor'), 'VistaRutasRepartidor')
 const Comenzar = cargar_vista(() => import('./repartidor/vista_comenzar_ruta_repartidor'), 'VistaComenzarRutaRepartidor')
 const Mapa = cargar_vista(() => import('./repartidor/vista_mapa_entrega_repartidor'), 'VistaMapaEntregaRepartidor')
 const EnRuta = cargar_vista(() => import('./repartidor/vista_pedidos_en_ruta_repartidor'), 'VistaPedidosEnRutaRepartidor')
@@ -16,7 +15,6 @@ export function RutasRepartidor() {
   return <Route path="/repartidores" element={vista(Plantilla)}>
     <Route index element={vista(Dashboard)} />
     <Route path="asignados" element={vista(Asignados)} />
-    <Route path="rutas" element={vista(Rutas)} />
     <Route path="comenzar-ruta" element={vista(Comenzar)} />
     <Route path="mapa" element={vista(Mapa)} />
     <Route path="en-ruta" element={vista(EnRuta)} />

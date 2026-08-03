@@ -1,8 +1,8 @@
 import { useComprobanteEntrega } from '../../hooks/use_comprobante_entrega'
 
 // aqui puse profe yo pido la foto de evidencia antes de cerrar la entrega
-export function FormularioComprobanteEntrega({ pedido }) {
-    const { nota, setNota, urlImagen, subiendo, mensaje, mensaje_error, subir, confirmar, confirmando } = useComprobanteEntrega(pedido)
+export function FormularioComprobanteEntrega({ pedido, al_confirmar }) {
+    const { nota, setNota, urlImagen, subiendo, mensaje, mensaje_error, subir, confirmar, confirmando } = useComprobanteEntrega(pedido, al_confirmar)
 
     return (
         <div className="bg-panel border border-borde rounded-lg p-4 flex flex-col gap-3">

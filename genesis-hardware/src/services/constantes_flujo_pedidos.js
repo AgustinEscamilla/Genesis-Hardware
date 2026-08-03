@@ -7,7 +7,7 @@ export const mensajes_por_estado = {
   recibido: 'tu pedido fue recibido y entra a la cola de empaque',
   pendiente_recoleccion: 'tu pedido fue pagado y esta pendiente de recoleccion por el repartidor',
   en_empaque: 'tu pedido esta en proceso de empaque', listo_despacho: 'tu pedido esta listo para despacho',
-  en_reparto: 'tu pedido esta en camino con el repartidor', entregado: 'tu pedido fue entregado con exito',
+  en_reparto: 'tu pedido esta en camino con el repartidor', entregado: 'tu paquete fue entregado con exito',
   rechazado: 'tu pedido fue rechazado en la entrega y sera gestionado por un asesor',
 }
 

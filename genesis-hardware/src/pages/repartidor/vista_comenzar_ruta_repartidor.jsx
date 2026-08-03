@@ -15,6 +15,7 @@ export function VistaComenzarRutaRepartidor() {
         return { orden: index + 1, zona: m.zona, pedidos: pedidosDeParada.length, primerPedido: pedidosDeParada[0] || null }
       })
   }, [manifiestos, pedidosEnReparto])
+  const linea_ruta = paradas.length ? `Campeche → ${paradas.map((parada) => parada.zona).join(' → ')}` : 'Campeche → esperando pedidos liberados'
 
   if (cargando) return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando ruta de entrega</div>
 
@@ -23,6 +24,7 @@ export function VistaComenzarRutaRepartidor() {
       {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
       <div className="bg-panel border border-borde p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-3">Manifiestos activos</h2>
+        <p className="mb-3 border-l-2 border-terciario pl-3 text-xs text-terciario">Mejor ruta sugerida: {linea_ruta}</p>
         <div className="flex flex-col gap-3">
           {paradas.map((parada) => (
             <div key={parada.orden} className="flex items-center gap-3 border border-borde rounded-lg p-4 bg-fondo hover:border-terciario transition-colors">

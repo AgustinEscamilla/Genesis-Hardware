@@ -4,22 +4,23 @@ const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const limitar = (valor) => Math.max(5, Math.min(95, valor))
 
 // esto sirve para mostrar el mapa real o el mapa simulado segun la configuracion
-export function MapaEntrega({ ubicacion, destino, direccion }) {
+export function MapaEntrega({ ubicacion, destino, origen }) {
     if (!ubicacion || !destino) return <p className="text-xs text-mutado">Calculando ubicacion</p>
 
     if (clave_maps) {
-        const texto_direccion = typeof direccion === 'string' ? direccion.trim() : ''
-        const coordenadas = `${destino?.lat ?? 19.8301},${destino?.lng ?? -90.5349}`
-        const consulta = encodeURIComponent(texto_direccion || coordenadas)
-        const src = `https://www.google.com/maps/embed/v1/place?key=${clave_maps}&q=${consulta}`
-        return <iframe title="mapa entrega" className="w-full h-64 border border-borde rounded-lg" src={src} />
+        const destino_coordenadas = `${destino?.lat ?? 19.8301},${destino?.lng ?? -90.5349}`
+        const punto_origen = origen || ubicacion
+        const origen_url = encodeURIComponent(`${punto_origen.lat},${punto_origen.lng}`)
+        const consulta = encodeURIComponent(destino_coordenadas)
+        const src = `https://www.google.com/maps/embed/v1/directions?key=${clave_maps}&origin=${origen_url}&destination=${consulta}&mode=driving`
+        return <iframe title="mapa entrega" className="mx-auto aspect-square w-full max-w-2xl rounded-lg border border-borde" src={src} />
     }
 
     const porcentaje_x = limitar(50 + (ubicacion.lng - destino.lng) * 4000)
     const porcentaje_y = limitar(50 + (ubicacion.lat - destino.lat) * 4000)
 
     return (
-        <div className="relative w-full h-64 border border-borde rounded-lg bg-fondo overflow-hidden bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
+        <div className="relative mx-auto aspect-square w-full max-w-2xl overflow-hidden rounded-lg border border-borde bg-fondo bg-[linear-gradient(#222_1px,transparent_1px),linear-gradient(90deg,#222_1px,transparent_1px)] bg-[length:20px_20px]">
             <MapaMarcadorMovil porcentaje_x={porcentaje_x} porcentaje_y={porcentaje_y} />
             <div className="absolute right-2 bottom-2 w-3 h-3 rounded-full bg-[#fca5a5]" title="destino" />
         </div>

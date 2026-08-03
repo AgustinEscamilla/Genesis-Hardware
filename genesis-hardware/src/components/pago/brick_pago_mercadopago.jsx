@@ -1,14 +1,7 @@
 import { Payment } from '@mercadopago/sdk-react'
 
-// pos esto funciona para renderizar el brick oficial de mercado pago con tarjetas y transferencia
 export function BrickPagoMercadoPago({ total, alEnviar, alError }) {
-  return (
-    <Payment
-      initialization={{ amount: total }}
-      locale="es-MX"
-      customization={{ paymentMethods: { creditCard: 'all', debitCard: 'all', prepaidCard: 'all', bankTransfer: 'all' } }}
-      onSubmit={alEnviar}
-      onError={alError}
-    />
-  )
+  const paymentMethods = { creditCard: 'all', debitCard: 'all', prepaidCard: 'all' }
+  if (import.meta.env.VITE_MP_HABILITAR_TRANSFERENCIA === 'true') paymentMethods.bankTransfer = 'all'
+  return <Payment initialization={{ amount: total }} locale="es-MX" customization={{ paymentMethods }} onSubmit={alEnviar} onError={alError} />
 }

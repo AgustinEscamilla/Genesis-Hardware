@@ -4,7 +4,6 @@ import { db } from './conexion_firebase'
 import { ESTADOS_PEDIDO, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
 import { buscarPerfilUsuario } from './servicio_usuarios'
-
 export const ZONAS_LOGISTICAS = ['norte', 'sur', 'centro', 'oriente', 'poniente']
 
 // pos esto funciona para crear el pedido cobrar el total y avisar al cliente dueno
@@ -12,6 +11,7 @@ export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaL
   const estadoInicial = origen === 'cliente' ? ESTADOS_PEDIDO.PENDIENTE_RECOLECCION : ESTADOS_PEDIDO.EN_EMPAQUE
   const perfil_cliente = clienteId ? await buscarPerfilUsuario(clienteId).catch(() => null) : null
   const direccion_entrega = String(perfil_cliente?.direccionVivienda || '').trim()
+  const codigo_postal_entrega = String(perfil_cliente?.codigoPostal || '').trim()
   const fecha = new Date().toISOString()
   const total = carrito.reduce((acc, item) => acc + Number(item.precio || 0) * Number(item.cantidad || 0), 0)
   const idPedido = await runTransaction(db, async (tx) => {
@@ -36,6 +36,7 @@ export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaL
     tx.set(pedidoRef, {
       carrito, origen, zonaLogistica, clienteId, total,
       direccionEntrega: direccion_entrega,
+      codigoPostalEntrega: codigo_postal_entrega,
       estado: estadoInicial, fecha,
       pagado: !!pagoReferencia, metodoPago, pagoReferencia,
       historialEstados: [{ estado: estadoInicial, fecha }]

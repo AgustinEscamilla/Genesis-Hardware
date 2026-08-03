@@ -5,13 +5,13 @@ import { buscarPerfilUsuario, actualizarPerfilUsuario } from '../services/servic
 // aqui maestro yo manejo los ajustes de perfil del cliente con firestore
 export function useAjustesCliente() {
   const { usuarioActual } = useAutenticacion()
-  const [forma, setForma] = useState({ nombre: '', direccionVivienda: '', telefono: '' })
+  const [forma, setForma] = useState({ nombre: '', direccionVivienda: '', codigoPostal: '', telefono: '' })
   const [mensaje, setMensaje] = useState('')
 
   useEffect(() => {
     if (!usuarioActual?.uid) return
     buscarPerfilUsuario(usuarioActual.uid).then((perfil) => {
-      if (perfil) setForma({ nombre: perfil.nombre || '', direccionVivienda: perfil.direccionVivienda || '', telefono: perfil.telefono || '' })
+      if (perfil) setForma({ nombre: perfil.nombre || '', direccionVivienda: perfil.direccionVivienda || '', codigoPostal: perfil.codigoPostal || '', telefono: perfil.telefono || '' })
     })
   }, [usuarioActual])
 
@@ -19,6 +19,11 @@ export function useAjustesCliente() {
   const guardar = async () => {
     if (!usuarioActual?.uid) return
     setMensaje('')
+    // aqui maestro yo exijo el codigo postal antes de guardar el perfil
+    if (!/^\d{5}$/.test(String(forma.codigoPostal || '').trim())) {
+      setMensaje('El codigo postal debe tener 5 digitos')
+      return
+    }
     try {
       await actualizarPerfilUsuario(usuarioActual.uid, forma)
       setMensaje('Perfil actualizado correctamente')

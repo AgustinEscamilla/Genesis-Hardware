@@ -12,8 +12,8 @@ export const mensajes_por_estado = {
 }
 
 export const transiciones_por_estado = {
-  recibido: ['en_empaque'], en_empaque: ['listo_despacho'], listo_despacho: ['en_reparto'],
-  pendiente_recoleccion: ['en_reparto'], en_reparto: ['entregado', 'rechazado'], rechazado: ['pendiente_recoleccion'],
+  recibido: ['en_empaque'], en_empaque: ['listo_despacho', 'en_reparto'], listo_despacho: ['en_reparto'],
+  pendiente_recoleccion: ['en_reparto', 'en_empaque'], en_reparto: ['entregado', 'rechazado'], rechazado: ['pendiente_recoleccion'],
 }
 
 export const es_transicion_pedido_valida = (estado_actual, estado_nuevo) =>

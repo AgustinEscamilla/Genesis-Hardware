@@ -10,6 +10,7 @@ const enlaces = [
   { destino: 'asignados', texto: 'Pedidos asignados', icono: '◇' },
   { destino: 'rutas', texto: 'Rutas de entrega', icono: '⬢' },
   { destino: 'comenzar-ruta', texto: 'Comenzar ruta', icono: '▶' },
+  { destino: 'en-ruta', texto: 'Pedidos en ruta', icono: '➤' },
   { destino: 'reporte-fallas', texto: 'Reporte de fallas', icono: '▲' }
 ]
 

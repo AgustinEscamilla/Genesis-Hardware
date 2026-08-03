@@ -1,4 +1,5 @@
 import { CampoAjustesCliente } from './campo_ajustes_cliente'
+import { FormularioDireccion } from './formulario_direccion'
 
 // esto sirve para capturar los campos editables del perfil del cliente
 export function FormularioAjustesCliente({ forma, cambiar, guardar, mensaje }) {
@@ -11,12 +12,11 @@ export function FormularioAjustesCliente({ forma, cambiar, guardar, mensaje }) {
         alCambiar={(valor) => cambiar('nombre', valor)}
         autoCompletar="name"
       />
-      <CampoAjustesCliente
-        etiqueta="Dirección de vivienda"
-        tipo="text"
-        valor={forma.direccionVivienda}
-        alCambiar={(valor) => cambiar('direccionVivienda', valor)}
-        autoCompletar="street-address"
+      <FormularioDireccion
+        direccion={forma.direccionVivienda}
+        codigoPostal={forma.codigoPostal}
+        alCambiarDireccion={(valor) => cambiar('direccionVivienda', valor)}
+        alCambiarCodigoPostal={(valor) => cambiar('codigoPostal', valor)}
       />
       <CampoAjustesCliente
         etiqueta="Teléfono"

@@ -8,6 +8,7 @@ const Asignados = cargar_vista(() => import('./repartidor/vista_pedidos_asignado
 const Rutas = cargar_vista(() => import('./repartidor/vista_rutas_repartidor'), 'VistaRutasRepartidor')
 const Comenzar = cargar_vista(() => import('./repartidor/vista_comenzar_ruta_repartidor'), 'VistaComenzarRutaRepartidor')
 const Mapa = cargar_vista(() => import('./repartidor/vista_mapa_entrega_repartidor'), 'VistaMapaEntregaRepartidor')
+const EnRuta = cargar_vista(() => import('./repartidor/vista_pedidos_en_ruta_repartidor'), 'VistaPedidosEnRutaRepartidor')
 const Fallas = cargar_vista(() => import('./repartidor/vista_reporte_fallas_repartidor'), 'VistaReporteFallasRepartidor')
 const vista = (componente) => <VistaDiferida componente={componente} />
 
@@ -18,6 +19,7 @@ export function RutasRepartidor() {
     <Route path="rutas" element={vista(Rutas)} />
     <Route path="comenzar-ruta" element={vista(Comenzar)} />
     <Route path="mapa" element={vista(Mapa)} />
+    <Route path="en-ruta" element={vista(EnRuta)} />
     <Route path="reporte-fallas" element={vista(Fallas)} />
   </Route>
 }

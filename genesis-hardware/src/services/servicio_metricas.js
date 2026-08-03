@@ -1,7 +1,9 @@
+import { ciudad_logistica } from './constantes_logistica'
+
 // aqui maestro yo calculo la rentabilidad por zona a partir de pedidos entregados
 export const calcularRentabilidadPorZona = (pedidosEntregados = []) => {
     const porZona = pedidosEntregados.reduce((acc, p) => {
-        const zona = p.zonaLogistica || 'campeche'
+        const zona = p.zonaLogistica || ciudad_logistica
         acc[zona] = acc[zona] || { zona, totalVentas: 0, cantidadPedidos: 0 }
         acc[zona].totalVentas += Number(p.total || 0)
         acc[zona].cantidadPedidos += 1

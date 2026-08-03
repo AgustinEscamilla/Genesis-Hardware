@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
+import { ciudad_logistica } from '../services/constantes_logistica'
 import { ZONAS_LOGISTICAS } from '../services/servicio_pedidos'
 import { generar_ruta_simulada } from '../services/servicio_estafeta_mock'
 
 // aqui maestro yo agrupo los pedidos liberados por zona antes de ordenar la ruta
 const agruparPorZona = (pedidos) => pedidos.reduce((acc, pedido) => {
-        const zona = pedido.zonaLogistica || 'campeche'
+        const zona = pedido.zonaLogistica || ciudad_logistica
     acc[zona] = acc[zona] || []
     acc[zona].push(pedido)
     return acc

@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { MapaClienteRastreo } from '../components/mapa_cliente_rastreo'
+import { ClienteApartadoRastreo } from '../components/cliente_apartado_rastreo'
 import { ClienteComprobanteEntrega } from './cliente_comprobante_entrega'
+import { TicketCompra } from '../components/TicketCompra'
+import { formatear_precio } from '../services/formato_moneda'
 
 // aqui maestro yo dejo las etiquetas visibles para cada estado del pedido
 const etiquetasPorEstado = {
@@ -12,9 +15,44 @@ const etiquetasPorEstado = {
   entregado: 'Entregado'
 }
 
+// aqui maestro yo genero el archivo de texto descargable con el detalle del pedido
+const descargar_ticket = (pedido) => {
+  const items = pedido?.items || pedido?.carrito || []
+  const lineas = [
+    'GENESIS HARDWARE',
+    `Orden: ${pedido?.id || ''}`,
+    `Fecha: ${pedido?.fecha ? new Date(pedido.fecha).toLocaleString('es-MX') : ''}`,
+    '',
+    ...items.map((it) => `${it.nombre || 'Articulo'} x${Number(it.cantidad || 0)}  ${formatear_precio(Number(it.precio || 0) * Number(it.cantidad || 0))}`),
+    '',
+    `Total: ${formatear_precio(pedido?.total || 0)}`,
+    '',
+    'Gracias por tu compra. Conserva este ticket para validar tu garantia.'
+  ]
+  const blob = new Blob([lineas.join('\n')], { type: 'text/plain;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const enlace = document.createElement('a')
+  enlace.href = url
+  enlace.download = `ticket_${String(pedido?.id || 'pedido').slice(0, 8)}.txt`
+  enlace.click()
+  URL.revokeObjectURL(url)
+}
+
+// aqui maestro yo abro el cliente de correo del usuario con el ticket ya redactado
+const enviar_ticket_correo = (pedido) => {
+  const items = pedido?.items || pedido?.carrito || []
+  const cuerpo = [
+    `Ticket de compra - Orden ${pedido?.id || ''}`,
+    ...items.map((it) => `${it.nombre || 'Articulo'} x${Number(it.cantidad || 0)}: ${formatear_precio(Number(it.precio || 0) * Number(it.cantidad || 0))}`),
+    `Total: ${formatear_precio(pedido?.total || 0)}`
+  ].join('\r\n')
+  window.location.href = `mailto:?subject=${encodeURIComponent('Mi ticket de compra - Genesis Hardware')}&body=${encodeURIComponent(cuerpo)}`
+}
+
 // esto sirve para pintar la linea de tiempo de un pedido del cliente
 export function ClienteTimelinePedido({ pedido }) {
   const historial = pedido.historialEstados || []
+  const [mostrarTicket, setMostrarTicket] = useState(false)
 
   return (
     <div className="border border-borde bg-panel p-3 flex flex-col gap-2">
@@ -28,13 +66,17 @@ export function ClienteTimelinePedido({ pedido }) {
           </div>
         ))}
       </div>
-      {pedido.estado === 'en_reparto' && <MapaClienteRastreo pedido_id={pedido.id} />}
+      <ClienteApartadoRastreo pedido={pedido} />
       {pedido.estado === 'entregado' && <ClienteComprobanteEntrega pedidoId={pedido.id} />}
       {pedido.estado === 'entregado' && (
         <Link to={`/clientes/reclamos?pedido=${pedido.id}`} className="text-[10px] text-primario border border-primario rounded px-2 py-1 self-start hover:bg-primario hover:text-fondo transition-colors">
           Levantar reclamo
         </Link>
       )}
+      <button onClick={() => setMostrarTicket((v) => !v)} className="text-[10px] text-mutado border border-borde rounded px-2 py-1 self-start hover:border-primario hover:text-primario transition-colors">
+        {mostrarTicket ? 'Ocultar mi ticket de compra' : 'Ver mi ticket de compra'}
+      </button>
+      {mostrarTicket && <TicketCompra pedido={pedido} descargar_ticket={descargar_ticket} enviar_ticket_correo={enviar_ticket_correo} />}
     </div>
   )
 }

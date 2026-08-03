@@ -4,14 +4,16 @@ import { db } from './conexion_firebase'
 import { ESTADOS_PEDIDO, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
 import { buscarPerfilUsuario } from './servicio_usuarios'
-export const ZONAS_LOGISTICAS = ['campeche']
+import { ciudad_logistica, nombre_ciudad_logistica } from './constantes_logistica'
+export const ZONAS_LOGISTICAS = [ciudad_logistica]
 
 // pos esto funciona para crear el pedido cobrar el total y avisar al cliente dueno
-export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaLogistica = 'campeche', clienteId = null, metodoPago = null, pagoReferencia = null }) => {
+export const confirmarPedido = async ({ carrito = [], origen = 'empleado', zonaLogistica = ciudad_logistica, clienteId = null, metodoPago = null, pagoReferencia = null }) => {
   const estadoInicial = origen === 'cliente' ? ESTADOS_PEDIDO.PENDIENTE_RECOLECCION : ESTADOS_PEDIDO.EN_EMPAQUE
   const perfil_cliente = clienteId ? await buscarPerfilUsuario(clienteId).catch(() => null) : null
   const direccion_base = String(perfil_cliente?.direccionVivienda || '').trim()
-  const direccion_entrega = direccion_base.toLowerCase().includes('campeche') ? direccion_base : `${direccion_base}, Campeche, Mexico`
+  if (origen === 'cliente' && (!clienteId || direccion_base.length < 15)) throw new Error('El cliente debe registrar una direccion completa antes de comprar')
+  const direccion_entrega = direccion_base.toLowerCase().includes(ciudad_logistica) ? direccion_base : `${direccion_base}, ${nombre_ciudad_logistica}, Mexico`
   const codigo_postal_entrega = String(perfil_cliente?.codigoPostal || '').trim()
   const fecha = new Date().toISOString()
   const total = carrito.reduce((acc, item) => acc + Number(item.precio || 0) * Number(item.cantidad || 0), 0)

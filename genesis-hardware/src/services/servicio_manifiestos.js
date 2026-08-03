@@ -2,12 +2,13 @@ import { arrayUnion, collection, doc, onSnapshot, updateDoc, writeBatch } from '
 import { db } from './conexion_firebase'
 import { actualizarEstadoPedido, ESTADOS_PEDIDO, es_transicion_pedido_valida, mensajesPorEstado } from './servicio_flujo_pedidos'
 import { crearNotificacion } from './servicio_notificaciones'
+import { ciudad_logistica } from './constantes_logistica'
 
 const colManifiestos = () => collection(db, 'manifiestos')
 
 // aqui maestro yo agrupo pedidos listos para despacho por su zona logistica
 export const agruparPedidosPorZona = (pedidos = []) => pedidos.reduce((acc, p) => {
-  const zona = p.zonaLogistica || 'campeche'
+  const zona = p.zonaLogistica || ciudad_logistica
   acc[zona] = acc[zona] || []
   acc[zona].push(p)
   return acc

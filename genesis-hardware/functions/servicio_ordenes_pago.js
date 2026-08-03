@@ -6,6 +6,7 @@ export const crear_pedido_pagado = async ({ usuario_id, carrito, total, referenc
   const perfil = await db.collection('usuarios').doc(usuario_id).get()
   const perfil_datos = perfil.data() || {}
   const direccion = String(perfil_datos.direccionVivienda || '').trim()
+  if (direccion.length < 15) throw new Error('El cliente no tiene una direccion completa registrada')
   const codigo_postal = String(perfil_datos.codigoPostal || '').trim()
   const fecha = new Date().toISOString()
   const pendiente_ref = db.collection('pagos_pendientes').doc(String(referencia))

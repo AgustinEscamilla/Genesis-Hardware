@@ -14,7 +14,7 @@ export function VistaAjustesCliente() {
           <span>Perfil de cliente</span>
         </div>
         <header className="rounded-xl bg-panel border border-borde p-6 shadow-sm">
-          <h1 className="text-3xl font-bold mb-2">Ajustes de cliente</h1>
+          <h1 className="text-3xl font-bold mb-2">Perfil del cliente</h1>
           <p className="text-sm text-texto/70">Actualiza tus datos de perfil para que la entrega y la comunicación sean correctas.</p>
         </header>
 

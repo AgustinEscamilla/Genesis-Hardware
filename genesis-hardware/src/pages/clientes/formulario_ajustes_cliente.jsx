@@ -13,10 +13,8 @@ export function FormularioAjustesCliente({ forma, cambiar, guardar, mensaje }) {
         autoCompletar="name"
       />
       <FormularioDireccion
-        direccion={forma.direccionVivienda}
-        codigoPostal={forma.codigoPostal}
-        alCambiarDireccion={(valor) => cambiar('direccionVivienda', valor)}
-        alCambiarCodigoPostal={(valor) => cambiar('codigoPostal', valor)}
+        forma={forma}
+        cambiar={cambiar}
       />
       <CampoAjustesCliente
         etiqueta="Teléfono"

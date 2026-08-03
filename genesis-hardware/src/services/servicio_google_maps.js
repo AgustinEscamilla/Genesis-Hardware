@@ -1,6 +1,6 @@
+import { limites_logisticos, origen_logistico } from './constantes_logistica'
 const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-const origen_campeche = { lat: 19.8301, lng: -90.5349 }
-const gps_en_campeche = (ubicacion) => ubicacion && ubicacion.lat >= 17.8 && ubicacion.lat <= 20.9 && ubicacion.lng >= -92.5 && ubicacion.lng <= -89
+const gps_en_campeche = (ubicacion) => ubicacion && ubicacion.lat >= limites_logisticos.lat_min && ubicacion.lat <= limites_logisticos.lat_max && ubicacion.lng >= limites_logisticos.lng_min && ubicacion.lng <= limites_logisticos.lng_max
 let promesa_maps
 
 const cargar_maps = () => {
@@ -18,7 +18,7 @@ const cargar_maps = () => {
   return promesa_maps
 }
 
-const convertir_origen = (ubicacion) => gps_en_campeche(ubicacion) ? { latLng: { latitude: ubicacion.lat, longitude: ubicacion.lng } } : `${origen_campeche.lat},${origen_campeche.lng}`
+const convertir_origen = (ubicacion) => gps_en_campeche(ubicacion) ? { latLng: { latitude: ubicacion.lat, longitude: ubicacion.lng } } : `${origen_logistico.lat},${origen_logistico.lng}`
 
 export const obtener_ruta_google = async (paradas, ubicacion) => {
   if (!paradas.length) throw new Error('No hay paradas para calcular')

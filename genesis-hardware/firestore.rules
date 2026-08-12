@@ -27,7 +27,7 @@ service cloud.firestore {
     match /usuarios/{uid} {
       allow read: if esAdministrador() || esEmpleado() || esPropietario(uid);
       allow create: if esAdministrador() || (esPropietario(uid) && request.resource.data.uidAuth == uid && request.resource.data.rol == 'cliente');
-      allow update: if esAdministrador() || (esPropietario(uid) && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol && request.resource.data.correo == resource.data.correo);
+      allow update: if esAdministrador() || (esPropietario(uid) && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol && (request.resource.data.correo == resource.data.correo || request.resource.data.correo == request.auth.token.email));
       allow delete: if esAdministrador();
     }
     match /empleados/{empleadoId} {

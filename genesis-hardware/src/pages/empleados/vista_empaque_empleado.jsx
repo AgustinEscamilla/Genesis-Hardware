@@ -12,6 +12,7 @@ const avanzar_pedido = (pedido, estado) => pedido.esAbastecimiento ? (pedido.est
 // aqui maestro yo reconstruyo el flujo de empaque real dentro del modulo de empleado
 export function VistaEmpaqueEmpleado() {
     const { pedidos: recibidos, cargando: cargando_recibidos, error: error_recibidos } = usePedidosEstado(ESTADOS_PEDIDO.RECIBIDO)
+    const { pedidos: pendientesRecoleccion, cargando: cargando_pendientes, error: error_pendientes } = usePedidosEstado(ESTADOS_PEDIDO.PENDIENTE_RECOLECCION)
     const { pedidos: enEmpaque, cargando: cargando_empaque, error: error_empaque } = usePedidosEstado(ESTADOS_PEDIDO.EN_EMPAQUE)
     const { pedidos: listosDespacho, cargando: cargando_listos, error: error_listos } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
     const { operaciones, cargando: cargando_operaciones } = useOperacionesDistribuidor()
@@ -23,16 +24,16 @@ export function VistaEmpaqueEmpleado() {
     )
     const recibidos_abastecimiento = operaciones.filter((operacion) => operacion.estado === 'recibido').map(convertir_abastecimiento)
     const empaque_abastecimiento = operaciones.filter((operacion) => operacion.estado === 'en_empaque').map(convertir_abastecimiento)
-    const recibidos_totales = [...recibidos, ...recibidos_abastecimiento]
+    const recibidos_totales = [...pendientesRecoleccion, ...recibidos, ...recibidos_abastecimiento]
     const empaque_total = [...enEmpaque, ...empaque_abastecimiento]
 
-    if (cargando_recibidos || cargando_empaque || cargando_listos || cargando_inventario || cargando_operaciones) {
+    if (cargando_pendientes || cargando_recibidos || cargando_empaque || cargando_listos || cargando_inventario || cargando_operaciones) {
         return <div className="flex min-h-40 items-center justify-center text-xs text-mutado">Cargando flujo de empaque</div>
     }
 
     return (
         <div className="min-h-screen bg-fondo p-6 text-texto flex flex-col gap-6">
-            {(error_recibidos || error_empaque || error_listos || error_inventario) && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error_recibidos || error_empaque || error_listos || error_inventario}</div>}
+            {(error_pendientes || error_recibidos || error_empaque || error_listos || error_inventario) && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error_pendientes || error_recibidos || error_empaque || error_listos || error_inventario}</div>}
             <div>
                 <h2 className="text-2xl font-bold text-texto mb-1">Flujo de empaque</h2>
                 <p className="text-mutado text-xs tracking-wide uppercase">Recibido en empaque y listo para despacho</p>

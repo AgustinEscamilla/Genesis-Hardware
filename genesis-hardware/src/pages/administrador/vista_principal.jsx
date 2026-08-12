@@ -12,7 +12,7 @@ import { useNotificacionesAdmin } from '../../hooks/use_notificaciones_admin'
 export function VistaPrincipalAdministrador() {
   const navegar = useNavigate()
   const { alertas } = useAlertasStock()
-  const { notificaciones, marcarLeida } = useNotificacionesAdmin()
+  const { notificaciones, marcarLeida, limpiarNotificaciones } = useNotificacionesAdmin()
 
   const manejarSalida = async () => {
     await cerrarSesion()
@@ -31,7 +31,7 @@ export function VistaPrincipalAdministrador() {
             </div>
             <div className="flex items-center gap-2">
               <AlertaStockAdmin alertas={alertas} />
-              <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} />
+              <CampanaNotificaciones notificaciones={notificaciones} alMarcarLeida={marcarLeida} alLimpiarNotificaciones={limpiarNotificaciones} />
               <Boton variante="contorno" className="px-4 py-2 text-xs uppercase tracking-wide" onClick={manejarSalida}>
                 Cerrar sesión
               </Boton>

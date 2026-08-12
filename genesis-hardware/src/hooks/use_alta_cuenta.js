@@ -23,7 +23,7 @@ export const useFormularioAltaCuenta = () => {
         try {
             await crearCuentaUsuario({ tipo: rol, nombre: datosFormulario.nombre, correo: `${datosFormulario.correo}@${rol}.com`, contrasena: datosFormulario.pass })
             setDatosFormulario({ nombre: '', correo: '', pass: '', pass2: '' })
-            setMensajeEstado('Cuenta creada correctamente en Firebase')
+            setMensajeEstado('Cuenta creada correctamente')
         } catch (error) {
             setMensajeEstado(error?.message || 'No se pudo crear la cuenta')
         }

@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, orderBy, query, updateDoc, where, writeBatch } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const colNotificaciones = () => collection(db, 'notificaciones')
@@ -39,4 +39,16 @@ const adaptarNotificacionAdmin = (notificacion) => {
 // esto sirve para marcar una notificacion como leida desde la campana
 export const marcarNotificacionLeida = async (id) => {
   await updateDoc(doc(db, 'notificaciones', id), { leido: true })
+}
+
+// esto sirve para limpiar todas las notificaciones visibles eliminandolas de Firestore
+export const limpiarNotificaciones = async (ids = []) => {
+  if (!ids.length) return
+
+  const lote = writeBatch(db)
+  ids.forEach((id) => {
+    lote.delete(doc(db, 'notificaciones', id))
+  })
+
+  await lote.commit()
 }

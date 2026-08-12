@@ -8,7 +8,7 @@ export const generar_ruta_simulada = (pedido_id) => {
     return Array.from({ length: pasos + 1 }, (_, i) => ({
         lat: almacen.lat + (destino.lat - almacen.lat) * (i / pasos),
         lng: almacen.lng + (destino.lng - almacen.lng) * (i / pasos),
-        estado: 'en_transito'
+        estado: i === pasos ? 'entregado' : 'en_transito'
     }))
 }
 

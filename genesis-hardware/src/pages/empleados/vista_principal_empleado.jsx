@@ -22,7 +22,7 @@ export function VistaPrincipalEmpleado() {
         <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-lg bg-fondo p-4"><p className="text-xs uppercase text-mutado">Inventario registrado</p><p className="mt-2 text-3xl font-black">{inventario.length}</p></div>
           <div className="rounded-lg bg-fondo p-4"><p className="text-xs uppercase text-mutado">Pedidos en empaque</p><p className="mt-2 text-3xl font-black">{pedidos.length}</p></div>
-          <div className="rounded-lg border-l-2 border-vino bg-fondo p-4"><p className="text-xs uppercase text-mutado">Prioridad</p><p className="mt-2 text-lg font-black text-vino">Mantener flujo</p></div>
+          <div className="rounded-lg border-l-2 border-vino bg-fondo p-4"><p className="text-xs uppercase text-mutado">Prioridad</p><p className="mt-2 text-lg font-black text-vino">Empacar pedidos pendientes</p></div>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">

@@ -12,7 +12,7 @@ export function VistaPedidosEnRutaRepartidor() {
       {error && <div className="border border-red-500 bg-slate-900 p-4 text-xs text-red-400">{error}</div>}
       <div className="bg-slate-900 border border-slate-800 p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-1">Pedidos en ruta</h2>
-        <p className="text-xs text-slate-400">Marca cada pedido como entregado al completar la parada</p>
+        <p className="text-xs text-slate-400">Solo ves pedidos en ruta asignados a tu cuenta para marcar entrega</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {pedidos.map((pedido) => (

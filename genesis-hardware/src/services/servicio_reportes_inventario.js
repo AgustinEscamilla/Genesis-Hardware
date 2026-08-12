@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { auth, db } from './conexion_firebase'
 
 const coleccion_reportes = () => collection(db, 'reportes_inventario')
@@ -15,5 +15,18 @@ export const crear_reporte_inventario = async ({ producto, pedido, tipo, descrip
     descripcion: descripcion.trim(),
     estado: 'pendiente',
     fecha: serverTimestamp(),
+  })
+}
+
+export const escuchar_reportes_inventario = (alCambiar, alError) =>
+  onSnapshot(coleccion_reportes(), (snap) => {
+    alCambiar(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+  }, alError)
+
+export const responder_reporte_inventario = async ({ reporteId, respuesta }) => {
+  await updateDoc(doc(db, 'reportes_inventario', reporteId), {
+    respuesta: String(respuesta || '').trim(),
+    estado: 'respondido',
+    respondidoEn: serverTimestamp(),
   })
 }

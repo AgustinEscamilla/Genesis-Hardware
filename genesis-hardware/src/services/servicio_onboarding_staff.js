@@ -22,12 +22,23 @@ export const requiereOnboardingStaff = async ({ rol, correo, uidAuth }) => {
   return !registro.data()?.onboardingCompleto
 }
 
+export const obtenerOnboardingStaff = async ({ rol, correo, uidAuth }) => {
+  if (!coleccionPorRol[rol]) return null
+  const registro = await buscarStaff(rol, correo, uidAuth)
+  if (!registro) return null
+  return { id: registro.id, ...registro.data() }
+}
+
 export const guardarOnboardingStaff = async ({ rol, correo, uidAuth, datos }) => {
   // aqui maestro yo guardo onboarding completo para staff
   const registro = await buscarStaff(rol, correo, uidAuth)
   const payload = { ...datos, onboardingCompleto: true, estadoActivo: true, actualizadoEn: serverTimestamp() }
   const nombrePerfil = `${datos.nombres || ''} ${datos.apellidoPaterno || ''} ${datos.apellidoMaterno || ''}`.trim()
-  if (registro) await updateDoc(doc(db, coleccionPorRol[rol], registro.id), payload)
-  else await addDoc(collection(db, coleccionPorRol[rol]), { correo, uidAuth, rol, ...payload, creadoEn: serverTimestamp() })
+  if (registro) {
+    await updateDoc(doc(db, coleccionPorRol[rol], registro.id), payload)
+  } else {
+    if (rol === 'empleado' || rol === 'repartidor') throw new Error('Tu cuenta staff aun no esta registrada por el administrador')
+    await addDoc(collection(db, coleccionPorRol[rol]), { correo, uidAuth, rol, ...payload, creadoEn: serverTimestamp() })
+  }
   await guardarPerfilUsuario({ uidAuth, nombre: nombrePerfil || 'Staff', correo, rol, origen: rol })
 }

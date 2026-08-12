@@ -2,14 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-/* aqui maestro yo modernizo el look global con glassmorphism y gradientes sin tocar la paleta de colores */
+:root {
+    --color-fondo: 10 10 10;
+    --color-panel: 20 20 20;
+    --color-borde: 45 45 45;
+    --color-texto: 244 244 245;
+    --color-mutado: 161 161 170;
+    --scroll-track: rgb(10 10 10);
+    --scroll-thumb: rgb(45 45 45);
+}
+
+[data-theme='light'] {
+    --color-fondo: 248 250 252;
+    --color-panel: 255 255 255;
+    --color-borde: 203 213 225;
+    --color-texto: 17 24 39;
+    --color-mutado: 75 85 99;
+    --scroll-track: rgb(229 231 235);
+    --scroll-thumb: rgb(156 163 175);
+    --light-panel-soft: rgb(255 255 255 / 0.9);
+    --light-hover-soft: rgb(241 245 249 / 0.85);
+}
+
+/* aqui maestro yo modernizo el look global con glassmorphism y gradientes con soporte claro y oscuro */
 ::selection {
     background-color: rgba(255, 76, 76, 0.35);
-    color: #f4f4f5;
+    color: rgb(var(--color-texto));
 }
 
 html {
-    scrollbar-color: #2d2d2d #0a0a0a;
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
 }
 
 ::-webkit-scrollbar {
@@ -18,20 +40,20 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: var(--scroll-track);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #2d2d2d;
+    background-color: var(--scroll-thumb);
     border-radius: 999px;
-    border: 2px solid #0a0a0a;
+    border: 2px solid var(--scroll-track);
 }
 
 @layer utilities {
 
     /* pantalla de fondo con degradados suaves de la marca, siempre fija para dar sensacion de profundidad */
     .bg-fondo {
-        background-color: #0a0a0a;
+        background-color: rgb(var(--color-fondo));
         background-image:
             radial-gradient(circle at 12% 8%, rgba(255, 76, 76, 0.14), transparent 42%),
             radial-gradient(circle at 88% 4%, rgba(139, 92, 246, 0.16), transparent 45%),
@@ -39,9 +61,16 @@ html {
         background-attachment: fixed;
     }
 
+    [data-theme='light'] .bg-fondo {
+        background-image:
+            radial-gradient(circle at 12% 8%, rgba(255, 76, 76, 0.1), transparent 48%),
+            radial-gradient(circle at 88% 4%, rgba(139, 92, 246, 0.09), transparent 52%),
+            radial-gradient(circle at 45% 100%, rgba(6, 182, 212, 0.08), transparent 62%);
+    }
+
     /* efecto vidrio esmerilado para todas las tarjetas y paneles que ya usan bg-panel */
     .bg-panel {
-        background-color: rgba(20, 20, 20, 0.6);
+        background-color: rgba(var(--color-panel), 0.7);
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
     }
@@ -49,6 +78,103 @@ html {
     .bg-panel.border,
     .bg-panel.border-borde {
         box-shadow: 0 8px 32px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+    }
+
+    [data-theme='light'] .bg-panel.border,
+    [data-theme='light'] .bg-panel.border-borde {
+        box-shadow: 0 10px 24px -18px rgba(15, 23, 42, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme='light'] .bg-slate-950,
+    [data-theme='light'] .bg-slate-900,
+    [data-theme='light'] .bg-slate-950\/30 {
+        background-color: rgba(var(--color-panel), 0.92) !important;
+    }
+
+    [data-theme='light'] .border-slate-900,
+    [data-theme='light'] .border-slate-800,
+    [data-theme='light'] .border-slate-700,
+    [data-theme='light'] .border-slate-600,
+    [data-theme='light'] .border-slate-500 {
+        border-color: rgba(var(--color-borde), 0.9) !important;
+    }
+
+    [data-theme='light'] .text-slate-100,
+    [data-theme='light'] .text-slate-200,
+    [data-theme='light'] .text-slate-300 {
+        color: rgb(var(--color-texto)) !important;
+    }
+
+    [data-theme='light'] .text-slate-400,
+    [data-theme='light'] .text-slate-500 {
+        color: rgb(var(--color-mutado)) !important;
+    }
+
+    [data-theme='light'] .bg-\[\#111\],
+    [data-theme='light'] .bg-\[\#1e1e1e\],
+    [data-theme='light'] .bg-\[\#171a22\] {
+        background-color: rgba(var(--color-panel), 0.92) !important;
+    }
+
+    [data-theme='light'] .text-white {
+        color: rgb(var(--color-texto)) !important;
+    }
+
+    /* acabados premium del modo claro para formularios */
+    [data-theme='light'] input:not([type='checkbox']):not([type='radio']),
+    [data-theme='light'] select,
+    [data-theme='light'] textarea {
+        background-color: rgba(255, 255, 255, 0.96) !important;
+        border-color: rgba(var(--color-borde), 0.95) !important;
+        color: rgb(var(--color-texto)) !important;
+    }
+
+    [data-theme='light'] input::placeholder,
+    [data-theme='light'] textarea::placeholder {
+        color: rgb(var(--color-mutado) / 0.9);
+    }
+
+    [data-theme='light'] input:focus,
+    [data-theme='light'] select:focus,
+    [data-theme='light'] textarea:focus {
+        box-shadow: 0 0 0 3px rgba(255, 76, 76, 0.14);
+    }
+
+    /* botones secundarios más limpios en claro */
+    [data-theme='light'] button[class*='border-borde'],
+    [data-theme='light'] a[class*='border-borde'] {
+        background-color: var(--light-panel-soft);
+        color: rgb(var(--color-texto));
+    }
+
+    [data-theme='light'] button[class*='border-borde']:hover,
+    [data-theme='light'] a[class*='border-borde']:hover {
+        background-color: var(--light-hover-soft);
+        border-color: rgba(255, 76, 76, 0.45) !important;
+    }
+
+    /* tablas y listados con contraste suave */
+    [data-theme='light'] table {
+        background-color: rgba(255, 255, 255, 0.92);
+        color: rgb(var(--color-texto));
+        border-color: rgba(var(--color-borde), 0.9);
+    }
+
+    [data-theme='light'] th {
+        background-color: rgba(241, 245, 249, 0.9);
+        color: rgb(var(--color-texto));
+    }
+
+    [data-theme='light'] td,
+    [data-theme='light'] th {
+        border-color: rgba(var(--color-borde), 0.8);
+    }
+
+    /* modales con panel claro elegante */
+    [data-theme='light'] [class*='max-h-[80vh]'][class*='rounded-2xl'] {
+        background-color: rgba(255, 255, 255, 0.97) !important;
+        border-color: rgba(var(--color-borde), 0.9) !important;
+        box-shadow: 0 18px 45px -20px rgba(15, 23, 42, 0.35);
     }
 
     .texto-degradado {

@@ -17,6 +17,7 @@ export function BarraNavegacionAdministrador() {
         <NavLink to="mercancia" className={estilo}>Inventario</NavLink>
         <NavLink to="noticias" className={estilo}>Noticias</NavLink>
         <NavLink to="dashboard" className={estilo}>Reportes</NavLink>
+        <NavLink to="reportes-cuentas" className={estilo}>Incidencias</NavLink>
         <NavLink to="abastecimiento" className={estilo}>Abastecimiento</NavLink>
       </div>
     </nav>

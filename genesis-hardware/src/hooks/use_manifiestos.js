@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { usePedidosEstado } from './use_pedidos_estado'
+import { useAutenticacion } from './use_autenticacion'
 import { ESTADOS_PEDIDO } from '../services/servicio_flujo_pedidos'
 import { agruparPedidosPorZona, escucharManifiestos, generarManifiesto, marcarManifiestoEntregado } from '../services/servicio_manifiestos'
 
 // esto sirve para exponer zonas pendientes y manifiestos activos al repartidor
 export function useManifiestos() {
+  const { usuarioActual } = useAutenticacion()
+  const repartidorId = usuarioActual?.uid || ''
   const { pedidos: listos_despacho, cargando: cargando_listos, error: error_listos } = usePedidosEstado(ESTADOS_PEDIDO.LISTO_DESPACHO)
   const { pedidos: pedidos_en_reparto, cargando: cargando_reparto, error: error_reparto } = usePedidosEstado(ESTADOS_PEDIDO.EN_REPARTO)
   const [manifiestos, setManifiestos] = useState([])
@@ -25,18 +28,29 @@ export function useManifiestos() {
   }, [])
 
   // aqui maestro yo dejo pasar solo los pedidos que el empleado libero en el anden
-  const pedidosParaAgrupar = useMemo(() => listos_despacho.filter((p) => p.liberadoParaRepartidor), [listos_despacho])
+  const pedidosParaAgrupar = useMemo(
+    () => listos_despacho.filter((p) => p.liberadoParaRepartidor && p.repartidorId === repartidorId),
+    [listos_despacho, repartidorId]
+  )
+  const manifiestosPropios = useMemo(
+    () => manifiestos.filter((manifiesto) => manifiesto.repartidorId === repartidorId),
+    [manifiestos, repartidorId]
+  )
+  const pedidosEnRepartoPropios = useMemo(
+    () => pedidos_en_reparto.filter((pedido) => pedido.repartidorId === repartidorId),
+    [pedidos_en_reparto, repartidorId]
+  )
   const zonasPendientes = useMemo(() => agruparPedidosPorZona(pedidosParaAgrupar), [pedidosParaAgrupar])
 
-  const pedidosDelManifiesto = (manifiesto) => pedidos_en_reparto.filter((p) => p.manifiestoId === manifiesto.id)
+  const pedidosDelManifiesto = (manifiesto) => pedidosEnRepartoPropios.filter((p) => p.manifiestoId === manifiesto.id)
 
   return {
     zonasPendientes,
-    manifiestos,
-    pedidosEnReparto: pedidos_en_reparto,
+    manifiestos: manifiestosPropios,
+    pedidosEnReparto: pedidosEnRepartoPropios,
     cargando: cargando_listos || cargando_reparto || cargando_manifiestos,
     error: error_listos || error_reparto || error_manifiestos,
-    generar: (zona, pedidos) => generarManifiesto(zona, pedidos),
+    generar: (zona, pedidos) => generarManifiesto(zona, pedidos, repartidorId),
     entregar: (manifiesto) => marcarManifiestoEntregado(manifiesto, pedidosDelManifiesto(manifiesto))
   }
 }

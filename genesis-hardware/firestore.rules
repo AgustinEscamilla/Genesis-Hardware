@@ -33,12 +33,12 @@ service cloud.firestore {
     match /empleados/{empleadoId} {
       allow read: if esAdministrador() || (esEmpleado() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
       allow create, delete: if esAdministrador();
-      allow update: if esAdministrador() || (esEmpleado() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
+      allow update: if esAdministrador() || (esEmpleado() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email) && request.resource.data.uidAuth == request.auth.uid && request.resource.data.rol == 'empleado' && (request.resource.data.correo == request.auth.token.email || request.resource.data.correo == resource.data.correo));
     }
     match /repartidores/{repartidorId} {
       allow read: if esAdministrador() || esEmpleado() || (esRepartidor() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email));
       allow create, delete: if esAdministrador();
-      allow update: if esAdministrador() || (esRepartidor() && resource.data.uidAuth == request.auth.uid && request.resource.data.uidAuth == resource.data.uidAuth && request.resource.data.rol == resource.data.rol);
+      allow update: if esAdministrador() || (esRepartidor() && (resource.data.uidAuth == request.auth.uid || resource.data.correo == request.auth.token.email) && request.resource.data.uidAuth == request.auth.uid && request.resource.data.rol == 'repartidor' && (request.resource.data.correo == request.auth.token.email || request.resource.data.correo == resource.data.correo));
     }
     match /pedidos/{pedidoId} {
       allow read: if esStaff() || (esCliente() && resource.data.clienteId == request.auth.uid);

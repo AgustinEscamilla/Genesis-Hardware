@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { useCerrarSesion } from '../../hooks/use_cerrar_sesion'
 import { RepartidorBarraLateral } from './repartidor_barra_lateral'
 import { RutaProtegida } from '../../components/ruta_protegida'
@@ -14,7 +14,12 @@ export function PlantillaRepartidor() {
         <div className="flex-1 flex flex-col">
           <div className="sticky top-0 z-40 flex min-h-14 items-center justify-between gap-4 border-b border-borde bg-panel px-4 py-3 backdrop-blur-xl md:px-6">
             <p className="text-xs uppercase tracking-widest text-mutado">Panel de reparto <span className="texto-degradado font-bold">Genesis</span></p>
-            <button onClick={salir} className="rounded-lg border border-borde px-4 py-2 text-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primario hover:bg-degradado-primario hover:text-fondo">Salir</button>
+            <div className="flex items-center gap-2">
+              <Link to="/onboarding/repartidores" className="rounded-lg border border-borde px-4 py-2 text-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primario hover:text-primario">
+                Editar perfil
+              </Link>
+              <button onClick={salir} className="rounded-lg border border-borde px-4 py-2 text-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primario hover:bg-degradado-primario hover:text-fondo">Salir</button>
+            </div>
           </div>
           <div className="flex-1 p-4 md:p-6">
             <div className="mx-auto w-full max-w-6xl">

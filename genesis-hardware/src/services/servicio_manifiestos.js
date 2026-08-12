@@ -36,8 +36,8 @@ export const iniciarRutaRepartidor = async (paradas = [], repartidorId = null) =
   return ids
 }
 
-export const generarManifiesto = async (zona, pedidos = []) => {
-  const ids = await iniciarRutaRepartidor(pedidos.map((pedido) => ({ pedido })), null)
+export const generarManifiesto = async (zona, pedidos = [], repartidorId = null) => {
+  const ids = await iniciarRutaRepartidor(pedidos.map((pedido) => ({ pedido })), repartidorId)
   return ids.find((id) => id) || zona
 }
 

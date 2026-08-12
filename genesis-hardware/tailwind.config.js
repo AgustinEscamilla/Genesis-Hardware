@@ -7,15 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        fondo: '#0a0a0a',
-        panel: '#141414',
-        borde: '#2d2d2d',
+        fondo: 'rgb(var(--color-fondo) / <alpha-value>)',
+        panel: 'rgb(var(--color-panel) / <alpha-value>)',
+        borde: 'rgb(var(--color-borde) / <alpha-value>)',
         primario: '#ff4c4c',
         secundario: '#8b5cf6',
         terciario: '#06b6d4',
         vino: '#722F37',
-        texto: '#f4f4f5',
-        mutado: '#a1a1aa'
+        texto: 'rgb(var(--color-texto) / <alpha-value>)',
+        mutado: 'rgb(var(--color-mutado) / <alpha-value>)'
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

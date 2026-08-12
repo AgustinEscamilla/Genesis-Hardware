@@ -1,4 +1,4 @@
-import { addDoc, collection, onSnapshot, query, where } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, query, serverTimestamp, updateDoc, where } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const coleccionReclamos = () => collection(db, 'reclamos')
@@ -22,5 +22,19 @@ export const escucharReclamosCliente = (clienteId, alCambiar) => {
         const datos = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
         datos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
         alCambiar(datos)
+    })
+}
+
+export const escucharReclamosAdministrador = (alCambiar, alError) =>
+    onSnapshot(coleccionReclamos(), (snap) => {
+        const datos = snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+        alCambiar(datos)
+    }, alError)
+
+export const responderReclamo = async ({ reclamoId, respuesta }) => {
+    await updateDoc(doc(db, 'reclamos', reclamoId), {
+        respuesta: String(respuesta || '').trim(),
+        estado: 'respondido',
+        respondidoEn: serverTimestamp(),
     })
 }

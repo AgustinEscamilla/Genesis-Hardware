@@ -2,11 +2,12 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ProveedorAutenticacion } from './context/proveedor_autenticacion'
 import { ProveedorCarrito } from './context/proveedor_carrito'
+import { InterruptorTema } from './components/interruptor_tema'
 import { RutasAplicacion } from './pages/rutas_aplicacion'
 
 export function Aplicacion() {
   return (
-    <ProveedorAutenticacion><ProveedorCarrito><BrowserRouter><RutasAplicacion /></BrowserRouter></ProveedorCarrito></ProveedorAutenticacion>
+    <ProveedorAutenticacion><ProveedorCarrito><BrowserRouter><RutasAplicacion /><InterruptorTema /></BrowserRouter></ProveedorCarrito></ProveedorAutenticacion>
   )
 }
 

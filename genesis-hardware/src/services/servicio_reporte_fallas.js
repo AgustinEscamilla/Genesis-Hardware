@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from './conexion_firebase'
 
 const coleccionReportes = () => collection(db, 'reportes_fallas')
@@ -11,5 +11,18 @@ export const crearReporteFalla = async ({ repartidorId, cofre, mensaje }) => {
     mensaje,
     fecha: serverTimestamp(),
     estado: 'pendiente'
+  })
+}
+
+export const escucharReportesFallas = (alCambiar, alError) =>
+  onSnapshot(coleccionReportes(), (snap) => {
+    alCambiar(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+  }, alError)
+
+export const responderReporteFalla = async ({ reporteId, respuesta }) => {
+  await updateDoc(doc(db, 'reportes_fallas', reporteId), {
+    respuesta: String(respuesta || '').trim(),
+    estado: 'respondido',
+    respondidoEn: serverTimestamp(),
   })
 }

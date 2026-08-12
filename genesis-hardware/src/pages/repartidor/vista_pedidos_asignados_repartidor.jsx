@@ -14,7 +14,7 @@ export function VistaPedidosAsignadosRepartidor() {
       {error && <div className="border border-primario bg-panel p-4 text-xs text-primario">{error}</div>}
       <div className="bg-panel border border-borde p-6 rounded-lg">
         <h2 className="text-xl font-bold mb-1">Pedidos asignados</h2>
-        <p className="text-xs text-mutado">Revisa cada zona lista para despacho antes de generar el manifiesto</p>
+        <p className="text-xs text-mutado">Solo se muestran los pedidos asignados a tu cuenta antes de generar el manifiesto</p>
       </div>
       <RepartidorZonasPendientes zonasPendientes={zonasPendientes} alGenerar={generar} />
     </div>

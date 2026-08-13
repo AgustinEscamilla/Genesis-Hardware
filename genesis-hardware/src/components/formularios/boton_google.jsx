@@ -1,4 +1,4 @@
-import { useAccesoGoogle } from '../hooks/use_acceso_google'
+import { useAccesoGoogle } from '../../hooks/use_acceso_google'
 
 export function BotonGoogle() {
   const { cargando, mensajeError, accederConGoogle } = useAccesoGoogle()

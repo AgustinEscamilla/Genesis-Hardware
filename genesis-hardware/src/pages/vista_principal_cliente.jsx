@@ -2,9 +2,9 @@
 import { useCarritoPedidos } from '../hooks/use_carrito_pedidos'
 import { use_modal_carrito } from '../hooks/use_modal_carrito'
 import { useCatalogoFirstpc } from '../hooks/use_catalogo_firstpc'
-import { CabeceraFirstpc } from '../components/cabecera_firstpc'
+import { CabeceraFirstpc } from '../components/navegacion/cabecera_firstpc'
 import { SeccionCatalogoClienteFirstpc } from './seccion_catalogo_cliente_firstpc'
-import { BotonSalida } from '../components/boton_salida'
+import { BotonSalida } from '../components/formularios/boton_salida'
 import { ClienteModalCarrito } from './cliente_modal_carrito'
 
 export function VistaPrincipalCliente() {

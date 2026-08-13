@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatear_direccion } from '../services/formato_direccion'
+import { formatear_direccion } from '../../services/formato_direccion'
 
 // esto sirve para reutilizar la misma tarjeta de pedido entre empleado y repartidor
 export function TarjetaPedido({ pedido, acciones = [] }) {

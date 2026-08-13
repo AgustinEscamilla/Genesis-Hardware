@@ -2,7 +2,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { ProveedorAutenticacion } from './context/proveedor_autenticacion'
 import { ProveedorCarrito } from './context/proveedor_carrito'
-import { InterruptorTema } from './components/interruptor_tema'
+import { InterruptorTema } from './components/navegacion/interruptor_tema'
 import { RutasAplicacion } from './pages/rutas_aplicacion'
 
 export function Aplicacion() {

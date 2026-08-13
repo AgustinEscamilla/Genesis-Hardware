@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { obtener_marca_producto } from '../services/constantes_firstpc'
+import { obtener_marca_producto } from '../../services/constantes_firstpc'
 
 export function ResumenProductoFirstpc({ producto, cantidad, set_cantidad, al_agregar, autenticado, mensaje }) {
   const agregar = () => autenticado ? al_agregar(producto, cantidad) : null

@@ -1,4 +1,4 @@
-import { ModalCarrito } from '../components/modal_carrito'
+import { ModalCarrito } from '../components/carrito/modal_carrito'
 
 export function ClienteModalCarrito({ modal_carrito, carrito }) {
   return (

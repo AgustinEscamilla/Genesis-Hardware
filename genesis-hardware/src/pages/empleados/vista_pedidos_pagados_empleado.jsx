@@ -1,4 +1,4 @@
-import { TarjetaPedido } from '../../components/tarjeta_pedido'
+import { TarjetaPedido } from '../../components/pedidos/tarjeta_pedido'
 import { usePedidosPagadosEmpleado } from '../../hooks/use_pedidos_pagados_empleado'
 
 // aqui maestro yo muestro los pedidos listos para empacar o asignar

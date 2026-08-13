@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { VistaDiferida } from '../components/vista_diferida'
+import { VistaDiferida } from '../components/estructura/vista_diferida'
 import { con_ruta_protegida } from '../hoc/con_ruta_protegida'
 import { cargar_vista } from '../services/servicio_vistas_diferidas'
 import { RutasAdministrador } from './rutas_administrador'

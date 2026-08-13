@@ -1,4 +1,4 @@
-import { MapaClienteRastreo } from './mapa_cliente_rastreo'
+import { MapaClienteRastreo } from './mapas/mapa_cliente_rastreo'
 
 // aqui maestro dejo los mensajes para cuando el pedido todavia no sale a reparto
 const mensajes_por_estado = {

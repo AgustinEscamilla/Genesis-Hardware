@@ -1,5 +1,5 @@
 import { MapaPinParada } from './mapa_pin_parada'
-import { almacen } from '../services/servicio_estafeta_mock'
+import { almacen } from '../../services/servicio_estafeta_mock'
 
 const clave_maps = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const limitar = (valor) => Math.max(5, Math.min(95, valor))

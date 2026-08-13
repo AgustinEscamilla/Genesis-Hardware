@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { obtener_marca_producto } from '../services/constantes_firstpc'
+import { obtener_marca_producto } from '../../services/constantes_firstpc'
 import { ImagenProductoFirstpc } from './imagen_producto_firstpc'
 
 export function TarjetaProductoFirstpc({ producto, favorito, al_favorito, al_agregar }) {

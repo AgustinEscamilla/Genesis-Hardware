@@ -2,11 +2,11 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import { BarraNavegacionAdministrador } from './barra_navegacion_administrador'
 import { cerrarSesion } from '../../services/servicio_autenticacion'
-import { Boton } from '../../components/boton'
+import { Boton } from '../../components/formularios/boton'
 import { AlertaStockAdmin } from './alerta_existencias_administrador'
 import { useAlertasStock } from '../../hooks/use_alertas_existencias'
-import { RutaProtegida } from '../../components/ruta_protegida'
-import { CampanaNotificaciones } from '../../components/campana_notificaciones'
+import { RutaProtegida } from '../../components/estructura/ruta_protegida'
+import { CampanaNotificaciones } from '../../components/navegacion/campana_notificaciones'
 import { useNotificacionesAdmin } from '../../hooks/use_notificaciones_admin'
 
 export function VistaPrincipalAdministrador() {

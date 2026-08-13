@@ -1,7 +1,7 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../../../components/logo_genesis.png'
+import logo from '../../../components/recursos/logo_genesis.png'
 import { ModalAutenticacion } from '../../../components/modal_autenticacion'
 import { SeccionHero } from './seccion_hero'
 import { SeccionModulos } from './seccion_modulos'

@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useCerrarSesion } from '../../hooks/use_cerrar_sesion'
 import { RepartidorBarraLateral } from './repartidor_barra_lateral'
-import { RutaProtegida } from '../../components/ruta_protegida'
+import { RutaProtegida } from '../../components/estructura/ruta_protegida'
 
 // aqui maestro yo preparo la plantilla general del modulo de repartidor
 export function PlantillaRepartidor() {

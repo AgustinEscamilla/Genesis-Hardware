@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { obtener_marca_producto } from '../services/constantes_firstpc'
+import { obtener_marca_producto } from '../../services/constantes_firstpc'
 
 export function ImagenProductoFirstpc({ producto, className = 'h-full w-full object-contain' }) {
   const [disponible, set_disponible] = useState(Boolean(producto.imagen))

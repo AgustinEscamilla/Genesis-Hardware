@@ -1,4 +1,4 @@
-import { TablaGenerica } from '../../components/tabla_generica'
+import { TablaGenerica } from '../../components/pedidos/tabla_generica'
 import { useTodosPedidos } from '../../hooks/use_todos_pedidos'
 import { ESTADOS_PEDIDO } from '../../services/servicio_flujo_pedidos'
 

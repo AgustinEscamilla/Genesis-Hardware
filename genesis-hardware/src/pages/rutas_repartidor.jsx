@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom'
-import { VistaDiferida } from '../components/vista_diferida'
+import { VistaDiferida } from '../components/estructura/vista_diferida'
 import { cargar_vista } from '../services/servicio_vistas_diferidas'
 
 const Plantilla = cargar_vista(() => import('./repartidor/plantilla_repartidor'), 'PlantillaRepartidor')

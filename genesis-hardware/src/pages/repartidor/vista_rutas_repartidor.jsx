@@ -6,7 +6,7 @@ import { useUbicacionRepartidor } from '../../hooks/use_ubicacion_repartidor'
 import { useAutenticacion } from '../../hooks/use_autenticacion'
 import { iniciarRutaRepartidor } from '../../services/servicio_flujo_repartidor'
 import { ListaParadasRuta } from './lista_paradas_ruta'
-import { MapaEntregasRepartidor } from '../../components/mapa_entregas_repartidor'
+import { MapaEntregasRepartidor } from '../../components/mapas/mapa_entregas_repartidor'
 
 // esto sirve para que el repartidor vea su ruta optimizada en el mapa y la comience
 export function VistaRutasRepartidor() {

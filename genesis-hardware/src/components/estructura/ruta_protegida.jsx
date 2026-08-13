@@ -1,6 +1,6 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
 import { Navigate } from 'react-router-dom'
-import { useAutenticacion } from '../hooks/use_autenticacion'
+import { useAutenticacion } from '../../hooks/use_autenticacion'
 
 export function RutaProtegida({ children, rolPermitido }) {
   const { usuarioActual, cargando, rol } = useAutenticacion()

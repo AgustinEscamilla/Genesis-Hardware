@@ -1,4 +1,4 @@
-import { formatear_precio } from '../services/formato_moneda'
+import { formatear_precio } from '../../services/formato_moneda'
 
 export function TicketCompra({ pedido, descargar_ticket }) {
   const articulos = pedido?.items || pedido?.carrito || []

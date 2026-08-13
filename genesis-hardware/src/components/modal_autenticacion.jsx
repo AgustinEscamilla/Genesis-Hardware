@@ -1,6 +1,6 @@
 import { useRedireccionAuth } from '../hooks/use_redireccion_auth'
 import { FormularioAcceso } from '../pages/formulario_acceso'
-import { BotonGoogle } from './boton_google'
+import { BotonGoogle } from './formularios/boton_google'
 
 // maestro funciona asi yo muestro el inicio de sesion como modal arriba del menu principal
 export function ModalAutenticacion({ abierto, al_cerrar }) {

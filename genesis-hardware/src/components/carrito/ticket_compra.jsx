@@ -1,5 +1,5 @@
 // esto sirve para mostrar el recibo real despues de confirmar el pago
-import { formatear_precio } from '../services/formato_moneda'
+import { formatear_precio } from '../../services/formato_moneda'
 
 export function TicketCompra({ ticket, al_cerrar }) {
     const pago_pendiente = ticket.estadoPago !== 'approved'

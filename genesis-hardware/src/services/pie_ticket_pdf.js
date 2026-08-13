@@ -1,0 +1,32 @@
+import { formatear_precio } from './formato_moneda'
+
+export const dibujar_pie_ticket = (documento, datos, resumen_y) => {
+  documento.setTextColor(243, 244, 246)
+  documento.setFont('helvetica', 'bold')
+  documento.setFontSize(10)
+  documento.text('SUBTOTAL:', 145, resumen_y, { align: 'right' })
+  documento.text(formatear_precio(datos.subtotal), 188, resumen_y, { align: 'right' })
+  documento.text('IVA (16%):', 145, resumen_y + 7, { align: 'right' })
+  documento.text(formatear_precio(datos.iva), 188, resumen_y + 7, { align: 'right' })
+  documento.setFillColor(43, 48, 66)
+  documento.roundedRect(124, resumen_y + 12, 66, 12, 2, 2, 'FD')
+  documento.setTextColor(244, 114, 182)
+  documento.setFontSize(13)
+  documento.text('TOTAL GENERAL:', 126, resumen_y + 20)
+  documento.setTextColor(34, 211, 238)
+  documento.text(formatear_precio(datos.total_seguro), 188, resumen_y + 20, { align: 'right' })
+  const pie_y = resumen_y + 38
+  documento.setTextColor(229, 231, 235)
+  documento.setFontSize(9.5)
+  documento.setFont('helvetica', 'bold')
+  documento.text('DETALLES DE PAGO', 20, pie_y)
+  documento.setFont('helvetica', 'normal')
+  documento.text(`METODO: ${datos.metodo_pago}`, 76, pie_y)
+  documento.setFont('helvetica', 'bold')
+  documento.text('DETALLES DE ENVIO', 160, pie_y, { align: 'center' })
+  documento.setTextColor(244, 114, 182)
+  documento.text('LOCAL CAMPECHE', 160, pie_y + 6, { align: 'center' })
+  documento.setTextColor(229, 231, 235)
+  documento.setFontSize(18)
+  documento.text('GRACIAS POR SU COMPRA', 105, pie_y + 22, { align: 'center' })
+}

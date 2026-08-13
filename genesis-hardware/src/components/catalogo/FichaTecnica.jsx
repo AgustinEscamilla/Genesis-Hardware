@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useFiltroFichaTecnica } from '../hooks/use_filtro_ficha_tecnica'
+import { useFiltroFichaTecnica } from '../../hooks/use_filtro_ficha_tecnica'
 import { GrupoFichaTecnica } from './GrupoFichaTecnica'
 
 // aqui maestro yo armo la ficha tecnica completa con buscador y categorias en acordeon

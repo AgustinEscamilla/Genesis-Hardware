@@ -1,8 +1,8 @@
 import { useAutenticacion } from '../../hooks/use_autenticacion'
 import { useSeguimientoPedidos } from '../../hooks/use_seguimiento_pedidos'
 import { ClientePanelSeguimiento } from '../cliente_panel_seguimiento'
-import { CabeceraFirstpc } from '../../components/cabecera_firstpc'
-import { BotonSalida } from '../../components/boton_salida'
+import { CabeceraFirstpc } from '../../components/navegacion/cabecera_firstpc'
+import { BotonSalida } from '../../components/formularios/boton_salida'
 
 export function VistaPedidosCliente() {
   const { usuarioActual } = useAutenticacion()

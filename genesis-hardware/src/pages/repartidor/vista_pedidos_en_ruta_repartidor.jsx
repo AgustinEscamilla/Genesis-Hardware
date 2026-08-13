@@ -1,4 +1,4 @@
-import { TarjetaPedido } from '../../components/tarjeta_pedido'
+import { TarjetaPedido } from '../../components/pedidos/tarjeta_pedido'
 import { usePedidosEnRutaRepartidor } from '../../hooks/use_pedidos_en_ruta_repartidor'
 
 // aqui puse profe para que el repartidor marque como entregado cada pedido en ruta

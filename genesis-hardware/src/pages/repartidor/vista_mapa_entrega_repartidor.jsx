@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { use_rastreo_mock } from '../../hooks/use_rastreo_mock'
-import { MapaEntrega } from '../../components/mapa_entrega'
+import { MapaEntrega } from '../../components/mapas/mapa_entrega'
 import { RepartidorEstadoEnvio } from './repartidor_estado_envio'
 
 // esto sirve para que el repartidor vea la ubicacion de entrega en tiempo real

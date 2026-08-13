@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { TarjetaEstadoAbastecimiento } from '../../components/tarjeta_estado_abastecimiento'
-import { TablaOperacionesDistribuidor } from '../../components/tabla_operaciones_distribuidor'
+import { TarjetaEstadoAbastecimiento } from '../../components/pedidos/tarjeta_estado_abastecimiento'
+import { TablaOperacionesDistribuidor } from '../../components/pedidos/tabla_operaciones_distribuidor'
 import { useOperacionesDistribuidor } from '../../hooks/use_operaciones_distribuidor'
 
 export function VistaAbastecimientoAdministrador() {

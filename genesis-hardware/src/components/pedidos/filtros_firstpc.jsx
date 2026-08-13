@@ -1,4 +1,4 @@
-import { categorias_firstpc, marcas_firstpc, obtener_marca_producto } from '../services/constantes_firstpc'
+import { categorias_firstpc, marcas_firstpc, obtener_marca_producto } from '../../services/constantes_firstpc'
 
 export function FiltrosFirstpc(props) {
   const { productos, busqueda, set_busqueda, categoria, set_categoria, marca, set_marca,

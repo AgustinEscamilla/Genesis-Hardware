@@ -1,6 +1,6 @@
 // aqui maestro yo muestro una tarjeta de producto publico con imagen y descripcion de precios
 import { formatear_precio } from '../../../services/formato_moneda'
-import { ImagenProductoFirstpc } from '../../../components/imagen_producto_firstpc'
+import { ImagenProductoFirstpc } from '../../../components/catalogo/imagen_producto_firstpc'
 
 export function TarjetaCatalogoPublico({ producto }) {
   return (

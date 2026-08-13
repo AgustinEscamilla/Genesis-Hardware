@@ -1,4 +1,4 @@
-import { use_rastreo_mock } from '../hooks/use_rastreo_mock'
+import { use_rastreo_mock } from '../../hooks/use_rastreo_mock'
 import { MapaEntrega } from './mapa_entrega'
 
 const etiquetas = { en_transito: 'En transito hacia tu domicilio', entregado: 'Entregado' }

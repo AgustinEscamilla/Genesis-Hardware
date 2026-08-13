@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { TablaGenerica } from '../../components/tabla_generica'
+import { TablaGenerica } from '../../components/pedidos/tabla_generica'
 import { useCatalogo } from '../../hooks/use_catalogo'
 
 // aqui puse profe la vista para que yo controle el inventario de las piezas de computadora

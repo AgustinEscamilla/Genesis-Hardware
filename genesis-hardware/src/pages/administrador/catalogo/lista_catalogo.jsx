@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { TarjetaProductoCatalogo } from './tarjeta_producto_catalogo'
-import { PaginacionProductos } from '../../../components/paginacion_productos'
+import { PaginacionProductos } from '../../../components/pedidos/paginacion_productos'
 
 // pos esto funciona para renderizar todos los productos del catalogo en una grilla responsive
 export function ListaCatalogo({ productos, cargando, alSeleccionar, alEliminar }) {

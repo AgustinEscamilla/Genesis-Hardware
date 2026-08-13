@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useCatalogoFirstpc } from '../../hooks/use_catalogo_firstpc'
-import { CabeceraFirstpc } from '../../components/cabecera_firstpc'
-import { FiltrosFirstpc } from '../../components/filtros_firstpc'
-import { GrillaProductosFirstpc } from '../../components/grilla_productos_firstpc'
-import { PaginacionProductos } from '../../components/paginacion_productos'
+import { CabeceraFirstpc } from '../../components/navegacion/cabecera_firstpc'
+import { FiltrosFirstpc } from '../../components/pedidos/filtros_firstpc'
+import { GrillaProductosFirstpc } from '../../components/catalogo/grilla_productos_firstpc'
+import { PaginacionProductos } from '../../components/pedidos/paginacion_productos'
 
 export function VistaCatalogoFirstpc() {
   const catalogo = useCatalogoFirstpc()

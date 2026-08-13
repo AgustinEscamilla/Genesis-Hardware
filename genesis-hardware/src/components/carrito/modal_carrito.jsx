@@ -1,6 +1,6 @@
 import { ListaItemsCarrito } from './lista_items_carrito'
 import { TicketCompra } from './ticket_compra'
-import { PanelPagoMercadoPago } from './pago/panel_pago_mercadopago'
+import { PanelPagoMercadoPago } from '../pago/panel_pago_mercadopago'
 
 // maestro funciona asi yo muestro el modal completo del carrito con su checkout
 export function ModalCarrito({

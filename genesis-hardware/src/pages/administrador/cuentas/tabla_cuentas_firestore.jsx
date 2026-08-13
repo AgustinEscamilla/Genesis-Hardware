@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Boton } from '../../../components/boton'
-import { TablaGenerica } from '../../../components/tabla_generica'
+import { Boton } from '../../../components/formularios/boton'
+import { TablaGenerica } from '../../../components/pedidos/tabla_generica'
 import { actualizarEstadoUsuario, eliminarUsuario, escucharUsuariosPorTipo } from '../../../services/servicio_cuentas'
 
 export function TablaCuentasFirestore({ tipo, titulo }) {

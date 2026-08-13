@@ -1,4 +1,4 @@
-import { RutaProtegida } from '../components/ruta_protegida'
+import { RutaProtegida } from '../components/estructura/ruta_protegida'
 
 export const con_ruta_protegida = (Componente, rol_permitido) => {
   const ComponenteProtegido = (propiedades) => (

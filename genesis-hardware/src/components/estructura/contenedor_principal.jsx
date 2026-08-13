@@ -1,7 +1,7 @@
 // aqui maestro yo documente este archivo para mantener trazabilidad
-import logo from './logo_genesis.png'
+import logo from '../recursos/logo_genesis.png'
 import { Link } from 'react-router-dom'
-import { BotonSalida } from './boton_salida'
+import { BotonSalida } from '../formularios/boton_salida'
 
 export function ContenedorPrincipal({ children, navbar }) {
   return (

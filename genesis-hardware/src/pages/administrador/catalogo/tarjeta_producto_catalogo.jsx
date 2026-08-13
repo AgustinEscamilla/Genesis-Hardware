@@ -1,4 +1,4 @@
-import { ImagenProductoFirstpc } from '../../../components/imagen_producto_firstpc'
+import { ImagenProductoFirstpc } from '../../../components/catalogo/imagen_producto_firstpc'
 
 // aqui maestro yo muestro una tarjeta de producto del catalogo con boton para editarlo
 export function TarjetaProductoCatalogo({ producto, alSeleccionar, alEliminar }) {

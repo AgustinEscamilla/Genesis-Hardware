@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { EntradaTexto } from '../components/entrada_texto'
-import { BotonPrincipal } from '../components/boton_principal'
+import { EntradaTexto } from '../components/formularios/entrada_texto'
+import { BotonPrincipal } from '../components/formularios/boton_principal'
 import { cerrarSesion, iniciarSesionConCorreo } from '../services/servicio_autenticacion'
 import { validarAccesoCorreoContrasena } from '../services/servicio_validaciones_acceso'
 
